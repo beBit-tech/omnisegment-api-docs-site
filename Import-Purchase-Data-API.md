@@ -34,7 +34,7 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
 ```
 
 ## data內欄位說明
-| 必填欄位 | 說明 | | Node當中的應用 |
+| 必填欄位 | 說明 | | 節點當中的應用 |
 | ------ | ------ | ------ | ------ |
 | member_sn | `"member_sn": 1`<br>會員編號 |
 | datetime | `"datetime": "2013-06-27T08:48:27-04:00"`<br>訂單日期, 日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> |
