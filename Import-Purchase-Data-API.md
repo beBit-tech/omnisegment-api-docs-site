@@ -40,7 +40,7 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
 | datetime | `"datetime": "2013-06-27T08:48:27-04:00"`<br>訂單日期, 日期格式遵循<a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> |
 | transaction_id | `"transaction_id":"23740b4a-5872-4363-ad32-5532a89e4cb1"`<br>訂單ID |
 | transaction_revenue | `"transaction_revenue":5000`<br>訂單收入 |
-| 選填欄位 | 說明 |
+| 選填欄位 | |
 | products | `"products":"1,2"`<br>此訂單內包含的商品ID，若訂單內有多筆商品則以`,`分隔。 | 若OmniSegment 沒有則會自動建立, 商品名稱預設為這邊的商品ID|
 | products_quantity | `"products_quantity":"1,1"`<br>此訂單內每個商品的數量，若訂單內有多筆商品則以`,`分隔，這邊會對應products 的順序。 | products 不可為空 |
 | coupon | `"Coupon": "couponABC"`<br>優惠名稱 |
