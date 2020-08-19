@@ -69,3 +69,29 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
     "api_key": "xxxxxx-xxxxxxx-xxxxxx"
 }'
 ```
+
+## data內欄位說明
+| **必填欄位** | **說明** | **備註** | **『使用者資料』節點當中的應用** |
+| :------: | ------ | ------ | ------ | 
+| member_sn | **`"member_sn": 1`**<br>會員編號 |
+| **<br>選填欄位<br><br>** | | |
+| name | **`"name": "Eason Lee"`**<br>姓名 | - 若沒有給name這個Key, 則會以first_name + last_name 的值代替<br>- 可於editor中帶入個人化資訊 | |
+| first_name | **`"first_name": "Eason"`**<br>名字 | 可於editor中帶入個人化資訊 |
+| last_name | **`"last_name": "Lee"`**<br>姓氏 | 可於editor中帶入個人化資訊 |
+| email | **`"email": "eason@demo.com"`**<br>信箱| 可於editor中帶入個人化資訊 | - 電子信箱<br>- 是否有Email地址 |
+| phone | **`"phone": "+886912345678"`**<br>手機 | 可於editor中帶入個人化資訊 | - 電話<br>- 是否有電話號碼 |
+| member_level | **`"member_level": "1"`**<br>會員等級 | | 會員等級 |
+| sex | **`"sex": "female"`**<br>性別 | | 性別 |
+| birthday | **`"birthday": "1990-01-01"`**<br>生日 | | 年齡 |
+| register_date | **`"register_date": "2020-6-4"`**<br>註冊日期 | | 註冊日期 |
+| facebook_id | **`"facebook_id": "facebook_id"`**<br>性別 | | |
+| google_id | **`"google_id": "google_id"`**<br>性別 | | |
+| line_id | **`"line_id": "line_id"`**<br>性別 | | 是否有Line id |
+| fcm_token | **`"fcm_token": "fcm_token"`**<br>顧客在APP上的token (support Android & iOS) | | 是否有PN token |
+| apns_token | **`"apns_token": "apns_token"`**<br>顧客在iOS APP 上的token (only for iOS) | | 是否有PN token |
+| is_subscriber | **`"is_subscriber": true`**<br>是否訂閱 | | 是否訂閱 |
+| is_active | **`"is_active": true`**<br> | | |
+| crm_pk | **`"crm_pk": "1"`**<br> | | |
+| tags | **`"tags": "tag_a,tag_b,tag_c"`**<br>標籤 | 若有多個標籤則以`,`分隔 | 標籤 |
+| iso_code | **`"iso_code": "TW"`**<br>國碼, 國碼遵循 <a href="https://zh.wikipedia.org/wiki/國家地區代碼">國家地區代碼</a> | | 國家 |
+| sites | **`"sites": "site_a,site_b,site_c"`**<br>網站 | | 網站 |
