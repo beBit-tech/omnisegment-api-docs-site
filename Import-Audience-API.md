@@ -94,4 +94,4 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 | crm_pk | **`"crm_pk": "1"`**<br> | | |
 | tags | **`"tags": "tag_a,tag_b,tag_c"`**<br>標籤 | 若有多個標籤則以`,`分隔 | 標籤 |
 | iso_code | **`"iso_code": "TW"`**<br>國碼, 國碼遵循 <a href="https://zh.wikipedia.org/wiki/國家地區代碼">國家地區代碼</a> | | 國家 |
-| sites | **`"sites": "site_a,site_b,site_c"`**<br>網站 | | 網站 |
+| sites | **`"sites": "site_a,site_b,site_c"`**<br>網站 | 產品自動帶入也與此欄位有關聯 | 網站 |
