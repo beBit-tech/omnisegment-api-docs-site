@@ -10,7 +10,8 @@ An API endpoint for import audience's purchase history data
 
 - data: Purchase data content.
 
-  - Allow fields: `['member_sn', 'datetime', 'transaction_id', 'transaction_revenue', 'products', 'products_quantity', 'coupon', 'source', 'device', 'user_agent', 'quantities']`
+  - Allow fields: `['member_sn', 'datetime', 'transaction_id', 'transaction_revenue', 'products', 'products_quantity', 'coupon', 'source', 'device', 'user_agent', 'quantities', 'physical_store_name', 'shipping_address']`
+    - `shipping_address` allow fields: `['address1', 'address2', 'city', 'company', 'country', 'country_code', 'latitude', 'longitude', 'province', 'province_code', 'zip']`
   - Required fields: `member_sn`, `datetime`, `transaction_id` and `transaction_revenue`
 
 ## Example:
@@ -19,21 +20,36 @@ An API endpoint for import audience's purchase history data
 curl --location --request POST 'https://omnisegment.com/api/import-purchase-data/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "tid": "OA-xxxxxx",
-    "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-    "data": {
-       "member_sn":1,
-       "transaction_id":"23740b4a-5872-4363-ad32-5532a89e4cb1",
-       "datetime":"2020-1-1 0:0:0",
-       "products":"1,2",
-       "quantities":2,
-       "products_quantity":"1,1",
-       "transaction_revenue":5000.0,
-       "user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1"}
+   "tid":"OA-xxxxxx",
+   "api_key":"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+   "data":{
+      "member_sn":1,
+      "transaction_id":"23740b4a-5872-4363-ad32-5532a89e4cb1",
+      "datetime":"2020-1-1 0:0:0",
+      "products":"1,2",
+      "quantities":2,
+      "products_quantity":"1,1",
+      "transaction_revenue":5000.0,
+      "user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",
+      "physical_store_name":"Fake Store",
+      "shipping_address":{
+         "address1":"123 Shipping Street",
+         "address2":null,
+         "city":"Shippington",
+         "company":"Shipping Company",
+         "country":"United States",
+         "country_code":"US",
+         "latitude":null,
+         "longitude":null,
+         "province":"Kentucky",
+         "province_code":"KY"
+      }
+   }
 }'
 ```
 
 ## data內欄位說明
+
 | **必填欄位** | **說明** | **備註** | **『歷史資料追蹤』節點當中的應用** |
 | :------: | ------ | ------ | ------ | 
 | member_sn | **`"member_sn": 1`**<br>會員編號 |
@@ -48,3 +64,39 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
 | device | **`"device": "Android"`**<br>此訂單來自哪個裝置 |
 | user_agent | **`"user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36"`**<br>使用者代理，這邊可以清楚知道使用者是透過什麼工具來產生這筆訂單（電腦系統、瀏覽器、瀏覽器版本等） |
 | quantities | **`"quantities":2`**<br>訂單內商品總數量 | | 任一次購買產品數量 |
+| physical_store_name | **`"physical_store_name":"Fake Store"`**<br>線下商店名稱| | |
+| shipping_address | **`"shipping_address": <Shipping Address Object>"`**<br>寄送地址資訊|<Shipping Address Object> 資訊請見附錄| |
+
+## 附錄
+
+### Shipping Address Object
+
+Example
+
+```
+{
+    "address1":"123 Shipping Street",
+    "address2":null,
+    "city":"Shippington",
+    "company":"Shipping Company",
+    "country":"United States",
+    "country_code":"US",
+    "latitude":null,
+    "longitude":null,
+    "province":"Kentucky",
+    "province_code":"KY"
+}
+```
+
+| **選填欄位** | **說明** | **備註** |
+| :------: | ------ | ------ |
+| address1 | `"address1":"123 Shipping Street"`<br>地址1 | |
+| address2 | `"address2":null`<br>地址2 | 外國地址之 address line 2 | |
+| city | `"city":"Shippington"`<br>城市 | | |
+| company |`"company":"Shipping Company"`<br>運送公司| | |
+| country | `"country":"United States"`<br>寄送國家 | | |
+| country_code | `"country_code":"US"`<br>寄送國家編碼 | | |
+| latitude | `"latitude":null`<br>緯度 | | |
+| longitude | `"longitude":null`<br>經度 | | |
+| province | `"province":"Kentucky"`<br>州 | | |
+| province_code| `"province_code":"KY"`<br>州碼 | | |
