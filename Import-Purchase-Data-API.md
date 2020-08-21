@@ -42,7 +42,8 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
          "latitude":null,
          "longitude":null,
          "province":"Kentucky",
-         "province_code":"KY"
+         "province_code":"KY",
+         "zip":"40003"         
       }
    }
 }'
@@ -84,7 +85,8 @@ Example
     "latitude":null,
     "longitude":null,
     "province":"Kentucky",
-    "province_code":"KY"
+    "province_code":"KY",
+    "zip":"40003"
 }
 ```
 
@@ -100,3 +102,4 @@ Example
 | longitude | `"longitude":null`<br>經度 | | |
 | province | `"province":"Kentucky"`<br>州 | | |
 | province_code| `"province_code":"KY"`<br>州碼 | | |
+| zip | `"zip":"40003"`<br>郵遞區號 | | |
