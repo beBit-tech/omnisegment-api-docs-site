@@ -30,6 +30,7 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
       "quantities":2,
       "products_quantity":"1,1",
       "transaction_revenue":5000.0,
+      "transaction_status":"SUCCESS",
       "user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",
       "physical_store_name":"Fake Store",
       "shipping_address":{
@@ -58,6 +59,7 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
 | transaction_id | **`"transaction_id":"23740b4a-5872-4363-ad32-5532a89e4cb1"`**<br>訂單ID |
 | transaction_revenue | **`"transaction_revenue":5000`**<br>訂單總金額 | | - 最後一次消費金額<br>- 總金額<br>- 平均花費|
 | **<br>選填欄位<br><br>** | | |
+| transaction_status | **`"transaction_status":"SUCCESS"`**<br>訂單狀態 | 不傳預設狀態為 "SUCCESS", 可接受之狀態選項有 "SUCCESS", "CANCEL", "REFUND" | |
 | products | **`"products":"1,2"`**<br>此訂單內包含的商品ID，若訂單內有多筆商品則以`,`分隔。 | 若OmniSegment 沒有則會自動建立, 商品名稱預設為這邊的商品ID| 購買產品名稱 |
 | products_quantity | **`"products_quantity":"1,1"`**<br>此訂單內每個商品的數量，若訂單內有多筆商品則以`,`分隔，這邊會對應products 的順序。 | products 不可為空 |
 | coupon | **`"Coupon": "couponABC"`**<br>優惠名稱 |
