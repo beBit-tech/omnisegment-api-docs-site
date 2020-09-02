@@ -10,7 +10,7 @@ An API endpoint for import audience's purchase history data
 
 - data: Purchase data content.
 
-  - Allow fields: `['member_sn', 'datetime', 'transaction_id', 'transaction_revenue', 'products', 'products_quantity', 'coupon', 'source', 'device', 'user_agent', 'quantities', 'physical_store_name', 'shipping_address']`
+  - Allow fields: `['member_sn', 'datetime', 'transaction_id', 'transaction_revenue', 'transaction_status', 'products', 'products_quantity', 'coupon', 'source', 'device', 'user_agent', 'quantities', 'physical_store_name', 'shipping_address']`
     - `shipping_address` allow fields: `['address1', 'address2', 'city', 'company', 'country', 'country_code', 'latitude', 'longitude', 'province', 'province_code', 'zip']`
   - Required fields: `member_sn`, `datetime`, `transaction_id` and `transaction_revenue`
 
