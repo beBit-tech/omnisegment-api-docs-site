@@ -103,3 +103,6 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 | tags | **`"tags": "tag_a,tag_b,tag_c"`**<br>標籤 | 若有多個標籤則以`,`分隔 | 標籤 |
 | iso_code | **`"iso_code": "TW"`**<br>國碼, 國碼遵循 <a href="https://zh.wikipedia.org/wiki/國家地區代碼">國家地區代碼</a> | | 國家 |
 | sites | **`"sites": "site_a,site_b,site_c"`**<br>網站 | 產品自動帶入也與此欄位有關聯 | 網站 |
+| city | **`"city": "Taipei"`**<br>城市 | | 城市 |
+| country | **`"country": "Taiwan"`**<br>國家 | | 國家 |
+| register_type | **`"register_type": "line"`**<br>註冊管道 | | 註冊管道 |
