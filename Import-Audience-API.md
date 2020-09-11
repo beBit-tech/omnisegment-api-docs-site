@@ -89,7 +89,7 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 | email | **`"email": "eason@demo.com"`**<br>信箱| 可於editor中帶入個人化資訊 | - 電子信箱<br>- 是否有Email地址 |
 | phone | **`"phone": "+886912345678"`**<br>手機 | 可於editor中帶入個人化資訊 | - 電話<br>- 是否有電話號碼 |
 | member_level | **`"member_level": "1"`**<br>會員等級 | | 會員等級 |
-| sex | **`"sex": "female"`**<br>性別<br>male:男<br>female:女 | | 性別 |
+| sex | **`"sex": "male"`**<br>**`"sex": "female"`**<br>性別<br>男: male<br>女: female | | 性別 |
 | birthday | **`"birthday": "1990-01-01"`**<br>生日 | | 年齡 |
 | register_date | **`"register_date": "2020-6-4"`**<br>註冊日期 | | 註冊日期 |
 | facebook_id | **`"facebook_id": "facebook_id"`**<br>性別 | | |
