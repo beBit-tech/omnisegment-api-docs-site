@@ -92,9 +92,9 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 | sex | **`"sex": "male"`**<br>**`"sex": "female"`**<br>性別<br>男: male<br>女: female | | 性別 |
 | birthday | **`"birthday": "1990-01-01"`**<br>生日 | | 年齡 |
 | register_date | **`"register_date": "2020-6-4"`**<br>註冊日期 | | 註冊日期 |
-| facebook_id | **`"facebook_id": "facebook_id"`**<br>性別 | | |
-| google_id | **`"google_id": "google_id"`**<br>性別 | | |
-| line_id | **`"line_id": "line_id"`**<br>性別 | | 是否有Line id |
+| facebook_id | **`"facebook_id": "facebook_id"`**<br> facebook id | | |
+| google_id | **`"google_id": "google_id"`**<br> google id | | |
+| line_id | **`"line_id": "line_id"`**<br> line id | | 是否有Line id |
 | fcm_token | **`"fcm_token": "fcm_token"`**<br>顧客在APP上的token (support Android & iOS) | | 是否有PN token |
 | apns_token | **`"apns_token": "apns_token"`**<br>顧客在iOS APP 上的token (only for iOS) | | 是否有PN token |
 | is_subscriber | **`"is_subscriber": true`**<br>是否訂閱 | | 是否訂閱 |
