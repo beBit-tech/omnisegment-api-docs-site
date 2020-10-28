@@ -97,7 +97,10 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 | line_id | **`"line_id": "line_id"`**<br> line id | | 是否有Line id |
 | fcm_token | **`"fcm_token": "fcm_token"`**<br>顧客在APP上的token (support Android & iOS) | | 是否有PN token |
 | apns_token | **`"apns_token": "apns_token"`**<br>顧客在iOS APP 上的token (only for iOS) | | 是否有PN token |
-| is_subscriber | **`"is_subscriber": true`**<br>是否訂閱Email | | 是否訂閱 |
+| is_subscriber | **`"is_subscriber": true`**<br>是否訂閱 Email | | 是否訂閱 |
+| is_subscriber_sms | **`"is_subscriber_sms": true`**<br>是否訂閱 SMS | | 是否訂閱 SMS |
+| is_subscriber_line | **`"is_subscriber": true`**<br>是否訂閱 LINE | | 是否訂閱 LINE |
+| is_subscriber_pn | **`"is_subscriber": true`**<br>是否訂閱 推播通知 | | 是否訂閱 推播通知 |
 | is_active | **`"is_active": true`**<br> | | |
 | crm_pk | **`"crm_pk": "1"`**<br> | | |
 | tags | **`"tags": "tag_a,tag_b,tag_c"`**<br>標籤 | 若有多個標籤則以`,`分隔 | 標籤 |
