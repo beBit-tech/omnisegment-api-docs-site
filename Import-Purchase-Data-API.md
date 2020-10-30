@@ -64,7 +64,7 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
 | products_quantity | **`"products_quantity":"1,1"`**<br>此訂單內每個商品的數量，若訂單內有多筆商品則以`,`分隔，這邊會對應products 的順序。 | products 不可為空 |
 | coupon | **`"Coupon": "couponABC"`**<br>優惠名稱 |
 | source | **`"source": “Facebook"`**<br>來源名稱| | 最後來源 |
-| device | **`"device": "Android"`**<br>此訂單來自哪個裝置 |
+| device | **`"device": "Android"`**<br>此訂單來自哪個裝置 | 目前只接受 PC, Android, Iphone, Ipad, MobileWeb 這四種形式，大小寫皆可 |
 | user_agent | **`"user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36"`**<br>使用者代理，這邊可以清楚知道使用者是透過什麼工具來產生這筆訂單（電腦系統、瀏覽器、瀏覽器版本等） |
 | quantities | **`"quantities":2`**<br>訂單內商品總數量 | | 任一次購買產品數量 |
 | physical_store_name | **`"physical_store_name":"Fake Store"`**<br>線下商店名稱| | |
