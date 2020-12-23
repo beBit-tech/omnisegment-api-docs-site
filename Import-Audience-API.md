@@ -74,7 +74,6 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
         "is_active": true,
         "crm_pk": "1",
         "tags": "tag_a,tag_b,tag_c",
-        "sites": "site_a,site_b,site_c",
         "iso_code": "TW",
         "city": "Taipei",
         "country": "Taiwan",
