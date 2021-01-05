@@ -1,4 +1,3 @@
-# Show Market Report
 
 ### Sample:
 ```
