@@ -7,3 +7,5 @@ This is the Omnisegment API document.
 [[Import-Audience-API]]
 
 [[Import-Purchase-Data-API]]
+
+[[Show-Market-Report]]
