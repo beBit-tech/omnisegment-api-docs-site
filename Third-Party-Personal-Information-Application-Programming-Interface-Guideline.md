@@ -1,0 +1,1 @@
+This guideline describes how to implement the API interface for API communication between Omniscient-Cloud and your services. Please follow the interface for simplifying and speeding the programming.
