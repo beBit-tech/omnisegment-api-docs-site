@@ -10,3 +10,23 @@ This guideline describes how to implement the API interface for API communicatio
 |**欄名**|**格式**|**必填**|**預設**|**說明**|
 | :------: | ------ | ------ | ------ | ------ | 
 | apikey | string | **v**||Provided by Omniscient-Cloud|
+
+## Example:
+
+```
+##[Sample - Success]
+{
+ "status": "ok",
+ "message": "",
+ "data": {
+ "token":
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXk......."
+ }
+}
+##[Sample - failure]
+{
+ "status": "error",
+ "message": "錯誤訊息",
+ "data": null
+}
+```
