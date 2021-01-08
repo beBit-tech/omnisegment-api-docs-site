@@ -4,7 +4,7 @@ This guideline describes how to implement the API interface for API communicatio
 [Method] POST/GET
 [URL] https://xxx.com/OmniSegment/token/
 
-## Field:
+## Fields:
 |**Field**|**Data type**|** Required**|**Default**|**Note**|
 | :------: | ------ | ------ | ------ | ------ | 
 | apikey | string | **v**||Provided by Omniscient-Cloud|
@@ -37,13 +37,13 @@ This guideline describes how to implement the API interface for API communicatio
 
 
 
-## Header Field
+## Header Fields
 |**Field**|**Data Type**|**Required**|**Default**|**Note**|
 | :------: | ------ | ------ | ------ | ------ | 
 | token | string | **v**|Get from token api|Access token|
 
 
-## Field
+## Fields
 
 |**Field**|**Data Type**|**Required**|**Default**|**Note**|
 | :------: | ------ | ------ | ------ | ------ | 
@@ -51,13 +51,21 @@ This guideline describes how to implement the API interface for API communicatio
 |edate| string| |當日日期 |異動日-迄 (yyyy/MM/dd)|
 |member_sn| string| | |會員編號|
 
-## Respond Field
+## Respond Fields
 
-|**Field**|**Data Type**|**Required**|**Default**|**Note**|
-| :------: | ------ | ------ | ------ | ------ | 
-|sdate| string| |當日日期 |異動日-起 (yyyy/MM/dd)|
-|edate| string| |當日日期 |異動日-迄 (yyyy/MM/dd)|
-|member_sn| string| | |會員編號|
+|**Field**|**Data Type**|**Note**|
+| :------: | ------ | ------ |  
+|status| string| ok/error|
+|message| string|Return message|
+|data| json object|Encrypted by JWT|
+
+## Respond Data Object Fields
+
+|**Field**|**Data Type**|**Note**|
+| :------: | ------ | ------ |  
+|status| string| ok/error|
+|message| string|Return message|
+|data| json object|Encrypted by JWT|
 
 ## Example:
 
