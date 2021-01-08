@@ -2,19 +2,17 @@ This guideline describes how to implement the API interface for API communicatio
 
 #Get Access Token
 [Method] POST/GET
-[正式 URL] https://xxx.com.tw/OmniSegment/token/
+[URL] https://xxx.com/OmniSegment/token/
 
-## Required Field:
-
-
-|**欄名**|**格式**|**必填**|**預設**|**說明**|
+## Field:
+|**Field**|**Data type**|** Required**|**Default**|**Note**|
 | :------: | ------ | ------ | ------ | ------ | 
 | apikey | string | **v**||Provided by Omniscient-Cloud|
 
 ## Example:
 
 ```
-##[Sample - Success]
+[Sample - Success]
 {
  "status": "ok",
  "message": "",
@@ -23,7 +21,48 @@ This guideline describes how to implement the API interface for API communicatio
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXk......."
  }
 }
-##[Sample - failure]
+[Sample - failure]
+{
+ "status": "error",
+ "message": "錯誤訊息",
+ "data": null
+}
+```
+
+
+
+#Get member data
+[Method] POST
+[URL] https://xxx.com/OmniSegment/getMember/
+
+
+
+## Header Field
+|**Field**|**Data Type**|**Required**|**Default**|**Note**|
+| :------: | ------ | ------ | ------ | ------ | 
+| token | string | **v**|Get from token api|Access token|
+
+
+## Field
+
+|**Field**|**Data Type**|**Required**|**Default**|**Note**|
+| :------: | ------ | ------ | ------ | ------ | 
+| token | string | **v**|Get from token api|Access token|
+
+
+## Example:
+
+```
+[Sample - Success]
+{
+ "status": "ok",
+ "message": "",
+ "data": {
+ "token":
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXk......."
+ }
+}
+[Sample - failure]
 {
  "status": "error",
  "message": "錯誤訊息",
