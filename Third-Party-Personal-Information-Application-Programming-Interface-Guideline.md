@@ -67,7 +67,7 @@ This guideline describes how to implement the API interface for API communicatio
 |edate |string |異動日-迄 (yyyy/MM/dd)|
 |member_sn| string| 會員編號(單筆查詢顯示)|
 |count |integer |資料筆數|
-|members |string |JSON Array encrypted by JWT, JWT Secret provided by Omniscient-Cloud <br /> Example: <br /> import jwt<br />jwt.encode(  {"some": "payload"}, "secret",   algorithm="HS256",) |
+|members |string |JSON Array encrypted by JWT, JWT Secret provided by Omniscient-Cloud <br /> Example: <br /> import jwt<br />jwt.encode(  {"some": "payload"}, "secret",   algorithm="HS256") |
 
 
 ## Respond Data Members Array Fields
