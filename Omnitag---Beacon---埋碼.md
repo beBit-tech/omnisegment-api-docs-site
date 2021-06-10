@@ -1,0 +1,1 @@
+https://github.com/omnitag/omnitag/wiki/API
