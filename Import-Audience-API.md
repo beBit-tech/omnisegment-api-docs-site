@@ -41,7 +41,7 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
     },
     "tid": "OA-xxxxxxxx",
     "api_key": "xxxxxx-xxxxxxx-xxxxxx",
-    "ignore_empty_value": "true"
+    "ignore_empty_value": true
 }'
 ```
 
@@ -82,7 +82,7 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
     },
     "tid": "OA-xxxxxxxx",
     "api_key": "xxxxxx-xxxxxxx-xxxxxx",
-    "ignore_empty_value": "true"
+    "ignore_empty_value": true
 }'
 ```
 
@@ -124,4 +124,4 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 | tid | **`"tid": "OA-xxxxxxxx"`**<br>組織 tid |
 | api_key | **`"api_key": "xxxxxx-xxxxxxx-xxxxxx"`**<br>組織 api key |
 | **<br>選填欄位<br><br>** | | |
-| ignore_empty_value | **`"ignore_empty_value": "true"`**<br>由 `true` 或 `false` 判斷是否忽略空字串及空值 |* 當 ignore_empty_value 為 True時，輸入資料為 ”” 或是空值時，舊資料不會被覆寫；輸入資料為 `"none"`時資料被清空。<br>* 當 ignore_empty_value 為 False時，輸入資料為 `””` 、空值、`none` 時資料被清空。<br>* 無法被清空的欄位依舊無法被清空，否則會出現錯誤。
+| ignore_empty_value | **`"ignore_empty_value": true`**<br>由 `true` 或 `false` 判斷是否忽略空字串及空值 | - 當 `ignore_empty_value` 為 `true` 時，輸入資料為 `""` 或是空值時，舊資料不會被清空；輸入資料為 `"none"` 時資料被清空。<br> - 當 `ignore_empty_value` 為 `false` 時，輸入資料為 `""` 、空值、`"none"` 時資料被清空。<br> - 無法被清空的欄位依舊無法被清空，否則會出現錯誤。
