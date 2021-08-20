@@ -40,7 +40,8 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
         "register_type": "line"
     },
     "tid": "OA-xxxxxxxx",
-    "api_key": "xxxxxx-xxxxxxx-xxxxxx"
+    "api_key": "xxxxxx-xxxxxxx-xxxxxx",
+    "ignore_empty_value": "true"
 }'
 ```
 
@@ -80,7 +81,8 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
         "register_type": "line"
     },
     "tid": "OA-xxxxxxxx",
-    "api_key": "xxxxxx-xxxxxxx-xxxxxx"
+    "api_key": "xxxxxx-xxxxxxx-xxxxxx",
+    "ignore_empty_value": "true"
 }'
 ```
 
@@ -115,3 +117,11 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 | city | **`"city": "Taipei"`**<br>城市 | | 城市 |
 | country | **`"country": "Taiwan"`**<br>國家 | | 國家 |
 | register_type | **`"register_type": "line"`**<br>註冊管道 | | 註冊管道 |
+
+## 其他欄位說明
+| **必填欄位** | **說明** | **備註** | **『使用者資料』節點當中的應用** |
+| :------: | ------ | ------ | ------ | 
+| tid | **`"tid": "OA-xxxxxxxx"`**<br>組織 tid |
+| api_key | **`"api_key": "xxxxxx-xxxxxxx-xxxxxx"`**<br>組織 api key |
+| **<br>選填欄位<br><br>** | | |
+| ignore_empty_value | **`"ignore_empty_value": "true"`**<br>會員編號 |
