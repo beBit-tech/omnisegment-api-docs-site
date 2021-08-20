@@ -124,4 +124,4 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 | tid | **`"tid": "OA-xxxxxxxx"`**<br>組織 tid |
 | api_key | **`"api_key": "xxxxxx-xxxxxxx-xxxxxx"`**<br>組織 api key |
 | **<br>選填欄位<br><br>** | | |
-| ignore_empty_value | **`"ignore_empty_value": "true"`**<br>會員編號 |
+| ignore_empty_value | **`"ignore_empty_value": "true"`**<br>由 `true` 或 `false` 判斷是否忽略空字串及空值 |
