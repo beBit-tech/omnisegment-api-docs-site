@@ -1,5 +1,3 @@
-# Import Product API
-
 * > api_key: xxxxx-xxxxx-xxxxx
 * > tid: OA-xxxxxxx
 
