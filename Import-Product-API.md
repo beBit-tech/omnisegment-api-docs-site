@@ -1,13 +1,24 @@
+
 * > api_key: xxxxx-xxxxx-xxxxx
 * > tid: OA-xxxxxxx
 
 ##### example:
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/v1/products/import/' \
+curl --location --request POST 'https://omnisegment.com/ma_audience/import-product-feed-data/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "csv_url": "http://www.test.tw/products/6a54e0d096ca01",
+    "data": {
+        "id": "1",
+        "title": "一件普通衣服",
+        "link": "http://test.com/products/normal-shirt",
+        "availability": "in stock",
+        "image_link": "https://test.com/media/widGh1bWIiLCI2MDB4NjAwIl1d.png?sha=0e0ad71b5e5ccaf7",
+        "price": "999",
+        "sale_price": "1",
+        "sale_price_effective_date": "2020-08-01T00:00:00+08:00/2020-08-31T23:59:59+08:00",
+        "product_type": "T-shirt"
+    },
     "tid": "OA-xxxxxxxx",
     "api_key": "xxxxxx-xxxxxxx-xxxxxx",
     "site": "AAAA"
@@ -15,7 +26,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/products/import/'
 ```
 If Organization dose not have multi sites, site field can be None or null.
 
-### CSV 檔案必填欄位說明
+### data 必填欄位說明
 
 
 |          欄位           | 說明                                     | 備註                                        |
@@ -29,19 +40,11 @@ If Organization dose not have multi sites, site field can be None or null.
 
 
 
-### CSV 檔案選填欄位說明
+### data 選填欄位
 
 
 | 欄位 | 說明 | 備註 |
 | -------- | -------- | -------- |
 |      sale_price      | 商品特價 (有特價時)。 | 與 price 欄位相同。 e.g. 100 TWD |
-| sale_price_effective_date | 商品特價開始和結束的日期、時間和時區。| 如果未新增此欄位，所有 sale_price 的商品都會維持特價促銷狀態，直到移除商品的促銷價格為止。 格式為 YYYY-MM-DDT23:59:59+00:00/YYYY-MM-DDT23:59:59+00:00。 e.g. 2020-04-30T09:30:00+08:00/2020-04-30T10:30:00+08:00|
+| sale_price_effective_date | 商品特價開始和結束的日期、時間和時區。| 如果未新增此欄位，所有 sale_price 的商品都會維持特價促銷狀態，直到移除商品的促銷價格為止。 格式為 YYYY-MM-DDT23:59:59+00:00/YYYY-MM-DDT23:59:59+00:00。 e.g. 2020-04-30T09:30:00+08:00/2020-05-31T09:30:00+08:00|
 | product_type | 商品的類別。 | e.g. pants、t-shirt |
-
-
-
-##### Example CSV Feed
-```
-id,title,availability,price,link,image_link,product_type,sale_price,sale_price_effective_date
-1234,T-Shirt (Unisex),in stock,999 TWD,https://www.test.com/T-Shirt-P395.aspx,https://www.test.com/GetImage.ashx?Path=%7e%2fAssets%2fFB00-0967-Group_Full.jpg&maintainAspectRatio=true&maxHeight=400&maxWidth=400,Accessories > Clothing > Shirts,499 TWD,2020-12-01T00:00:00+08:00/2020-12-31T23:59:59+08:00
-```
