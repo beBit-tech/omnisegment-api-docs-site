@@ -27,9 +27,9 @@ If Organization dose not have multi sites, site field can be None or null.
 
 |          欄位           | 說明                                     | 備註                                        |
 |:-----------------------:| ---------------------------------------- | ------------------------------------------- |
-|       voucher_id| 購物金的 id, string              | 此為唯一值，必填                                   |
-|      member_sn| 會員的編碼, string                 | 必填                   |
-|       voucher_type| 購物金類別, string|
-|      amount| 購物金金額, int|  必填 |
-|    valid_from| 發放日期, string |  |
-|      valid_util| 購物金到期日, string| 必填|
+|       voucher_id| 購物金的 id| string，此為唯一值，必填                                   |
+|      member_sn| 會員的編碼| string，必填                   |
+|       voucher_type| 購物金類別|string
+|      amount| 購物金金額|  int，必填 |
+|    valid_from| 發放日期| string |
+|      valid_util| 購物金到期日| string，必填|
