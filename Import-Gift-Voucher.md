@@ -5,19 +5,16 @@
 ##### example:
 
 ```
-curl --location --request POST 'https://omnisegment.com/ma_audience/import-product-feed-data/' \
+curl --location --request POST 'https://omnisegment.com/api/import-gift-voucher/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "data": {
-        "id": "1",
-        "title": "一件普通衣服",
-        "link": "http://test.com/products/normal-shirt",
-        "availability": "in stock",
-        "image_link": "https://test.com/media/widGh1bWIiLCI2MDB4NjAwIl1d.png?sha=0e0ad71b5e5ccaf7",
-        "price": "999",
-        "sale_price": "1",
-        "sale_price_effective_date": "2020-08-01T00:00:00+08:00/2020-08-31T23:59:59+08:00",
-        "product_type": "T-shirt"
+        "voucher_id": "111",
+        "member_sn": "AAAAAA",
+        "voucher_type": "birthday_gift",
+        "amount": 999,
+        "valid_from": "2020-03-03",
+        "valid_util": "2021-03-03"
     },
     "tid": "OA-xxxxxxxx",
     "api_key": "xxxxxx-xxxxxxx-xxxxxx",
@@ -26,25 +23,13 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-produ
 ```
 If Organization dose not have multi sites, site field can be None or null.
 
-### data 必填欄位說明
-
+### data 欄位說明
 
 |          欄位           | 說明                                     | 備註                                        |
 |:-----------------------:| ---------------------------------------- | ------------------------------------------- |
-|       id   | 商品的 id                | 此為唯一值，可以是 SKU                                     |
-|      title       | 商品的名稱                               | e.g. 普通 T 恤                   |
-|       link       | 商品的網址 |連結必須是有效且開頭為 http:// 或 https:// 的網址。|
-|      availability       | 商品目前提供的狀態|  e.g. in stock、available for order,out of stock |
-|    image_link    | 商品主要圖像的網址。圖像必須為 JPEG 或 PNG 格式，至少 500 x 500 像素，最大 8 MB。 | e.g. http://www.test.com/products/shirt.jpg |
-|      price      | 商品的價錢| 將價格的格式設定為數字，後面接一個空格和 3 個字母的 ISO 4217 幣別代碼。一律使用句點 (.) 作為小數點，不要使用逗點 (,)。 e.g. 999 TWD|
-
-
-
-### data 選填欄位
-
-
-| 欄位 | 說明 | 備註 |
-| -------- | -------- | -------- |
-|      sale_price      | 商品特價 (有特價時)。 | 與 price 欄位相同。 e.g. 100 TWD |
-| sale_price_effective_date | 商品特價開始和結束的日期、時間和時區。| 如果未新增此欄位，所有 sale_price 的商品都會維持特價促銷狀態，直到移除商品的促銷價格為止。 格式為 YYYY-MM-DDT23:59:59+00:00/YYYY-MM-DDT23:59:59+00:00。 e.g. 2020-04-30T09:30:00+08:00/2020-05-31T09:30:00+08:00|
-| product_type | 商品的類別。 | e.g. pants、t-shirt |
+|       voucher_id| 購物金的 id, string              | 此為唯一值，必填                                   |
+|      member_sn| 會員的編碼, string                 | 必填                   |
+|       voucher_type| 購物金類別, string|
+|      amount| 購物金金額, int|  必填 |
+|    valid_from| 發放日期, string |  |
+|      valid_util| 購物金到期日, string| 必填|
