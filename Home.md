@@ -13,3 +13,5 @@ This is the Omnisegment API document.
 [[Import-Gift-Voucher]]
 
 [[Import-Product-API]]
+
+[[Third-Party-Personal-Information-Application-Programming-Interface-Guideline]]
