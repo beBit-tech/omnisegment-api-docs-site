@@ -14,6 +14,6 @@ This is the Omnisegment API document.
 
 [[Import-Product-API]]
 
-[[Omnitag--Beacon-埋碼]]
+[[Omnitag-Beacon-埋碼]]
 
 [[Third-Party-Personal-Information-Application-Programming-Interface-Guideline]]
