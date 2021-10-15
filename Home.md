@@ -9,3 +9,5 @@ This is the Omnisegment API document.
 [[Import-Purchase-Data-API]]
 
 [[Show-Market-Report]]
+
+[[Import-Gift-Voucher]]
