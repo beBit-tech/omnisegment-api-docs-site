@@ -12,4 +12,4 @@ This is the Omnisegment API document.
 
 [[Import-Gift-Voucher]]
 
-[[Import-Product-Data]]
+[[Import-Product-API]]
