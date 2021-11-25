@@ -103,6 +103,7 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 | facebook_id | **`"facebook_id": "facebook_id"`**<br> facebook id | | |
 | google_id | **`"google_id": "google_id"`**<br> google id | | |
 | line_id | **`"line_id": "line_id"`**<br> line id | | 是否有Line id |
+| messenger_psid | **`"messenger_psid": "messenger_psid"`**<br> messenger psid | | 是否有Messenger PSID |
 | fcm_token | **`"fcm_token": "fcm_token"`**<br>顧客在APP上的token (support Android & iOS) | | 是否有PN token |
 | apns_token | **`"apns_token": "apns_token"`**<br>顧客在iOS APP 上的token (only for iOS) | | 是否有PN token |
 | is_subscriber | **`"is_subscriber": true`**<br>是否訂閱 Email | | 是否訂閱 |
@@ -125,3 +126,4 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 | api_key | **`"api_key": "xxxxxx-xxxxxxx-xxxxxx"`**<br>組織 api key |
 | **<br>選填欄位<br><br>** | | |
 | ignore_empty_value | **`"ignore_empty_value": true`**<br>由 `true` 或 `false` 判斷是否忽略空字串及空值 | - 當 `ignore_empty_value` 為 `true` 時，輸入資料為 `""` 或是空值時，舊資料不會被清空；輸入資料為 `"none"` 時資料被清空。<br> - 當 `ignore_empty_value` 為 `false` 時，輸入資料為 `""` 、空值、`"none"` 時資料被清空。<br> - 無法被清空的欄位依舊無法被清空，否則會出現錯誤。
+| merge_key | **`"merge_key": "line"`** | 預設值為 null，可接受之選項有<br>"line", "email", "phone", "messenger_psid" |
