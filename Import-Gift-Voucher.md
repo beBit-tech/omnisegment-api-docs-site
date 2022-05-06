@@ -14,7 +14,8 @@ curl --location --request POST 'https://omnisegment.com/api/import-gift-voucher/
         "voucher_type": "birthday_gift",
         "amount": 999,
         "valid_from": "2020-03-03",
-        "valid_util": "2021-03-03"
+        "valid_util": "2021-03-03",
+        "is_redeemed": "false"
     },
     "tid": "OA-xxxxxxxx",
     "api_key": "xxxxxx-xxxxxxx-xxxxxx",
@@ -33,3 +34,4 @@ If Organization dose not have multi sites, site field can be None or null.
 |      amount| 購物金金額|  int，必填 |
 |    valid_from| 發放日期| string |
 |      valid_util| 購物金到期日| string，必填|
+|      is_redeemed| 購物金是否使用了| boolean，選填|
