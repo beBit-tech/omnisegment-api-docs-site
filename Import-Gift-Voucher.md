@@ -15,7 +15,7 @@ curl --location --request POST 'https://omnisegment.com/api/import-gift-voucher/
         "amount": 999,
         "valid_from": "2020-03-03",
         "valid_util": "2021-03-03",
-        "is_redeemed": "false"
+        "is_redeemed": false
     },
     "tid": "OA-xxxxxxxx",
     "api_key": "xxxxxx-xxxxxxx-xxxxxx",
