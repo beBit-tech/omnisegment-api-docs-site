@@ -2,55 +2,91 @@
 
 An API endpoint for import audience's purchase history data
 
-## Required Field:
+## Required Fields
 
-- tid: Organization id
+- tid: Organization's id.
 
-- api_key: Organization api key
+- api_key: Organization's api key.
 
 - data: Purchase data content.
 
-  - Allow fields: `['member_sn', 'datetime', 'transaction_id', 'transaction_revenue', 'transaction_status', 'products', 'products_quantity', 'coupon', 'source', 'device', 'user_agent', 'quantities', 'physical_store_name', 'shipping_address']`
-    - `shipping_address` allow fields: `['address1', 'address2', 'city', 'company', 'country', 'country_code', 'latitude', 'longitude', 'province', 'province_code', 'zip']`
+  - Allowed fields: `['member_sn', 'datetime', 'transaction_id', 'transaction_revenue', 'transaction_status', products', 'products_quantity', 'coupon', 'source', 'device', 'user_agent', 'quantities', 'physical_store_name', 'shipping_address']`
+    - Allowed fields for `shipping_address`: `['address1', 'address2', 'city', 'company', 'country', 'country_code', 'latitude', 'longitude', 'province', 'province_code', 'zip']`
   - Required fields: `member_sn`, `datetime`, `transaction_id` and `transaction_revenue`
 
-## Example:
+## Example
 
 ```
 curl --location --request POST 'https://omnisegment.com/api/import-purchase-data/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-   "tid":"OA-xxxxxx",
-   "api_key":"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-   "data":{
-      "member_sn":1,
-      "transaction_id":"23740b4a-5872-4363-ad32-5532a89e4cb1",
-      "datetime":"2020-1-1 0:0:0",
-      "products":"1,2",
-      "quantities":2,
-      "products_quantity":"1,1",
-      "transaction_revenue":5000.0,
-      "transaction_status":"SUCCESS",
-      "user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",
-      "physical_store_name":"Fake Store",
-      "shipping_address":{
-         "address1":"123 Shipping Street",
-         "address2":null,
-         "city":"Shippington",
-         "company":"Shipping Company",
-         "country":"United States",
-         "country_code":"US",
-         "latitude":null,
-         "longitude":null,
-         "province":"Kentucky",
-         "province_code":"KY",
-         "zip":"40003"         
+   "tid": "OA-xxxxxx",
+   "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+   "data": {
+      "member_sn": 1,
+      "transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1",
+      "datetime": "2020-1-1 0:0:0",
+      "products": "1,2",
+      "quantities": 2,
+      "products_quantity": "1,1",
+      "transaction_revenue": 5000.0,
+      "transaction_status": "SUCCESS",
+      "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",
+      "physical_store_name": "Fake Store",
+      "shipping_address": {
+         "address1": "123 Shipping Street",
+         "address2": null,
+         "city": "Shippington",
+         "company": "Shipping Company",
+         "country": "United States",
+         "country_code": "US",
+         "latitude": null,
+         "longitude": null,
+         "province": "Kentucky",
+         "province_code": "KY",
+         "zip": "40003"
       }
    }
 }'
 ```
 
-## data內欄位說明
+## Example with multiple types of product id
+
+```
+curl --location --request POST 'https://omnisegment.com/api/import-purchase-data/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "tid": "OA-xxxxxx",
+   "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+   "data": {
+      "member_sn": 1,
+      "transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1",
+      "datetime": "2020-1-1 0:0:0",
+      "products": {"default": "1,2", "CRM": "crm_id1,crm_id2", "ERP": "erp_id1,erp_id2"},
+      "quantities": 2,
+      "products_quantity": "1,1",
+      "transaction_revenue": 5000.0,
+      "transaction_status": "SUCCESS",
+      "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",
+      "physical_store_name": "Fake Store",
+      "shipping_address": {
+         "address1": "123 Shipping Street",
+         "address2": null,
+         "city": "Shippington",
+         "company": "Shipping Company",
+         "country": "United States",
+         "country_code": "US",
+         "latitude": null,
+         "longitude": null,
+         "province": "Kentucky",
+         "province_code": "KY",
+         "zip": "40003"
+      }
+   }
+}'
+```
+
+## data 內欄位說明
 
 | **必填欄位** | **說明** | **備註** | **『歷史資料追蹤』節點當中的應用** |
 | :------: | ------ | ------ | ------ | 
@@ -60,7 +96,7 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
 | transaction_revenue | **`"transaction_revenue": 5000`**<br>訂單總金額 | | - 最後一次消費金額<br>- 總金額<br>- 平均花費|
 | **<br>選填欄位<br><br>** | | |
 | transaction_status | **`"transaction_status": "SUCCESS"`**<br>訂單狀態 | 不傳預設狀態為 "SUCCESS", 可接受之狀態選項有 "SUCCESS", "CANCEL", "REFUND", "FAIL", "SHIPPED", "PAID" | |
-| products | **`"products": "1,2"`**<br>此訂單內包含的商品ID，若訂單內有多筆商品則以`,`分隔。 | 若OmniSegment 沒有則會自動建立, 商品名稱預設為這邊的商品ID| 購買產品名稱 |
+| products | **`"products": "1,2"`**<br>此訂單內包含的商品ID，若訂單內有多筆商品則以`,`分隔。<br><br>此欄位的值也可以是一個 object，用來表示該商品在各個不同系統中的 id，例如：**`"products": {"default": "1,2", "CRM": "crm_id1,crm_id2", "ERP": "erp_id1,erp_id2"}`**<br>若傳入以上內容，OmniSegment 會以 `default` 內的 id 來對應，並且將 `CRM` 以及 `ERP` 內的 id 紀錄起來(順序必須跟 `default` 一致)。 | 若OmniSegment 沒有則會自動建立, 商品名稱預設為這邊的商品ID| 購買產品名稱 |
 | products_quantity | **`"products_quantity": "1,1"`**<br>此訂單內每個商品的數量，若訂單內有多筆商品則以`,`分隔，這邊會對應products 的順序。 | products 不可為空 |
 | coupon | **`"Coupon": "couponABC"`**<br>優惠名稱 |
 | source | **`"source": “Facebook"`**<br>來源名稱| | 最後來源 |
