@@ -1,8 +1,9 @@
+# Import Product API
 
 * > api_key: xxxxx-xxxxx-xxxxx
 * > tid: OA-xxxxxxx
 
-##### example:
+## Example
 
 ```
 curl --location --request POST 'https://omnisegment.com/api/v1/products/import/' \
@@ -24,14 +25,38 @@ curl --location --request POST 'https://omnisegment.com/api/v1/products/import/'
     "site": "AAAA"
 }'
 ```
-If Organization dose not have multi sites, site field can be None or null.
+
+## Example with multiple ids
+
+```
+curl --location --request POST 'https://omnisegment.com/api/v1/products/import/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "data": {
+        "id": {"default": "1", "CRM": "crm_id", "ERP": "erp_id"},
+        "title": "一件普通衣服",
+        "link": "http://test.com/products/normal-shirt",
+        "availability": "in stock",
+        "image_link": "https://test.com/media/widGh1bWIiLCI2MDB4NjAwIl1d.png?sha=0e0ad71b5e5ccaf7",
+        "price": "999",
+        "sale_price": "1",
+        "sale_price_effective_date": "2020-08-01T00:00:00+08:00/2020-08-31T23:59:59+08:00",
+        "product_type": "T-shirt"
+    },
+    "tid": "OA-xxxxxxxx",
+    "api_key": "xxxxxx-xxxxxxx-xxxxxx",
+    "site": "AAAA"
+}'
+```
+
+> If Organization dose not have multi sites, site field can be None or null.
 
 ### data 必填欄位說明
 
 
 |          欄位           | 說明                                     | 備註                                        |
 |:-----------------------:| ---------------------------------------- | ------------------------------------------- |
-|       id   | 商品的 id                | 此為唯一值，可以是 SKU                                     |
+|       id   | 商品的 id，可以是一個字串，也可以是一個 object，當 id 為 object 時，可以帶入多組 id 表示該商品在各個不同系統中的 id。                | 此為唯一值，可以是 SKU                                     |
 |      title       | 商品的名稱                               | e.g. 普通 T 恤                   |
 |       link       | 商品的網址 |連結必須是有效且開頭為 http:// 或 https:// 的網址。|
 |      availability       | 商品目前提供的狀態|  e.g. in stock、available for order,out of stock |
@@ -40,7 +65,7 @@ If Organization dose not have multi sites, site field can be None or null.
 
 
 
-### data 選填欄位
+### data 選填欄位說明
 
 
 | 欄位 | 說明 | 備註 |
