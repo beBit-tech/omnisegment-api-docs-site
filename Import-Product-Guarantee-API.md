@@ -2,11 +2,11 @@
 * An API endpoint for import product's guarantee data
 
 ## Required Fields
-- tid: Organization's id.
+- **tid**: Organization's id.
 
-- api_key: Organization's api key.
+- **api_key**: Organization's api key.
 
-- data: Product guarantee data content.
+- **data**: Product guarantee data content.
 
   - Necessary fields: `member_sn`, `products`, `campaign_id`, `purchase_date`
   - Optional fields: `product_name`, `campaign_name`, `purchase_source`, `purchase_city`, `registration_date`
