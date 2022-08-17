@@ -2,7 +2,7 @@
 * An API endpoint for import product's guarantee data
 
 ## API URL
-* `https://omnisegment.com/api/import-proudct-guarantee-data/`
+* `https://omnisegment.com/api/import-product-guarantee-data/`
 
 ## API Method
 * `POST`
@@ -36,7 +36,7 @@
 ## Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/import-proudct-guarantee-data/' \
+curl --location --request POST 'https://omnisegment.com/api/import-product-guarantee-data/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
    "tid": "OA-xxxxxx",
