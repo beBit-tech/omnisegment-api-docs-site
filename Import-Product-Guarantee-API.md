@@ -9,7 +9,7 @@
 - **data**: product guarantee data content.
 
   - Necessary fields: `campaign_id`, `member_sn`, `products`, `registration_datetime`, `purchase_datetime`
-  - Optional fields: `campaign_name`, `product_name`, `purchase_source`, `purchase_city`, `is_available`
+  - Optional fields: `campaign_name`, `purchase_source`, `purchase_city`, `is_available`
 
 ## data 內欄位說明
 
@@ -21,7 +21,6 @@
 | registration_datetime | 登錄日期 | **`"registration_datetime": "2022-08-17T12:00:00+08:00"`**<br> | datetime | &#10004; | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> |
 | purchase_datetime | 購買日期 | **`"purchase_datetime": "2022-08-17T12:00:00+08:00"`**<br> | datetime | &#10004; | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>|
 | campaign_name | 活動編號 | **`"campaign_name": "buy1get1"`**<br> | string | | |
-| product_name | 商品名稱 | **`"product_name": ["bag","cloth"]`**<br> | object | | 順序和數量要和參數 **products** 一致|
 | purchase_source | 購買通路 | **`"purchase_source": "supermarket"`**<br> | string | | |
 | purchase_city | 購買縣市 | **`"purchase_city": "taipei"`**<br> | string | | |
 | is_available | 是否可以使用 | **`"is_available": true`**<br> | bool | | 沒給的話預設是 `true` |
@@ -42,7 +41,6 @@ curl --location --request POST 'https://omnisegment.com/api/import-proudct-guara
       "registration_datetime": "2022-08-17T12:00:00+08:00",
       "purchase_datetime": "2022-08-17T12:00:00+08:00",
       "campaign_name": "buy1get1",
-      "product_name": ["bag","t-shirt"],
       "purchase_source": "supermarket",
       "purchase_city": "taipei",
       "is_available": true
