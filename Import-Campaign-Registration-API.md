@@ -20,7 +20,7 @@
 | products | 表示該商品在各個不同系統中的 id | **```"products": {"default": ["item_group_id1","item_group_id2"], "sku": ["sku_id1","sku_id2"]}```** | object | | **default** 指的是 item_group_id<br>**sku** 指的是 sku_id<br>兩者可以不用同時給，但如果只給 sku 的話，Omnisegment 會自動建立一個對應的 item_group_id<br>若同時給的話 default 和 sku 內的順序和數量要一致|
 | registration_datetime | 登錄日期 | **`"registration_datetime": "2022-08-17T12:00:00+08:00"`**<br> | datetime | &#10004; | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> |
 | purchase_datetime | 購買日期 | **`"purchase_datetime": "2022-08-17T12:00:00+08:00"`**<br> | datetime | | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>|
-| campaign_name | 活動編號 | **`"campaign_name": "buy1get1"`**<br> | string | &#10004; | |
+| campaign_name | 活動名稱 | **`"campaign_name": "buy1get1"`**<br> | string | &#10004; | |
 | purchase_source | 購買通路 | **`"purchase_source": "supermarket"`**<br> | string | | |
 | purchase_city | 購買縣市 | **`"purchase_city": "taipei"`**<br> | string | | |
 | is_available | 是否可以使用 | **`"is_available": true`**<br> | bool | | 沒給的話預設是 `true` |
