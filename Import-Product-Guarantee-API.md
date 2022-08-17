@@ -8,8 +8,8 @@
 
 - **data**: product guarantee data content.
 
-  - Necessary fields: `campaign_id`, `member_sn`, `products`, `registration_datetime`
-  - Optional fields: `campaign_name`, `product_name`, `purchase_source`, `purchase_city`, `purchase_datetime`, `is_available`
+  - Necessary fields: `campaign_id`, `member_sn`, `products`, `registration_datetime`, `purchase_datetime`
+  - Optional fields: `campaign_name`, `product_name`, `purchase_source`, `purchase_city`, `is_available`
 
 ## data 內欄位說明
 
