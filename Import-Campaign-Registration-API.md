@@ -6,7 +6,7 @@
 
 - **api_key**: organization's api key.
 
-- **data**: product guarantee data content.
+- **data**: campaign registration data content.
 
   - Necessary fields: `campaign_id`, `member_sn`, `campaign_name`, `registration_datetime`
   - Optional fields: `purchase_source`, `purchase_city`, `is_available`, `purchase_datetime`
