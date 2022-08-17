@@ -2,10 +2,10 @@
 * An API endpoint for import event registration data
 
 ## API URL
-- `https://omnisegment.com/api/import-event-registration-data/`
+* `https://omnisegment.com/api/import-event-registration-data/`
 
 ## API Method
-- `POST`
+* `POST`
 
 ## Required Fields
 - **tid**: organization's id.
