@@ -1,6 +1,12 @@
 # Import Product Guarantee API
 * An API endpoint for import product's guarantee data
 
+## API URL
+* `https://omnisegment.com/api/import-proudct-guarantee-data/`
+
+## API Method
+* `POST`
+
 ## Required Fields
 - **tid**: organization's id.
 
@@ -24,8 +30,8 @@
 | purchase_source | 購買通路 | **`"purchase_source": "supermarket"`** | string | | |
 | purchase_city | 購買縣市 | **`"purchase_city": "taipei"`** | string | | |
 | is_available | 是否可以使用 | **`"is_available": true`**<br> | bool | | 沒給的話預設是 `true` |
-| warranty_start_datetime | 商品保固起始日 | **`"warranty_start_datetime": 2022-08-17T12:00:00+08:00`** | datetime | | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> |
-| warranty_end_datetime | 商品保固結束日 | **`"warranty_end_datetime": 2022-09-17T12:00:00+08:00`** | datetime | | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> |
+| warranty_start_datetime | 商品保固起始日 | **`"warranty_start_datetime": 2022-08-17T12:00:00+08:00`** | datetime | | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a><br>**warranty_end_datetime** 時間要大於 **warranty_start_datetime**，且兩者要同時賦值 |
+| warranty_end_datetime | 商品保固結束日 | **`"warranty_end_datetime": 2022-09-17T12:00:00+08:00`** | datetime | | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a><br>**warranty_end_datetime** 時間要大於 **warranty_start_datetime**，且兩者要同時賦值 |
 
 ## Example
 
