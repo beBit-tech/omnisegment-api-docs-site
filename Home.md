@@ -16,7 +16,7 @@ This is the Omnisegment API document.
 
 [[Import-Product-Guarantee-API]]
 
-[[Import-Campaign-Registration-API]]
+[[Import-Event-Registration-API]]
 
 [[Omnitag---Beacon---埋碼]]
 
