@@ -30,8 +30,8 @@
 | purchase_source | 購買通路 | **`"purchase_source": "supermarket"`** | string | | |
 | purchase_city | 購買縣市 | **`"purchase_city": "taipei"`** | string | | |
 | is_available | 是否可以使用 | **`"is_available": true`** | bool | | 沒給的話預設是 `true` |
-| event_start_datetime | 購買日期 | **`"event_start_datetime": "2022-08-17T12:00:00+08:00"`** | datetime | | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>|
-| event_end_datetime | 購買日期 | **`"event_end_datetime": "2022-09-17T12:00:00+08:00"`** | datetime | | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a><br>**event_end_datetime** 時間要大於 **event_start_datetime** |
+| event_start_datetime | 活動起始日 | **`"event_start_datetime": "2022-08-17T12:00:00+08:00"`** | datetime | | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a><br>**event_end_datetime** 時間要大於 **event_start_datetime**，且兩者要同時賦值 |
+| event_end_datetime | 活動結束日 | **`"event_end_datetime": "2022-09-17T12:00:00+08:00"`** | datetime | | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a><br>**event_end_datetime** 時間要大於 **event_start_datetime**，且兩者要同時賦值 |
 
 ## Example
 
