@@ -2,7 +2,7 @@
 * An API endpoint for import event registration data
 
 ## API URL
-* `https://omnisegment.com/api/import-event-registration-data/`
+* `https://omnisegment.com/api/v1/products/import-event-registration-data/`
 
 ## API Method
 * `POST`
@@ -23,7 +23,7 @@
 | :------: | ------ | ------ | ------ | ------ | ------ |
 | event_id | 活動編號 | **`"event_id": "qqq123"`** | string | &#10004; | |
 | member_sn | 會員編號 | **`"member_sn": "www123"`** | string | &#10004; | |
-| products | 表示該商品在各個不同系統中的 id | **```"products": {"default": ["item_group_id1","item_group_id2"], "sku": ["sku_id1","sku_id2"]}```** | object | | **default** 指的是 item_group_id<br>**sku** 指的是 sku_id<br>兩者可以不用同時給，但如果只給 sku 的話，Omnisegment 會自動建立一個對應的 item_group_id<br>若同時給的話 default 和 sku 內的順序和數量要一致|
+| products | 表示該商品在各個不同系統中的 id | **```"products": {"default": ["item_group_id1","item_group_id2"], "sku": ["sku_id1","sku_id2"]}```** | dict | | **default** 指的是 item_group_id<br>**sku** 指的是 sku_id<br>兩者可以不用同時給<br>若同時給的話 default 和 sku 內的順序和數量要一致|
 | registration_datetime | 登錄日期 | **`"registration_datetime": "2022-08-17T12:00:00+08:00"`** | datetime | &#10004; | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> |
 | purchase_datetime | 購買日期 | **`"purchase_datetime": "2022-08-17T12:00:00+08:00"`** | datetime | | 時區必須要指定<br>日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>|
 | event_name | 活動名稱 | **`"event_name": "buy1get1"`** | string | &#10004; | |
@@ -37,7 +37,7 @@
 ## Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/import-event-registration-data/' \
+curl --location --request POST 'https://omnisegment.com/api/v1/products/import-event-registration-data/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
    "tid": "OA-xxxxxx",
