@@ -15,7 +15,7 @@
 - **data**: event registration data content.
 
   - Necessary fields: `event_id`, `member_sn`, `event_name`, `registration_datetime`
-  - Optional fields: `purchase_source`, `purchase_city`, `is_available`, `purchase_datetime`, `event_start_datetime`, `event_end_datetime`
+  - Optional fields: `purchase_source`, `purchase_city`, `delivery_address`, `is_available`, `purchase_datetime`, `event_start_datetime`, `event_end_datetime`
 
 ## data 內欄位說明
 
