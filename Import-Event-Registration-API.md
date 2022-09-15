@@ -51,6 +51,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/products/import-e
       "event_name": "buy1get1",
       "purchase_source": "supermarket",
       "purchase_city": "taipei",
+      "delivery_address": "台北市XXXXX",
       "is_available": true,
       "event_start_datetime": "2022-08-17T12:00:00+08:00",
       "event_end_datetime": "2022-09-17T12:00:00+08:00"
