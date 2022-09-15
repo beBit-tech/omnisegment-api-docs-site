@@ -14,8 +14,8 @@
 
 - **data**: product guarantee data content.
 
-  - Necessary fields: `event_id`, `member_sn`, `products`, `registration_datetime`, `purchase_datetime`
-  - Optional fields: `event_name`, `purchase_source`, `purchase_city`, `is_available`, `warranty_start_datetime`, `warranty_end_datetime`
+  - Necessary fields: `warranty_id`, `member_sn`, `products`, `registration_datetime`, `purchase_datetime`
+  - Optional fields: `warranty_name`, `purchase_source`, `purchase_city`, `is_available`, `warranty_start_datetime`, `warranty_end_datetime`
 
 ## data 內欄位說明
 
@@ -36,18 +36,18 @@
 ## Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/import-product-guarantee-data/' \
+curl --location --request POST 'https://omnisegment.com/api/v1/products/import-product-guarantee-data/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
    "tid": "OA-xxxxxx",
    "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
    "data": {
-      "event_id": "qqq123",
+      "warranty_id": "qqq123",
       "member_sn": "www123",
       "products": {"default": ["item_group_id1","item_group_id2"], "sku": ["sku_id1","sku_id2"]},
       "registration_datetime": "2022-08-17T12:00:00+08:00",
       "purchase_datetime": "2022-08-17T12:00:00+08:00",
-      "event_name": "buy1get1",
+      "warranty_name": "buy1get1",
       "purchase_source": "supermarket",
       "purchase_city": "taipei",
       "is_available": true,
