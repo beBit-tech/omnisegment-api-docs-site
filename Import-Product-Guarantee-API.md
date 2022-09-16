@@ -44,7 +44,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/products/import-p
    "data": {
       "warranty_id": "qqq123",
       "member_sn": "www123",
-      "products": {"default": ["item_group_id1","item_group_id2"], "sku": ["sku_id1","sku_id2"]},
+      "product": {"default": "item_group_id1", "sku": "sku_id1"},
       "registration_datetime": "2022-08-17T12:00:00+08:00",
       "purchase_datetime": "2022-08-17T12:00:00+08:00",
       "warranty_name": "buy1get1",
