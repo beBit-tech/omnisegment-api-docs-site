@@ -21,3 +21,5 @@ This is the Omnisegment API document.
 [[Omnitag---Beacon---埋碼]]
 
 [[Third-Party-Personal-Information-Application-Programming-Interface-Guideline]]
+
+[[Report API]]
