@@ -1,14 +1,18 @@
 ## API URL
-* `https://omnisegment.com/api/v1/create_tracking_event_report`
+* `https://omnisegment.com/api/v1/tracking_event_report`
 
 ## API Method
 * `POST`
 
+## Request Headers:
+```
+{"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+```
+
 ## Required Fields
 - **tid**: organization's id.
-- **api_key**: organization's api key.
-- **start**: report start date ("2022-09-01").
-- **end**: report end date ("2022-09-30").
+- **start**: report start date ("2022-09-01T00:00:00+0800").
+- **end**: report end date ("2022-09-30T23:59:59+0800").
 - **report_name**: report name
 
 ## Response
@@ -21,26 +25,25 @@
 -----------------------------------------------------------------
 
 ## API URL
-* `https://omnisegment.com/api/v1/tracking_event_report_data`
+* `https://omnisegment.com/api/v1/tracking_event_report/<id>`
 
 ## API Method
 * `GET`
 
+## Request Headers:
+```
+{"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+```
+
 ## Required Fields
 - **tid**: organization's id.
-- **api_key**: organization's api key.
-- **report_id**: report id
 
 ## Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/v1/tracking_event_report_data' \
---header 'Content-Type: application/json' \
---data-raw '{
-   "tid": "OA-xxxxxx",
-   "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-   "report_id ": 123
-}'
+curl --location --request POST 'https://omnisegment.com/api/v1/tracking_event_report/12345?tid="OA-xxxxxx"' \
+--header '{"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}'
+
 ```
 
 ## Response
@@ -49,28 +52,26 @@ curl --location --request POST 'https://omnisegment.com/api/v1/tracking_event_re
     "SUCCESS": True,
     "PAYLOAD": {
         "status": "SUCCESS",
-        "content":{
-            "id": <report_id>,
-            "creation_time": "2022-10-06T10:12:28.147958+0800",
-            "start_date": "2022-09-01",
-            "end_date": "2022-09-30",
-            "report_content": [
-                {
-                    "member_sn": 34567,
-                    "creation_time": "2022-10-06T10:12:28.147958+0800",
-                    "event_name": "add_to_cart",
-                    "page_url": "https://www.panasonic.com/tw/",
-                    "time_stayed": 180,
-               },
-               {
-                    "member_sn": 12345,
-                    "creation_time": "2022-10-05T10:12:28.147958+0800",
-                    "event_name": "product_impression",
-                    "page_url": "https://www.panasonic.com/tw/",
-                    "time_stayed": 50,
-               }
-            ],
-        }
+        "file_url": "https://s3.amazonaws.com/media/XXX.png",
+        "failed_reason": "",
+    }
+}
+
+{
+    "SUCCESS": True,
+    "PAYLOAD": {
+        "status": "RUNNING",
+        "file_url": "",
+        "failed_reason": "",
+    }
+}
+
+{
+    "SUCCESS": True,
+    "PAYLOAD": {
+        "status": "FAIL",
+        "file_url": "",
+        "failed_reason": "",
     }
 }
 ```
