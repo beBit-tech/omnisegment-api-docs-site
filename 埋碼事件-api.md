@@ -15,7 +15,7 @@
 ## Required Fields
 | **Parameter** | **Description** | **Sample** | **Data Type** | **Required** | Note |
 | :------: | ------ | ------ | ------ | ------ | ------ |
-| report_name | Report 名稱 | **`"report_name": "八月報告"`** | string | &#10004; | |
+| report_name | Report 名稱 | **`"report_name": "九月報告"`** | string | &#10004; | |
 | start_datetime | 開始時間 | **`"start_datetime": "2022-09-01T00:00:00+0800"`** | string | &#10004; | |
 | end_datetime | 結束時間 | **`"end_datetime": "2022-09-30T23:59:59+0800"`** | string | &#10004; | |
 
