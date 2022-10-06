@@ -1,5 +1,5 @@
 # Report API
-* An API endpoint for submit report's data
+* API endpoints for report's data
 
 ## API URL
 * `https://omnisegment.com/api/v1/reports/create/?tid=OA-xxxxxx`
