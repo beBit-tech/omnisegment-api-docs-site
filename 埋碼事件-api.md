@@ -9,7 +9,7 @@
 
 ## Request Headers:
 ```
-{"X-OmniSegment-Api-Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+X-OmniSegment-Api-Key xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ## Required Fields
@@ -41,7 +41,7 @@
 
 ## Request Headers:
 ```
-{"X-Omnicha-Api-Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+X-Omnicha-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ## Response
