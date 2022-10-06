@@ -1,5 +1,5 @@
 ## API URL
-* `https://omnisegment.com/api/v1/tracking_event_report?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/tracking_event_report/?tid=OA-xxxxxx`
 
 ## Description
 * 創建埋碼報告
