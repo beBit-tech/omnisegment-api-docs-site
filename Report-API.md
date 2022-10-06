@@ -4,7 +4,7 @@
 ------------------
 
 ## API URL
-* `https://omnisegment.com/api/v1/reports/create/?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/report/?tid=OA-xxxxxx`
 
 ## Description
  - 創建 report endpoint
@@ -14,7 +14,7 @@
 
 ## Request Headers:
 ```
-{"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+{"X-Omnicha_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
 ```
 
 ## Request 欄位說明
@@ -31,7 +31,7 @@
 ### Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/v1/reports/create/?tid=OA-xxxxxx' \
+curl --location --request POST 'https://omnisegment.com/api/v1/report/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
 --header 'X-Omnicha_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
@@ -55,7 +55,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/reports/create/?t
 -----------------------
 
 ## API URL
-* `https://omnisegment.com/api/v1/reports/list/?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/report/?tid=OA-xxxxxx`
 
 ## Description
  - 獲取一天內 reports 狀態 endpoint
@@ -65,7 +65,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/reports/create/?t
 
 ## Request Headers:
 ```
-{"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+{"X-Omnicha_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
 ```
 
 ### Note
@@ -74,7 +74,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/reports/create/?t
 ### Example
 
 ```
-curl --location --request GET 'https://omnisegment.com/api/v1/reports/list/?tid=OA-xxxxxx' \
+curl --location --request GET 'https://omnisegment.com/api/v1/reports/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
 --header 'X-Omnicha_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 ```
@@ -111,7 +111,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/reports/list/?tid=
 ------------------------
 
 ## API URL
-* `https://omnisegment.com/api/v1/reports/data/?tid=OA-xxxxxxx`
+* `https://omnisegment.com/api/v1/report/:id/?tid=OA-xxxxxxx`
 
 ## Description
  - 獲取該 report 產生的 url endpoint
@@ -124,17 +124,12 @@ curl --location --request GET 'https://omnisegment.com/api/v1/reports/list/?tid=
 {"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
 ```
 
-## Request 內欄位說明
-
-| **Parameter** | **Description** | **Sample** | **Data Type** | **Required** | Note |
-| :------: | ------ | ------ | ------ | ------ | ------ |
-| report_id | Report 編號 | **`"report_id ": 123 `** | int | &#10004; | |
-
+## Request
 
 ### Example
 
 ```
-curl --location --request GET 'https://omnisegment.com/api/v1/reports/data/?tid=OA-XXXXXXX' \
+curl --location --request GET 'https://omnisegment.com/api/v1/report/123/?tid=OA-XXXXXXX' \
 --header 'Content-Type: application/json' \
 --header 'X-Omnicha_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
