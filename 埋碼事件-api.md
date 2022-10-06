@@ -83,7 +83,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 ```
 curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_report/12345?tid=OA-xxxxxx' \
---header 'X-Omnicha-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 ```
 
 ## Response
