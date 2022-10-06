@@ -60,6 +60,14 @@ curl --location --request POST'https://omnisegment.com/api/v1/reports/data/' \
                 "click_time": "2022-08-18T21:12:34+08:00",
                 "click_link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
             },
+{
+                "member_sn": "XD1sfasdg2456",
+                "channel_type": "LINE",
+                "template_name": "8月壽星",
+                "is_click": true,
+                "click_time": "2022-08-18T21:12:34+08:00",
+                "click_link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            },
             ...
         ]
     }
