@@ -9,7 +9,7 @@
 
 ## Request Headers:
 ```
-X-OmniSegment-Api-Key xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ## Required Fields
