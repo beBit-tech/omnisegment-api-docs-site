@@ -1,4 +1,4 @@
-# Report API
+# Interaction Report API
 * API endpoints for report's data
 
 ------------------
