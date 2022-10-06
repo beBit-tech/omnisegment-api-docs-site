@@ -15,7 +15,7 @@
 
 ## Request Headers:
 ```
-{"X-Omnicha_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+{"X-OmniSegment_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
 ```
 
 ## Request 欄位說明
@@ -34,7 +34,7 @@
 ```
 curl --location --request POST 'https://omnisegment.com/api/v1/interaction_report/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
---header 'X-Omnicha_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
+--header 'X-OmniSegment_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "report_name": "八月報告",
     "start_datetime": "2022-08-01T00:00:00+0800",
@@ -67,7 +67,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/interaction_repor
 
 ## Request Headers:
 ```
-{"X-Omnicha_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+{"X-OmniSegment_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
 ```
 
 ### Note
@@ -78,7 +78,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/interaction_repor
 ```
 curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
---header 'X-Omnicha_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
+--header 'X-OmniSegment_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 ```
 
 ## Response
@@ -124,7 +124,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
 
 ## Request Headers:
 ```
-{"X-Omnicha_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+{"X-OmniSegment_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
 ```
 
 ## Request
@@ -134,7 +134,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
 ```
 curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report/123/?tid=OA-XXXXXXX' \
 --header 'Content-Type: application/json' \
---header 'X-Omnicha_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
+--header 'X-OmniSegment_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "report_id ": 123
 }'
@@ -157,7 +157,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
     "SUCCESS": true,
     "PAYLOAD": {
         "status": "SUCCESS",
-        "report_url": "https://omnicha-edm-image.s3.amazonaws.com/media/report/xxxxx.png"
+        "report_url": "https://omnisement-edm-image.s3.amazonaws.com/media/report/xxxxx.png"
     }
 }
 ```
