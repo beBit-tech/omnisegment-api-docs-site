@@ -1,8 +1,13 @@
 # Report API
 * API endpoints for report's data
 
+------------------
+
 ## API URL
 * `https://omnisegment.com/api/v1/reports/create/?tid=OA-xxxxxx`
+
+## Description
+ - 創建 report endpoint
 
 ## API Method
 * `POST`
@@ -52,6 +57,9 @@ curl --location --request POST 'https://omnisegment.com/api/v1/reports/create/?t
 ## API URL
 * `https://omnisegment.com/api/v1/reports/list/?tid=OA-xxxxxx`
 
+## Description
+ - 獲取一天內 reports 狀態 endpoint
+
 ## API Method
 * `GET`
 
@@ -97,6 +105,9 @@ curl --location --request GET 'https://omnisegment.com/api/v1/reports/list/?tid=
 ## API URL
 * `https://omnisegment.com/api/v1/reports/data/?tid=OA-xxxxxxx`
 
+## Description
+ - 獲取該 report 產生的 url endpoint
+
 ## API Method
 * `GET`
 
@@ -129,6 +140,9 @@ curl --location --request GET 'https://omnisegment.com/api/v1/reports/data/?tid=
 | :------: | ------ | ------ | ------ | ------ |
 | status | Report 狀態 | **`"status": "RUNNING" `** | string | 包含 `RUNNING, SUCCESS, FAIL` |
 | report_url | Report URL |  | string |  |
+
+### Note
+ - report 狀態為 SUCCESS，才會有 url 資料
 
 ```json
 {
