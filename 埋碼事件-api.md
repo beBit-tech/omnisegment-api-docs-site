@@ -40,7 +40,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 ## Request Headers:
 ```
-X-Omnicha-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ## Response
