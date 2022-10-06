@@ -12,7 +12,7 @@
 
 - **api_key**: organization's api key.
 
-- **data**: product guarantee data content.
+- **data**:
 
   - Necessary fields: `start_datetime `, `end_datetime `
 
@@ -39,4 +39,15 @@ curl --location --request POST 'https://omnisegment.com/api/v1/reports/submit/' 
       "end_datetime": "2022-08-31T23:59:59+08:00"
    }
 }'
+```
+
+## Response
+
+```json
+{
+    "SUCCESS": true,
+    "PAYLOAD": {
+        "report_id": 123
+    }
+}
 ```
