@@ -9,7 +9,7 @@
 
 ## Request Headers:
 ```
-{"X-Omnicha-Api-Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+{"X-OmniSegment-Api-Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
 ```
 
 ## Required Fields
@@ -94,7 +94,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_rep
     "SUCCESS": True,
     "PAYLOAD": {
         "status": "SUCCESS",
-        "report_url": "https://s3.amazonaws.com/media/XXX.png",
+        "report_url": "https://s3.amazonaws.com/media/XXX.csv",
     }
 }
 ```
