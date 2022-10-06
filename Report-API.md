@@ -28,7 +28,7 @@
 ### Note
  - 撈取時間不得超過 31 days
 
-## Example
+### Example
 
 ```
 curl --location --request POST 'https://omnisegment.com/api/v1/reports/create/?tid=OA-xxxxxx' \
@@ -71,7 +71,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/reports/create/?t
 ### Note
  - 只會給一天內的 report 狀態
 
-## Example
+### Example
 
 ```
 curl --location --request GET 'https://omnisegment.com/api/v1/reports/list/?tid=OA-xxxxxx' \
@@ -80,7 +80,15 @@ curl --location --request GET 'https://omnisegment.com/api/v1/reports/list/?tid=
 ```
 
 ## Response
+| **Parameter** | **Description** | **Sample** | **Data Type** | Note |
+| :------: | ------ | ------ | ------ | ------ |
+| report_id | Report ID | **`"report_id": 123 `** | int | |
+| report_name | Report 名稱 | **`"report_name": "八月報告" `** | string | |
+| status | Report 狀態 | **`"status": "RUNNING" `** | string | 包含 `RUNNING, SUCCESS, FAIL` |
 
+
+
+### Example
 ```json
 {
     "SUCCESS": true,
@@ -123,7 +131,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/reports/list/?tid=
 | report_id | Report 編號 | **`"report_id ": 123 `** | int | &#10004; | |
 
 
-## Example
+### Example
 
 ```
 curl --location --request GET 'https://omnisegment.com/api/v1/reports/data/?tid=OA-XXXXXXX' \
@@ -143,6 +151,8 @@ curl --location --request GET 'https://omnisegment.com/api/v1/reports/data/?tid=
 
 ### Note
  - report 狀態為 SUCCESS，才會有 url 資料
+
+### Example
 
 ```json
 {
