@@ -15,7 +15,7 @@
 
 ## Request Headers:
 ```
-{"X-OmniSegment_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ## Request 欄位說明
@@ -46,7 +46,6 @@ curl --location --request POST 'https://omnisegment.com/api/v1/interaction_repor
 
 ```json
 {
-    "SUCCESS": true,
     "PAYLOAD": {
         "report_id": 123
     }
@@ -67,7 +66,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/interaction_repor
 
 ## Request Headers:
 ```
-{"X-OmniSegment_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ### Note
@@ -93,7 +92,6 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
 ### Example
 ```json
 {
-    "SUCCESS": true,
     "PAYLOAD": [
         {
             "report_id": 123,
@@ -124,7 +122,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
 
 ## Request Headers:
 ```
-{"X-OmniSegment_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ## Request
@@ -154,7 +152,6 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
 
 ```json
 {
-    "SUCCESS": true,
     "PAYLOAD": {
         "status": "SUCCESS",
         "report_url": "https://omnisement-edm-image.s3.amazonaws.com/media/report/xxxxx.png"
