@@ -108,4 +108,4 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_rep
 | event_time | 事件時間 | **`"event_time": "2022-08-12T23:23:45:0800" `** | string | |
 | event_name | 事件名稱 | **`"event_name": "add_to_cart" `** | string | |
 | user_engagement_duration | 停留時間(sec) | **`"user_engagement_duration": 10`** | int | |
-| link_domain | 瀏覽網域 | **`"link_domain": "www.google.com"`** | string | |
+| page_url | 瀏覽網域 | **`"page_url": "www.google.com"`** | string | |
