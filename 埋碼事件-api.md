@@ -70,10 +70,16 @@
 ## API Method
 * `GET`
 
-## Request Headers:
-```
-{"X-Omnicha-Api-Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
-```
+## Response
+
+| **Parameter** | **Description** | **Sample** | **Data Type** | Note |
+| :------: | ------ | ------ | ------ | ------ |
+| status | Report 狀態 | **`"status": "RUNNING" `** | string | 包含 `RUNNING, SUCCESS, FAIL` |
+| report_url | Report URL |  | string |  |
+
+### Note
+ - status 狀態為 SUCCESS，才會有 report_url 資料
+
 
 ## Example
 
@@ -89,22 +95,6 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_rep
     "PAYLOAD": {
         "status": "SUCCESS",
         "report_url": "https://s3.amazonaws.com/media/XXX.png",
-    }
-}
-
-{
-    "SUCCESS": True,
-    "PAYLOAD": {
-        "status": "RUNNING",
-        "report_url": "",
-    }
-}
-
-{
-    "SUCCESS": True,
-    "PAYLOAD": {
-        "status": "FAIL",
-        "report_url": "",
     }
 }
 ```
