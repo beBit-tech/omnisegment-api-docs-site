@@ -8,7 +8,7 @@
 * `POST`
 
 ## API Header
-* "OMNICHA_API_KEY": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+* "X-Omnicha_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
 ## Request 欄位說明
 
@@ -26,7 +26,7 @@
 ```
 curl --location --request POST 'https://omnisegment.com/api/v1/reports/create/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
---header 'OMNICHA_API_KEY: application/json' \
+--header 'X-Omnicha_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
       "report_name": "八月報告",
       "start_datetime": "2022-08-01T00:00:00+0800",
