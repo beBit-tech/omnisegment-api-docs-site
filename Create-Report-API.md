@@ -2,21 +2,15 @@
 * An API endpoint for submit report's data
 
 ## API URL
-* `https://omnisegment.com/api/v1/reports/submit/?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/reports/create/?tid=OA-xxxxxx`
 
 ## API Method
 * `POST`
 
-## Required Fields
-- **tid**: organization's id.
+## API Header
+* "OMNICHA_API_KEY": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
-- **api_key**: organization's api key.
-
-- **data**: 
-
-  - Necessary fields: `report_name`, `start_datetime`, `end_datetime`
-
-## data 內欄位說明
+## Request 欄位說明
 
 | **Parameter** | **Description** | **Sample** | **Data Type** | **Required** | Note |
 | :------: | ------ | ------ | ------ | ------ | ------ |
@@ -24,18 +18,17 @@
 | start_datetime | 開始時間 | **`"start_datetime": "2022-08-01T00:00:00+0800"`** | string | &#10004; | |
 | end_datetime | 結束時間 | **`"end": "2022-08-31T23:59:59+0800"`** | string | &#10004; | |
 
-## Note
+### Note
  - 撈取時間不得超過 31 days
 
 ## Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/v1/reports/submit/?tid=OA-xxxxxx' \
+curl --location --request POST 'https://omnisegment.com/api/v1/reports/create/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
+--header 'OMNICHA_API_KEY: application/json' \
 --data-raw '{
-   "tid": "OA-xxxxxx",
-   "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-   "data": {
+      "report_name": "八月報告",
       "start_datetime": "2022-08-01T00:00:00+0800",
       "end_datetime": "2022-08-31T23:59:59+0800"
    }
