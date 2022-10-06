@@ -5,7 +5,7 @@
 # Create Report
 
 ## API URL
-* `https://omnisegment.com/api/v1/report/?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/interaction_report/?tid=OA-xxxxxx`
 
 ## Description
  - 創建 report endpoint
@@ -32,7 +32,7 @@
 ### Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/v1/report/?tid=OA-xxxxxx' \
+curl --location --request POST 'https://omnisegment.com/api/v1/interaction_report/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
 --header 'X-Omnicha_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
@@ -57,7 +57,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/report/?tid=OA-xx
 # List Report
 
 ## API URL
-* `https://omnisegment.com/api/v1/report/?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/interaction_report/?tid=OA-xxxxxx`
 
 ## Description
  - 獲取一天內 reports 狀態 endpoint
@@ -76,7 +76,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/report/?tid=OA-xx
 ### Example
 
 ```
-curl --location --request GET 'https://omnisegment.com/api/v1/reports/?tid=OA-xxxxxx' \
+curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
 --header 'X-Omnicha_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 ```
@@ -114,7 +114,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/reports/?tid=OA-xx
 # Retrieve Report
 
 ## API URL
-* `https://omnisegment.com/api/v1/report/:id/?tid=OA-xxxxxxx`
+* `https://omnisegment.com/api/v1/interaction_report/:id/?tid=OA-xxxxxxx`
 
 ## Description
  - 獲取該 report 產生的 url endpoint
@@ -124,7 +124,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/reports/?tid=OA-xx
 
 ## Request Headers:
 ```
-{"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+{"X-Omnicha_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
 ```
 
 ## Request
@@ -132,7 +132,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/reports/?tid=OA-xx
 ### Example
 
 ```
-curl --location --request GET 'https://omnisegment.com/api/v1/report/123/?tid=OA-XXXXXXX' \
+curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report/123/?tid=OA-XXXXXXX' \
 --header 'Content-Type: application/json' \
 --header 'X-Omnicha_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
