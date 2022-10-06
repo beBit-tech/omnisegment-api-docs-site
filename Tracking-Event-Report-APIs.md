@@ -105,7 +105,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_rep
 | **Column** | **Description** | **Sample** | **Data Type** | Note |
 | :------: | ------ | ------ | ------ | ------ |
 | member_sn | 會員編號 | **`"member_sn": "zDf11234ASd" `** | string | |
-| event_time | 事件時間 | **`"event_time": "2022-08-12T23:23:45:0800" `** | string | |
+| event_time | 事件時間 | **`"event_time": "2022-08-12T23:23:45+0800" `** | string | |
 | event_name | 事件名稱 | **`"event_name": "add_to_cart" `** | string | |
 | user_engagement_duration | 停留時間(sec) | **`"user_engagement_duration": 10`** | int | |
 | page_url | 瀏覽網域 | **`"page_url": "www.google.com"`** | string | |
