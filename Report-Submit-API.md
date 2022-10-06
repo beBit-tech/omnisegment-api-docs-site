@@ -1,4 +1,4 @@
-# Submit Report API
+# Report Submit API
 * An API endpoint for submit report's data
 
 ## API URL
