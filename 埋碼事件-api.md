@@ -62,6 +62,13 @@
     ]
 }
 ```
+
+| **Parameter** | **Description** | **Sample** | **Data Type** | Note |
+| :------: | ------ | ------ | ------ | ------ |
+| report_id | Report ID | **`"report_id": 123 `** | int | |
+| report_name | Report 名稱 | **`"report_name": "八月報告" `** | string | |
+| status | Report 狀態 | **`"status": "RUNNING" `** | string | 包含 `RUNNING, SUCCESS, FAIL` |
+
 -----------------------------------------------------------------
 
 ## API URL
@@ -69,13 +76,6 @@
 
 ## API Method
 * `GET`
-
-## Response
-
-| **Parameter** | **Description** | **Sample** | **Data Type** | Note |
-| :------: | ------ | ------ | ------ | ------ |
-| status | Report 狀態 | **`"status": "RUNNING" `** | string | 包含 `RUNNING, SUCCESS, FAIL` |
-| report_url | Report URL |  | string |  |
 
 ### Note
  - status 狀態為 SUCCESS，才會有 report_url 資料
@@ -98,4 +98,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_rep
     }
 }
 ```
-
+| **Parameter** | **Description** | **Sample** | **Data Type** | Note |
+| :------: | ------ | ------ | ------ | ------ |
+| status | Report 狀態 | **`"status": "RUNNING" `** | string | 包含 `RUNNING, SUCCESS, FAIL` |
+| report_url | Report URL |  | string |  |
