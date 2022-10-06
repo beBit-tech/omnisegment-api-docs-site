@@ -89,7 +89,6 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_rep
     "PAYLOAD": {
         "status": "SUCCESS",
         "report_url": "https://s3.amazonaws.com/media/XXX.png",
-        "failed_reason": "",
     }
 }
 
@@ -98,7 +97,6 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_rep
     "PAYLOAD": {
         "status": "RUNNING",
         "report_url": "",
-        "failed_reason": "",
     }
 }
 
@@ -107,7 +105,6 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_rep
     "PAYLOAD": {
         "status": "FAIL",
         "report_url": "",
-        "failed_reason": "",
     }
 }
 ```
