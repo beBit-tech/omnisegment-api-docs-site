@@ -7,8 +7,10 @@
 ## API Method
 * `POST`
 
-## API Header
-* "X-Omnicha_Api_Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+## Request Headers:
+```
+{"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+```
 
 ## Request 欄位說明
 
