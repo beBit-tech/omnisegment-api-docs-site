@@ -6,7 +6,7 @@
 
 ## Request Headers:
 ```
-{"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+{"X-Omnicha-Api-Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
 ```
 
 ## Required Fields
@@ -25,6 +25,38 @@
 -----------------------------------------------------------------
 
 ## API URL
+* `https://omnisegment.com/api/v1/tracking_event_report/`
+
+## API Method
+* `GET`
+
+## Request Headers:
+```
+{"X-Omnicha-Api-Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+```
+
+## Required Fields
+- **tid**: organization's id.
+
+## Response
+```
+{
+    "SUCCESS": True,
+    "PAYLOAD": [
+         {
+              "name": "Report1",
+              "id": 1,
+         },
+         {
+              "name": "Report2",
+              "id": 2,
+         },
+    ]
+}
+```
+-----------------------------------------------------------------
+
+## API URL
 * `https://omnisegment.com/api/v1/tracking_event_report/<id>`
 
 ## API Method
@@ -32,7 +64,7 @@
 
 ## Request Headers:
 ```
-{"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+{"X-Omnicha-Api-Key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
 ```
 
 ## Required Fields
@@ -41,9 +73,8 @@
 ## Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/v1/tracking_event_report/12345?tid="OA-xxxxxx"' \
---header '{"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}'
-
+curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_report/12345?tid="OA-xxxxxx"' \
+--header 'X-Omnicha-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 ```
 
 ## Response
