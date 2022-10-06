@@ -39,7 +39,7 @@ curl --location --request POST'https://omnisegment.com/api/v1/reports/data/' \
 ## Response
 
 | **Parameter** | **Description** | **Sample** | **Data Type** | Note |
-| :------: | ------ | ------ | ------ | ------ | ------ |
+| :------: | ------ | ------ | ------ | ------ |
 | status | Report 狀態 | **`"status": "RUNNING" `** | string | 包含 `RUNNING, SUCCESS, FAIL` |
 | content | Report 內容 |  | list | title，is_open、open_time 只有在 channel_type 是 EMAIL 時才會有資料<br> |
 
