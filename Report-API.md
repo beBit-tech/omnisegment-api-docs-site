@@ -2,6 +2,7 @@
 * API endpoints for report's data
 
 ------------------
+# Create Report
 
 ## API URL
 * `https://omnisegment.com/api/v1/report/?tid=OA-xxxxxx`
@@ -53,6 +54,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/report/?tid=OA-xx
 ```
 
 -----------------------
+# List Report
 
 ## API URL
 * `https://omnisegment.com/api/v1/report/?tid=OA-xxxxxx`
@@ -109,6 +111,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/reports/?tid=OA-xx
 ```
 
 ------------------------
+# Retrieve Report
 
 ## API URL
 * `https://omnisegment.com/api/v1/report/:id/?tid=OA-xxxxxxx`
