@@ -23,8 +23,8 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | **Parameter** | **Description** | **Sample** | **Data Type** | **Required** | Note |
 | :------: | ------ | ------ | ------ | ------ | ------ |
 | report_name | Report 名稱 | **`"report_name": "八月報告"`** | string | &#10004; | |
-| start_datetime | 開始時間 | **`"start_datetime": "2022-08-01T00:00:00+0800"`** | string | &#10004; | |
-| end_datetime | 結束時間 | **`"end_datetime": "2022-08-31T23:59:59+0800"`** | string | &#10004; | |
+| start_date | 開始日期 | **`"start_date": "2022-08-01"`** | string | &#10004; | |
+| end_date | 結束日期 | **`"end_date": "2022-08-31"`** | string | &#10004; | |
 
 ### Note
  - 撈取時間不得超過 31 days
