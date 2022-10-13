@@ -22,6 +22,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ## Response
 ```
 {
+    "SUCCESS": true,
     "PAYLOAD": {
         "report_id": 12345
     }
@@ -46,6 +47,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ## Response
 ```
 {
+    "SUCCESS": true,
     "PAYLOAD": [
          {
               "report_name": "Report1",
@@ -89,6 +91,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_rep
 ## Response
 ```
 {
+    "SUCCESS": true,
     "PAYLOAD": {
         "status": "SUCCESS",
         "report_url": "https://s3.amazonaws.com/media/XXX.csv",
