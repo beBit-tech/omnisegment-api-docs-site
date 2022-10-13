@@ -166,8 +166,8 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
 | template_id | 素材 ID | **`"template_id": 111 `** | int | |
 | template_name | 素材名稱 | **`"template_name": "八月壽星" `** | string | |
 | template_title | 主旨 | **`"template_title": "恭喜您生日～" `** | string | 只有 channel_type 是 EMAIL 時才會有這資料 |
-| open | 是否開啟 | **`"open": true `** | bool | 只有 channel_type 是 EMAIL 時才會有這資料 |
+| is_opened | 是否開啟 | **`"is_opened": true `** | bool | 只有 channel_type 是 EMAIL 時才會有這資料 |
 | open_time | 開啟時間 | **`"open_time": ["2022-08-12T23:23:45:0800"] `** | string | 只有 channel_type 是 EMAIL 時才會有這資料 |
-| click | 是否點擊 | **`"click": true `** | bool | |
+| is_clicked | 是否點擊 | **`"is_clicked": true `** | bool | |
 | click_time | 點擊時間 | **`"click_time": ["2022-08-12T23:24:13:0800"] `** | string | |
 | click_link | 點擊連結 | **`"click_link": ["https://do-not-click"] `** | string | |
