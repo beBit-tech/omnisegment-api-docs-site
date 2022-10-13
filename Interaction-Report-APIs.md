@@ -170,4 +170,4 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
 | open_time | 開啟時間 | **`"open_time": "2022-08-12T23:23:45:0800" `** | string | 只有 channel_type 是 EMAIL 時才會有這資料 |
 | click | 是否點擊 | **`"click": true `** | bool | |
 | click_time | 點擊時間 | **`"click_time": "2022-08-12T23:24:13:0800" `** | string | |
-| click_link | 點擊連結 | **`"click_link": "`[https://do-not-click](https://www.youtube.com/watch?v=dQw4w9WgXcQ)`" `** | string | |
+| click_link | 點擊連結 | **`"click_link": [[https://do-not-click](https://www.youtube.com/watch?v=dQw4w9WgXcQ)]" `** | string | |
