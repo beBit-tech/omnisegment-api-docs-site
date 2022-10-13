@@ -46,6 +46,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/interaction_repor
 
 ```json
 {
+    "SUCCESS": true,
     "PAYLOAD": {
         "report_id": 123
     }
@@ -91,6 +92,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
 ### Example
 ```json
 {
+    "SUCCESS": true,
     "PAYLOAD": [
         {
             "report_id": 123,
@@ -147,6 +149,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
 
 ```json
 {
+    "SUCCESS": true,
     "PAYLOAD": {
         "status": "SUCCESS",
         "report_url": "https://omnisement-edm-image.s3.amazonaws.com/media/report/xxxxx.png"
@@ -162,7 +165,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
 | channel_type | 頻道編號 | **`"channel_type": "EMAIL" `** | string | |
 | template_id | 素材 ID | **`"template_id": 111 `** | int | |
 | template_name | 素材名稱 | **`"template_name": "八月壽星" `** | string | |
-| title | 主旨 | **`"title": "恭喜您生日～" `** | string | 只有 channel_type 是 EMAIL 時才會有這資料 |
+| template_title | 主旨 | **`"template_title": "恭喜您生日～" `** | string | 只有 channel_type 是 EMAIL 時才會有這資料 |
 | open | 是否開啟 | **`"open": true `** | bool | 只有 channel_type 是 EMAIL 時才會有這資料 |
 | open_time | 開啟時間 | **`"open_time": "2022-08-12T23:23:45:0800" `** | string | 只有 channel_type 是 EMAIL 時才會有這資料 |
 | click | 是否點擊 | **`"click": true `** | bool | |
