@@ -37,8 +37,8 @@ curl --location --request POST 'https://omnisegment.com/api/v1/interaction_repor
 --header 'X-OmniSegment_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "report_name": "八月報告",
-    "start_datetime": "2022-08-01T00:00:00+0800",
-    "end_datetime": "2022-08-31T23:59:59+0800"
+    "start_date": "2022-08-01",
+    "end_date": "2022-08-31"
 }'
 ```
 
