@@ -1,5 +1,5 @@
 ## API URL
-* `https://omnisegment.com/api/v1/tracking_event_report/?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/tracking-event-report/?tid=OA-xxxxxx`
 
 ## Description
 * 創建埋碼報告
@@ -31,7 +31,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 -----------------------------------------------------------------
 
 ## API URL
-* `https://omnisegment.com/api/v1/tracking_event_report/?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/tracking-event-report/?tid=OA-xxxxxx`
 
 ## Description
  - 獲取一天內所有埋碼報告狀態 
@@ -72,7 +72,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 -----------------------------------------------------------------
 
 ## API URL
-* `https://omnisegment.com/api/v1/tracking_event_report/<id>/?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/tracking-event-report/<id>/?tid=OA-xxxxxx`
 
 ## API Method
 * `GET`
@@ -84,7 +84,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ## Example
 
 ```
-curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_report/12345?tid=OA-xxxxxx' \
+curl --location --request GET 'https://omnisegment.com/api/v1/tracking-event-report/12345?tid=OA-xxxxxx' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 ```
 
@@ -94,7 +94,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking_event_rep
     "SUCCESS": true,
     "PAYLOAD": {
         "status": "SUCCESS",
-        "report_url": "https://s3.amazonaws.com/media/XXX.csv",
+        "report_url": "https://xxx/xxx/xxx/xxx.csv",
     }
 }
 ```
