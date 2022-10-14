@@ -5,7 +5,7 @@
 # Create Report
 
 ## API URL
-* `https://omnisegment.com/api/v1/interaction_report/?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/interaction-report/?tid=OA-xxxxxx`
 
 ## Description
  - 創建 report endpoint
@@ -32,7 +32,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ### Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/v1/interaction_report/?tid=OA-xxxxxx' \
+curl --location --request POST 'https://omnisegment.com/api/v1/interaction-report/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
@@ -57,7 +57,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/interaction_repor
 # List Report
 
 ## API URL
-* `https://omnisegment.com/api/v1/interaction_report/?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/interaction-report/?tid=OA-xxxxxx`
 
 ## Description
  - 獲取一天內 reports 狀態 endpoint
@@ -76,7 +76,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ### Example
 
 ```
-curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report/?tid=OA-xxxxxx' \
+curl --location --request GET 'https://omnisegment.com/api/v1/interaction-report/?tid=OA-xxxxxx' \
 --header 'X-OmniSegment_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 ```
 
@@ -113,7 +113,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
 # Retrieve Report
 
 ## API URL
-* `https://omnisegment.com/api/v1/interaction_report/:id/?tid=OA-xxxxxxx`
+* `https://omnisegment.com/api/v1/interaction-report/<id>/?tid=OA-xxxxxxx`
 
 ## Description
  - 獲取該 report 產生的 url endpoint
@@ -131,7 +131,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ### Example
 
 ```
-curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report/123/?tid=OA-XXXXXXX' \
+curl --location --request GET 'https://omnisegment.com/api/v1/interaction-report/123/?tid=OA-XXXXXXX' \
 --header 'X-OmniSegment_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 ```
 
@@ -152,7 +152,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction_report
     "SUCCESS": true,
     "PAYLOAD": {
         "status": "SUCCESS",
-        "report_url": "https://omnisement-edm-image.s3.amazonaws.com/media/report/xxxxx.png"
+        "report_url": "https://xxx/xxx/xxx/xxx/xxx.csv"
     }
 }
 ```
