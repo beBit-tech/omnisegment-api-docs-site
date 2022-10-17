@@ -139,6 +139,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction-report
 
 | **Parameter** | **Description** | **Sample** | **Data Type** | Note |
 | :------: | ------ | ------ | ------ | ------ |
+| report_name | Report 名稱 | **`"report_name": "八月報告"`** | string | &#10004; | |
 | status | Report 狀態 | **`"status": "RUNNING" `** | string | 包含 `RUNNING, SUCCESS, FAIL` |
 | report_url | Report URL |  | string |  |
 
@@ -151,6 +152,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/interaction-report
 {
     "SUCCESS": true,
     "PAYLOAD": {
+        "report_name": "八月報告",
         "status": "SUCCESS",
         "report_url": "https://xxx/xxx/xxx/xxx/xxx.csv"
     }
