@@ -93,6 +93,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking-event-rep
 {
     "SUCCESS": true,
     "PAYLOAD": {
+        "report_name": "Report1",
         "status": "SUCCESS",
         "report_url": "https://xxx/xxx/xxx/xxx.csv",
     }
@@ -100,6 +101,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking-event-rep
 ```
 | **Parameter** | **Description** | **Sample** | **Data Type** | Note |
 | :------: | ------ | ------ | ------ | ------ |
+| report_name | Report 名稱 | **`"report_name": "八月報告" `** | string | |
 | status | Report 狀態 | **`"status": "RUNNING" `** | string | 包含 `RUNNING, SUCCESS, FAIL` |
 | report_url | Report URL |  | string |  |
 
