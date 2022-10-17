@@ -84,7 +84,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ## Example
 
 ```
-curl --location --request GET 'https://omnisegment.com/api/v1/tracking-event-report/12345?tid=OA-xxxxxx' \
+curl --location --request GET 'https://omnisegment.com/api/v1/tracking-event-report/123/?tid=OA-xxxxxx' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 ```
 
