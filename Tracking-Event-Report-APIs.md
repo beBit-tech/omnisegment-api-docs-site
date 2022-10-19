@@ -19,6 +19,9 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | start_date | 開始日期 | **`"start_date": "2022-09-01"`** | string | &#10004; | |
 | end_date | 結束日期 | **`"end_date": "2022-09-30"`** | string | &#10004; | |
 
+### Note
+ - 撈取時間不得超過 31 days
+
 ## Response
 ```
 {
@@ -43,6 +46,9 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
+
+### Note
+ - 只會給一天內的 report 狀態
 
 ## Response
 ```
@@ -110,7 +116,7 @@ curl --location --request GET 'https://omnisegment.com/api/v1/tracking-event-rep
 | **Column** | **Description** | **Sample** | **Data Type** | Note |
 | :------: | ------ | ------ | ------ | ------ |
 | member_sn | 會員編號 | **`"member_sn": "zDf11234ASd" `** | string | |
-| event_time | 事件時間 | **`"event_time": "2022-08-12T23:23:45+0800" `** | string | |
-| event_name | 事件名稱 | **`"event_name": "add_to_cart" `** | string | |
-| user_engagement_duration | 停留時間(sec) | **`"user_engagement_duration": 10`** | int | |
-| page_url | 瀏覽網域 | **`"page_url": "www.google.com"`** | string | |
+| event_time | 事件時間 | **`"event_time": "2022-08-12 23:23:45+00" `** | string | |
+| event_name | 事件名稱 | **`"event_name": "AddToCart" `** | string | |
+| user_engagement_duration | 停留時間(sec) | **`"user_engagement_duration": "1 day 12:00:00"`** | string | 若時間小於一天，則不會有**天**這個維度 |
+| page_url | 瀏覽網域 | **`"page_url": "https://www.google.com"`** | string | |
