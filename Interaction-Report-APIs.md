@@ -8,7 +8,7 @@
 * `https://omnisegment.com/api/v1/interaction-report/?tid=OA-xxxxxx`
 
 ## Description
- - 創建 report endpoint
+ - 創建 interaction report endpoint
 
 ## API Method
 * `POST`
