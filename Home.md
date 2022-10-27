@@ -22,4 +22,6 @@ This is the Omnisegment API document.
 
 [[Third-Party-Personal-Information-Application-Programming-Interface-Guideline]]
 
-[[Report API]]
+[[Tracking-Event-Report-APIs]]
+
+[[Interaction-Report-APIs]]
