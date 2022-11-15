@@ -13,13 +13,11 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ## Required Fields
-- **tid**: organization's id.
+- **id**: questionnaire id.
 
-- **api_key**: organization's api key.
+- **title**: questionnaire title.
 
-- **data**: event registration data content.
-
-  - Necessary fields: `id`, `title`, `subjects`
+- **subjects**: questionnaire subjects and answer options data.
 
 ## data 內欄位說明
 
@@ -27,7 +25,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | :------: | ------ | ------ | ------ | ------ | ------ |
 | id | 問卷 ID（unique） | **`"id": 12345678`** | int | &#10004; | |
 | title | 問卷名稱 | **`"title": "服務滿意度問卷"`** | string | &#10004; | |
-| subjects | 該問卷的題目跟答案 | **```"subjects": [{}, {}]```** | list | | subjects 資料範例請看：|
+| subjects | 該問卷的題目跟答案 | **```"subjects": [{}, {}]```** | list | | subjects 資料範例請看：[data](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Questionnaire-subject-and-answer-options-data)|
 
 ## Example
 
