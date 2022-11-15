@@ -12,14 +12,7 @@
 X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
-## Required Fields
-- **svid**: questionnaire id.
-
-- **title**: questionnaire title.
-
-- **subjects**: questionnaire subjects and answer options data.
-
-## data 內欄位說明
+## Parameter 內欄位說明
 
 | **Parameter** | **Description** | **Sample** | **Data Type** | **Required** | Note |
 | :------: | ------ | ------ | ------ | ------ | ------ |
