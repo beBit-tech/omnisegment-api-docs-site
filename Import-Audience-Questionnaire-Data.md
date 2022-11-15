@@ -25,9 +25,11 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 ## Example
 
-
-```json
-{
+```
+curl --location --request POST 'https://omnisegment.com/api/v1/questionnaire/import-audience-questionnaire-data/?tid=OA-xxxxxx' \
+--header 'Content-Type: application/json' \
+--header 'X-OmniSegment_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
+--data-raw '{
     'svid': '12345678',
     'title': '服務滿意度問卷',
     'status': 'FINISH',
@@ -115,7 +117,6 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
             'sn': 12,
             'answer': ['2022-02-16'],
         }
-    ],
-}
-
+    ]
+}'
 ```
