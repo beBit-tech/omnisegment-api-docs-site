@@ -25,3 +25,5 @@ This is the Omnisegment API document.
 [[Tracking-Event-Report-APIs]]
 
 [[Interaction-Report-APIs]]
+
+[[API Error Handbook]]
