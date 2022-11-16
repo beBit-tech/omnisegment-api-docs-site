@@ -118,3 +118,13 @@ curl --location --request POST 'https://omnisegment.com/api/v1/questionnaire/imp
     ]
 }'
 ```
+
+## Response
+```
+{
+    'SUCCESS': True,
+    'PAYLOAD': {
+        'response_id': '3246a99e-80e9-4b98-bc19-d391d1dc402a'
+    }
+}
+```
