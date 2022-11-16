@@ -45,6 +45,12 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
          "province": "Kentucky",
          "province_code": "KY",
          "zip": "40003"
+      },
+      "promotion": {
+         "name": "promo1",
+         "date_start": "2022-11-01",
+         "date_end": "2022-11-30",
+         "promo_id": "123456",
       }
    }
 }'
@@ -81,12 +87,6 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
          "province": "Kentucky",
          "province_code": "KY",
          "zip": "40003"
-      },
-      "promotion": {
-         "name": "promo1",
-         "date_start": "2022-11-01",
-         "date_end": "2022-11-30",
-         "promo_id": "123456",
       }
    }
 }'
