@@ -37,6 +37,9 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
         "iso_code": "TW",
         "city": "Taipei",
         "country": "Taiwan",
+        "province": 'Natal',
+        "zip_code": '30084',
+        "address": 'National Taiwan University No. 1, Sec. 4, Roosevelt Rd. Da'an Dist., Taipei City 10617 R.O.C.',
         "register_type": "line"
     },
     "tid": "OA-xxxxxxxx",
@@ -78,6 +81,9 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
         "iso_code": "TW",
         "city": "Taipei",
         "country": "Taiwan",
+        "province": 'Natal',
+        "zip_code": '30084',
+        "address": 'National Taiwan University No. 1, Sec. 4, Roosevelt Rd. Da'an Dist., Taipei City 10617 R.O.C.',
         "register_type": "line"
     },
     "tid": "OA-xxxxxxxx",
@@ -117,6 +123,9 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 | sites | **`"sites": "site_a,site_b,site_c"`**<br>網站 | 產品自動帶入也與此欄位有關聯 | 網站 |
 | city | **`"city": "Taipei"`**<br>城市 | | 城市 |
 | country | **`"country": "Taiwan"`**<br>國家 | | 國家 |
+| province| **`"province": "Natal"`**<br>省/州 | | 省/州 |
+| zip_code| **`"zip_code": "30084"`**<br>郵遞區號| | 郵遞區號 |
+| address| **`"address": "National Taiwan University No. 1, Sec. 4, Roosevelt Rd. Da'an Dist., Taipei City 10617 R.O.C."`**<br>地址| | 地址|
 | register_type | **`"register_type": "line"`**<br>註冊管道 | | 註冊管道 |
 
 ## 其他欄位說明
