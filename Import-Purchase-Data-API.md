@@ -111,7 +111,7 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
 | quantities | **`"quantities": 2`**<br>訂單內商品總數量 | | 任一次購買產品數量 |
 | physical_store_name | **`"physical_store_name": "Fake Store"`**<br>線下商店名稱| | |
 | shipping_address | **`"shipping_address": <Shipping Address Object>"`**<br>寄送地址資訊|<Shipping Address Object> 資訊請見附錄| |
-| promotion | **`"promotion": <Promotion Object>"`**<br>promotion 資訊|<Promotion Object> 資訊請見附錄| |
+| promotion | **`"promotion": <Promotion Object>"`**<br>promotion 資訊|<Promotion Object> | |
 
 ## 附錄
 
