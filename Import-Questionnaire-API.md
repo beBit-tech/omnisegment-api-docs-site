@@ -18,7 +18,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | :------: | ------ | ------ | ------ | ------ | ------ |
 | svid | 問卷 ID（unique） | **`"svid": "12345678"`** | string | &#10004; | |
 | title | 問卷名稱 | **`"title": "服務滿意度問卷"`** | string | &#10004; | |
-| subjects | 該問卷的題目跟答案 | **```"subjects": [{}, {}]```** | list | | subjects 資料範例請看：[data](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Questionnaire-subject-and-answer-options-data)|
+| questions | 該問卷的題目跟答案 | **```"subjects": [{}, {}]```** | list | | subjects 資料範例請看：[data](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Questionnaire-subject-and-answer-options-data)|
 
 ## Example
 
@@ -29,7 +29,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/questionnaire/imp
 --data-raw '{
    "svid": "1234678",
    "title": "服務滿意度問卷",
-   "subjects": [
+   "questions": [
         {
             "sn": 0,
             "text": "單行文字",
