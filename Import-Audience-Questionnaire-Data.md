@@ -2,7 +2,7 @@
 * An API endpoint for import audience questionnaire data
 
 ## API URL
-* `https://omnisegment.com/api/v1/questionnaire/import-audience-questionnaire-data/?tid=OA-xxxxxx`
+* `https://omnisegment.com/api/v1/questionnaire/import-audience-answers/?tid=OA-xxxxxx`
 
 ## API Method
 * `POST`
@@ -21,7 +21,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | status | 問卷填寫狀態 | **`"status": "FINISH"`** | string | &#10004; | 如果沒有特別的狀況請給 “FINISH” |
 | submitTime | 問卷填寫時間 | **`"submitTime": "2022-02-16 08:30:20"`** | string | &#10004; | 如果沒帶時區會自動認定為 utc|
 | alias | 問卷額外資訊，用來提供 member_sn 的，以此告知是哪個 audience 填寫的 | **`"alias": {"omniuid": ["test_sn"]}`** | dict | &#10004; | 依照不同的 audience 給予 alias value 裡的 value 就好|
-| result | 該 audience 填寫問卷的結果 | **```"result": [{}, {}]```** | list | | result 資料範例請看：[example](https://github.com/beBit-tech/omnisegment-api-docs/wiki/%E5%A1%AB%E5%AF%AB%E5%95%8F%E5%8D%B7%E7%B5%90%E6%9E%9C%E7%AF%84%E4%BE%8B)|
+| answers | 該 audience 填寫問卷的結果 | **```"result": [{}, {}]```** | list | | result 資料範例請看：[example](https://github.com/beBit-tech/omnisegment-api-docs/wiki/%E5%A1%AB%E5%AF%AB%E5%95%8F%E5%8D%B7%E7%B5%90%E6%9E%9C%E7%AF%84%E4%BE%8B)|
 
 ## Example
 
@@ -37,7 +37,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/questionnaire/imp
     'alias': {
         'omniuid': ['test_sn']
     },
-    'result': [
+    'answers': [
         {
             'subject': '單行文字',
             'type': 'TXTSHORT',
