@@ -26,4 +26,4 @@ This is the Omnisegment API document.
 
 [[Interaction-Report-APIs]]
 
-[[API Error Handbook]]
+[[API Common Specifications]]
