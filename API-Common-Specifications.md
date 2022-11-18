@@ -1,4 +1,4 @@
-# API Error Handbook
+# API Common Specifications
 
 * Response status code
     * `502 Bad Gateway` `503 Service Unavailable` `504 Gateway timeout`
