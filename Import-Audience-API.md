@@ -7,7 +7,7 @@ example:
 
 # If your account support multi-site, you can use this curl.
 ```
-curl --location --request POST 'https://omnisegment.com/ma_audience/import-audience/' \
+curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-audience/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "data": {
@@ -52,7 +52,7 @@ curl --location --request POST 'https://omnisegment.com/ma_audience/import-audie
 
 # If your account not support multi-site, please use this curl.
 ```
-curl --location --request POST 'https://omnisegment.com/ma_audience/import-audience/' \
+curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-audience/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "data": {
