@@ -31,14 +31,16 @@
     {"SUCCESS": true, "PAYLOAD": "xxxxxx"}
     ```
     * Note:
-        the value of key **PAYLOAD** is the result of called api, and the value depends on each api specification
+        * the value of key **PAYLOAD** is the result of called api, and the value depends on each api specification
+        * include the status code (**200**)
 
 * Fail response format
     ```
     {"SUCCESS": false, "ERR_MSG": "xxxxxx"}
     ```
     * Note:
-        the value of key **ERR_MSG** is the result of called api, and the value depends on each api specification
+        * the value of key **ERR_MSG** is the result of called api, and the value depends on each api specification
+        * include the status code (**400**, **403**, **500**)
 
 ### Error response status code handbook
 
