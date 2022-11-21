@@ -25,6 +25,21 @@
     |---|---|
     |  10 requests per second | `https://api.omnisegment.com/api/v1/interaction-report/` <br/> `https://api.omnisegment.com/api/v1/tracking-event-report/`   <br/> `https://api.omnisegment.com/api/v1/products/import-event-registration-data/` <br/> `https://api.omnisegment.com/api/v1/products/import-product-guarantee-data/` <br/> `https://api.omnisegment.com/api/v1/products/import/` <br/> `https://api.omnisegment.com/api/import-gift-voucher/` <br/> `https://api.omnisegment.com/omnidata/show-market-report/` <br/> `https://api.omnisegment.com/api/import-purchase-data/` <br/> `https://api.omnisegment.com/ma_audience/import-audience/`|
 
+### General response
+* Success response format
+    ```
+    {"SUCCESS": true, "PAYLOAD": "xxxxxx"}
+    ```
+    * Note:
+        the value of key **PAYLOAD** is the response of called api, and the value depends on each api specification
+
+* Fail response format
+    ```
+    {"SUCCESS": false, "ERR_MSG": "xxxxxx"}
+    ```
+    * Note:
+        the value of key **ERR_MSG** is the response of called api, and the value depends on each api specification
+
 ### Error response status code handbook
 
 * `502 Bad Gateway` `503 Service Unavailable` `504 Gateway timeout`
