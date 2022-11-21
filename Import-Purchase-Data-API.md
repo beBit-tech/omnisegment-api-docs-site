@@ -17,7 +17,7 @@ An API endpoint for import audience's purchase history data
 ## Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/import-purchase-data/' \
+curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-data/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
    "tid": "OA-xxxxxx",
@@ -59,7 +59,7 @@ curl --location --request POST 'https://omnisegment.com/api/import-purchase-data
 ## Example with multiple types of product id
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/import-purchase-data/' \
+curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-data/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
    "tid": "OA-xxxxxx",
