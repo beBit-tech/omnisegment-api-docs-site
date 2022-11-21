@@ -5,7 +5,7 @@
 ##### example:
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/import-gift-voucher/' \
+curl --location --request POST 'https://api.omnisegment.com/api/import-gift-voucher/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "data": {
