@@ -34,7 +34,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 curl --location --request POST 'https://omnisegment.com/api/v1/interaction-report/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
---header 'X-OmniSegment_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "report_name": "八月報告",
     "start_date": "2022-08-01",
@@ -77,7 +77,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 ```
 curl --location --request GET 'https://omnisegment.com/api/v1/interaction-report/?tid=OA-xxxxxx' \
---header 'X-OmniSegment_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 ```
 
 ## Response
@@ -132,7 +132,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 ```
 curl --location --request GET 'https://omnisegment.com/api/v1/interaction-report/123/?tid=OA-XXXXXXX' \
---header 'X-OmniSegment_Api_Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 ```
 
 ## Response
