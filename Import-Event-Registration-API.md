@@ -2,7 +2,7 @@
 * An API endpoint for import event registration data
 
 ## API URL
-* `https://omnisegment.com/api/v1/products/import-event-registration-data/`
+* `https://api.omnisegment.com/api/v1/products/import-event-registration-data/`
 
 ## API Method
 * `POST`
@@ -37,7 +37,7 @@
 ## Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/v1/products/import-event-registration-data/' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/products/import-event-registration-data/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
    "tid": "OA-xxxxxx",
