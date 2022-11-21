@@ -1,7 +1,7 @@
 
 ### Sample:
 ```
-curl --location --request POST 'https://omnisegment.com/omnidata/show-market-report/' \
+curl --location --request POST 'https://api.omnisegment.com/omnidata/show-market-report/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "data": {
@@ -44,7 +44,7 @@ curl --location --request POST 'https://omnisegment.com/omnidata/show-market-rep
 ```
 ### Url: 
 
-```https://omnisegment.com/omnidata/show-market-report/```
+```https://api.omnisegment.com/omnidata/show-market-report/```
 
 ### Input:
 * api_key: "xxxxxx-xxxxxxx-xxxxxx"
