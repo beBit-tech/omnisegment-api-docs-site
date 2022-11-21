@@ -6,7 +6,7 @@
 ## Example
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/v1/products/import/' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/products/import/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "data": {
@@ -29,7 +29,7 @@ curl --location --request POST 'https://omnisegment.com/api/v1/products/import/'
 ## Example with multiple ids
 
 ```
-curl --location --request POST 'https://omnisegment.com/api/v1/products/import/' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/products/import/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "data": {
