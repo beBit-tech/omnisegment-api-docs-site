@@ -174,3 +174,16 @@ curl --location --request GET 'https://api.omnisegment.com/api/v1/interaction-re
 | click | 是否點擊 | **`"click": true `** | bool | |
 | click_time | 點擊時間 | **`"click_time": ["2022-08-12 23:24:13+00"] `** | string | |
 | click_link | 點擊連結 | **`"click_link": ["https://do-not-click"] `** | string | |
+| email_status | email最後狀態 | **`"email_status": "sent" `** | string | 只有 channel_type 是 EMAIL 時才會有這資料。 包含 `sent, open, click, bounce, blocked, unsub, spam`|
+
+#### Email status
+
+| **email_status** | **Description** |
+| :------: | ------ | 
+| sent | Message has been successfully delivered to the receiving server. |
+| open | Recipient has opened the HTML message. Open Tracking needs to be enabled for this type of event. |
+| click | Recipient clicked on a link within the message. Click Tracking needs to be enabled for this type of event. |
+| bounce | Receiving server could not or would not accept mail to this recipient permanently. If a recipient has previously unsubscribed from your emails, the message is dropped. |
+| blocked | Receiving server could not or would not accept the message temporarily. If a recipient has previously unsubscribed from your emails, the message is dropped. |
+| unsub | Recipient clicked on the 'Opt Out of All Emails' link (available after clicking the message's subscription management link). Subscription Tracking needs to be enabled for this type of event. |
+| spam | Recipient marked message as spam. |
