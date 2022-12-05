@@ -19,7 +19,7 @@
  "member_pii": "<Personal Info upload destination in GCS>",
  "api_key": "xxxxxx-xxxxxxx-xxxxxx",
  "credential":{
- <short-lived-credential>
+ "<short-lived-credential>"
 }
 }
 ```
