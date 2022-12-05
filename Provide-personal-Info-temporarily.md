@@ -18,11 +18,14 @@
  "member_raw": "<csv file in GCS>"
  "member_pii": "<Personal Info upload destination in GCS>",
  "api_key": "xxxxxx-xxxxxxx-xxxxxx",
+ "credential":{
+ <short-lived-credential>
+}
 }
 ```
 
 ## Authentication for read and upload
-- **Google cloud service account key file**
+- **Google cloud service account short-lived credential**
 
 
 ## csv file description
