@@ -18,9 +18,7 @@
  "member_raw": "<csv file in GCS>"
  "member_pii": "<Personal Info upload destination in GCS>",
  "api_key": "xxxxxx-xxxxxxx-xxxxxx",
- "credential":{
- "<short-lived-credential>"
-}
+ "credential": "<short-lived-credential>"
 }
 ```
 
