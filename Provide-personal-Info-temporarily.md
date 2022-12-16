@@ -15,8 +15,8 @@
 ## request body
 ```json
 {
- "member_raw": "<csv file in GCS>"
- "member_pii": "<Personal Info upload destination in GCS>",
+ "member_raw": "<csv file in sFTP>"
+ "member_pii": "<Personal Info upload destination in sFTP>",
  "api_key": "xxxxxx-xxxxxxx-xxxxxx"
 }
 ```
