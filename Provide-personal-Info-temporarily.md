@@ -3,7 +3,7 @@
 
 ###  1. (Customer) Setup your workflow in Omnisegment.
 ###  2. Omnisegment send a request to customer's API endpoint during the flow.
-###  3. (Customer) Upload required personal info to GCS. (3 hours timeout)
+###  3. (Customer) Upload required personal info to sFTP. (3 hours timeout)
 ###  4. Personal info deleted after Omnisegment workflow complete.
 
 ## API URL
@@ -17,13 +17,9 @@
 {
  "member_raw": "<csv file in GCS>"
  "member_pii": "<Personal Info upload destination in GCS>",
- "api_key": "xxxxxx-xxxxxxx-xxxxxx",
- "credential": "<short-lived-credential>"
+ "api_key": "xxxxxx-xxxxxxx-xxxxxx"
 }
 ```
-
-## Authentication for read and upload
-- **Google cloud service account short-lived credential**
 
 
 ## csv file description
