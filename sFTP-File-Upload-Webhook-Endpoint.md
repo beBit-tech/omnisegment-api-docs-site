@@ -14,7 +14,7 @@
 | **Parameter** | **Description** | **Sample** | **Data Type** | **Required** | Note |
 | :------: | ------ | ------ | ------ | ------ | ------ |
 | file_name| File name. | **`"file_name": "71b04d6d-4389-4d07-836c-6fc2eacff8b4.csv"`** | string | &#10004; | The file name need to be identifiable, maybe can use uuid. |
-| file_type| File type. | **`"file_type": "Batch PII"`** | string | &#10004; | `Batch PII`, `Batch Audiences`, `Batch Product Registration` |
+| file_type| File type. | **`"file_type": "Batch PII"`** | string | &#10004; | `BatchPII`, `BatchAudiences`, `BatchProduct` |
 | status| The file upload status. | **`"status": "Completed"`** | string | &#10004; | `Completed`, `Running` |
 
 ### Example
