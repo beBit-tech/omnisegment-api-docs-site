@@ -14,7 +14,7 @@
 * `POST`
 
 ## request headers
-* `X-Omnisegment-Signature: aoiI7rzggFTAfLObAGBE3eF1zYy5zdtw8iGKiNMiRB8=`
+* `X-Omnisegment-Signature: <signature>`
  >  You need to verify signature to confirm that the request was sent from the OmniSegment.
 ### code example in python
 ```
@@ -27,6 +27,7 @@ api_key = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 body = {"member_raw": "/path/to/sFTP/member_raw_file.csv", "member_pii": "/path/to/sFTP/member_pii_file.csv", "upload_id": "cc411a94-2375-45fa-9b13-bc50394e791a"} # the request body
 hash = hmac.new(str(api_key).encode('utf-8'), json.dumps(body, sort_keys=True).encode('utf-8'), hashlib.sha256).digest()
 signature = base64.b64encode(hash)
+
 # Compare X-Omnisegment-Signature request header and the signature
 ```
 
@@ -35,7 +36,7 @@ signature = base64.b64encode(hash)
 {
  "member_raw": "<csv file in sFTP>"
  "member_pii": "<Personal Info upload destination in sFTP>",
- "upload_id": "cc411a94-2375-45fa-9b13-bc50394e791a"
+ "upload_id": "<The memeber_raw unique id in sFTP>"
 }
 ```
 
