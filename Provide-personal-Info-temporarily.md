@@ -14,7 +14,7 @@
 * `POST`
 
 ## request headers
-* `X-Omnisegment-Signature: <signature>`
+* `X-Omnisegment-Signature: <signature for verify>`
  >  You need to verify signature to confirm that the request was sent from the OmniSegment.
 ### code example in python
 ```
