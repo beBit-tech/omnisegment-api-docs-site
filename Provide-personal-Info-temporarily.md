@@ -15,8 +15,7 @@
 
 ## request headers
 * `X-Omnisegment-Signature: aoiI7rzggFTAfLObAGBE3eF1zYy5zdtw8iGKiNMiRB8=`
-### describtion
- - You need to verify signature to confirm that the request was sent from the OmniSegment.
+ >  You need to verify signature to confirm that the request was sent from the OmniSegment.
 ### code example in python
 ```
 import base64
