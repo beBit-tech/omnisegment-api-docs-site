@@ -104,7 +104,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-
 | transaction_status | **`"transaction_status": "SUCCESS"`**<br>訂單狀態 | 不傳預設狀態為 "SUCCESS", 可接受之狀態選項有 "SUCCESS", "CANCEL", "REFUND", "FAIL", "SHIPPED", "PAID" | |
 | products | **`"products": "1,2"`**<br>此訂單內包含的商品ID，若訂單內有多筆商品則以`,`分隔。<br><br>此欄位的值也可以是一個 object，用來表示該商品在各個不同系統中的 id，例如：**`"products": {"default": "1,2", "CRM": "crm_id1,crm_id2", "ERP": "erp_id1,erp_id2"}`**<br>若傳入以上內容，OmniSegment 會以 `default` 內的 id 來對應，並且將 `CRM` 以及 `ERP` 內的 id 紀錄起來(順序必須跟 `default` 一致)。 | 若OmniSegment 沒有則會自動建立, 商品名稱預設為這邊的商品ID| 購買產品名稱 |
 | products_quantity | **`"products_quantity": "1,1"`**<br>此訂單內每個商品的數量，若訂單內有多筆商品則以`,`分隔，這邊會對應products 的順序。 | products 不可為空 |
-| coupon | **`"Coupon": "couponABC"`**<br>優惠名稱 |
+| coupon | **`"coupon": "couponABC"`**<br>優惠名稱 |
 | source | **`"source": “Facebook"`**<br>來源名稱| | 最後來源 |
 | device | **`"device": "Android"`**<br>此訂單來自哪個裝置 | 目前只接受 PC, Android, Iphone, Ipad, MobileWeb 這四種形式，大小寫皆可 |
 | user_agent | **`"user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36"`**<br>使用者代理，這邊可以清楚知道使用者是透過什麼工具來產生這筆訂單（電腦系統、瀏覽器、瀏覽器版本等） |
