@@ -97,7 +97,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-
 | **必填欄位** | **說明** | **備註** | **『歷史資料追蹤』節點當中的應用** |
 | :------: | ------ | ------ | ------ | 
 | member_sn | **`"member_sn": 1`**<br>會員編號 |
-| datetime | **`"datetime": "2013-06-27T08:48:27-04:00"`**<br>訂單日期, 日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> | | 最後轉換時間 |
+| datetime | **`"datetime": "2022-12-08T09:51:23+0800"`**<br>訂單日期, 日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> | | 最後轉換時間 |
 | transaction_id | **`"transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1"`**<br>訂單ID |
 | transaction_revenue | **`"transaction_revenue": 5000`**<br>訂單總金額 | | - 最後一次消費金額<br>- 總金額<br>- 平均花費|
 | **<br>選填欄位<br><br>** | | |
