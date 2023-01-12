@@ -1,7 +1,7 @@
 ## When customer uploaded file to sFTP succeed and completed, call this api to let us know.
 
 ## API URL
-* `https://api.omnisegment.com/api/v1/sftp-file-upload-status/?tid=OA-xxxxxx`
+* `https://api.omnisegment.com/api/v1/sftp/file-upload-status/?tid=OA-xxxxxx`
 
 ## API Method
 * `POST`
@@ -21,7 +21,7 @@
 
 ### Example
 ```
-curl --location --request POST 'https://api.omnisegment.com/api/v1/sftp-file-upload-status/?tid=OA-xxxxxx' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/sftp/file-upload-status/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
@@ -33,7 +33,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/sftp-file-upl
 ```
 
 ```
-curl --location --request POST 'https://api.omnisegment.com/api/v1/sftp-file-upload-status/?tid=OA-xxxxxx' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/sftp/file-upload-status/?tid=OA-xxxxxx' \
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
