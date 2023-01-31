@@ -15,7 +15,9 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-gift-vouc
         "amount": 999,
         "valid_from": "2020-03-03",
         "valid_util": "2021-03-03",
-        "is_redeemed": false
+        "is_redeemed": false,
+        "category": "coupon"
+
     },
     "tid": "OA-xxxxxxxx",
     "api_key": "xxxxxx-xxxxxxx-xxxxxx",
@@ -28,10 +30,11 @@ If Organization dose not have multi sites, site field can be None or null.
 
 |          欄位           | 說明                                     | 備註                                        |
 |:-----------------------:| ---------------------------------------- | ------------------------------------------- |
-|       voucher_id| 購物金的 id| string，此為唯一值，必填                                   |
-|      member_sn| 會員的編碼| string，必填                   |
-|       voucher_type| 購物金類別|string
-|      amount| 購物金金額|  int，必填 |
+|       voucher_id| id| string，此為唯一值，必填                                   |
+|      member_sn| 會員編號| string，必填                   |
+|       voucher_type| 類型|string
+|      amount| 金額/點數|  int，必填 |
 |    valid_from| 發放日期| string |
-|      valid_util| 購物金到期日| string，必填|
-|      is_redeemed| 購物金是否使用了| boolean，選填|
+|      valid_util| 到期日| string，必填|
+|      is_redeemed| 已使用| boolean，選填|
+|      category| 分類（Ex: giftvoucher, coupon......）| string，選填|
