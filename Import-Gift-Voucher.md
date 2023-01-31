@@ -32,7 +32,7 @@ If Organization dose not have multi sites, site field can be None or null.
 |:-----------------------:| ---------------------------------------- | ------------------------------------------- |
 |       voucher_id| id| string，此為唯一值，必填                                   |
 |      member_sn| 會員編號| string，必填                   |
-|       voucher_type| 類型|string
+|       voucher_type| 名稱|string
 |      amount| 金額/點數|  int，必填 |
 |    valid_from| 發放日期| string |
 |      valid_util| 到期日| string，必填|
