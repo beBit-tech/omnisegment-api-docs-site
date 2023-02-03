@@ -76,6 +76,7 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
         "is_subscriber_sms": true,
         "is_subscriber_pn": true,
         "is_active": true,
+        "is_headless_account": false,
         "crm_pk": "1",
         "tags": "tag_a,tag_b,tag_c",
         "iso_code": "TW",
@@ -94,12 +95,12 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
 
 ## data內欄位說明
 | **必填欄位** | **說明** | **備註** | **『使用者資料』節點當中的應用** |
-| :------: | ------ | ------ | ------ | 
-| member_sn | **`"member_sn": 1`**<br>會員編號 |
-| **<br>選填欄位<br><br>** | | |
+| :------: | ------ | ------ | ------ |
+| member_sn | **`"member_sn": 1`**<br>會員編號 |||
+| **<br>選填欄位<br><br>** | | ||
 | name | **`"name": "Eason Lee"`**<br>姓名 | - 若沒有給name這個Key, 則會以first_name + last_name 的值代替<br>- 可於editor中帶入個人化資訊 | |
-| first_name | **`"first_name": "Eason"`**<br>名字 | 可於editor中帶入個人化資訊 |
-| last_name | **`"last_name": "Lee"`**<br>姓氏 | 可於editor中帶入個人化資訊 |
+| first_name | **`"first_name": "Eason"`**<br>名字 | 可於editor中帶入個人化資訊 ||
+| last_name | **`"last_name": "Lee"`**<br>姓氏 | 可於editor中帶入個人化資訊 ||
 | email | **`"email": "eason@demo.com"`**<br>信箱| 可於editor中帶入個人化資訊 | - 電子信箱<br>- 是否有Email地址 |
 | phone | **`"phone": "+886912345678"`**<br>手機 | 可於editor中帶入個人化資訊 | - 電話<br>- 是否有電話號碼 |
 | member_level | **`"member_level": "1"`**<br>會員等級 | | 會員等級 |
@@ -117,6 +118,7 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
 | is_subscriber_line | **`"is_subscriber_line": true`**<br>是否訂閱 LINE | | 是否訂閱 LINE |
 | is_subscriber_pn | **`"is_subscriber_pn": true`**<br>是否訂閱 推播通知 | | 是否訂閱 推播通知 |
 | is_active | **`"is_active": true`**<br> | | |
+| is_headless_account | **`"is_headless_account: false"`** | 無頭會員有可能被合併到有頭會員 | 是否為無頭會員 |
 | crm_pk | **`"crm_pk": "1"`**<br> | | |
 | tags | **`"tags": "tag_a,tag_b,tag_c"`**<br>標籤 | 若有多個標籤則以`,`分隔 | 標籤 |
 | iso_code | **`"iso_code": "TW"`**<br>國碼, 國碼遵循 <a href="https://zh.wikipedia.org/wiki/國家地區代碼">國家地區代碼</a> | | 國碼 |
