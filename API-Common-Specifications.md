@@ -19,7 +19,7 @@
     | body with key `api_key` | `https://api.omnisegment.com/api/v1/products/import-event-registration-data/` <br/> `https://api.omnisegment.com/api/v1/products/import-product-guarantee-data/` <br/> `https://api.omnisegment.com/api/v1/products/import/` <br/> `https://api.omnisegment.com/api/import-gift-voucher/` <br/> `https://api.omnisegment.com/omnidata/show-market-report/` <br/> `https://api.omnisegment.com/api/import-purchase-data/` <br/> `https://api.omnisegment.com/ma_audience/import-audience/` | `"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"` |
 
 ### Rate limit
-* Make sure to comply with the specification of the rate limit for each endpoint
+* Here is the list of the rate limit for each endpoint. If you exceed the allowed rate limit, the API may return `429 (Too Many Requests)` error code. Please ensure that your requests to the API are within the specified rate limit.
 
     | rate limit  | endpoint   |  
     |---|---|
