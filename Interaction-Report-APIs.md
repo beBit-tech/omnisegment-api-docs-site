@@ -167,13 +167,12 @@ curl --location --request GET 'https://api.omnisegment.com/api/v1/interaction-re
 | channel_type | 頻道編號 | **`"channel_type": "EMAIL" `** | string | |
 | template_id | 素材 ID | **`"template_id": 111 `** | int | |
 | template_name | 素材名稱 | **`"template_name": "八月壽星" `** | string | |
-| delivery_time | 發送時間 | **`"delivery_time": "2022-08-12 23:23:45+0000" `** | string | |
+| delivery_time | 發送時間 | **`"delivery_time": "2022-08-12 23:23:45+00" `** | string | |
 | template_title | 主旨 | **`"template_title": "恭喜您生日～" `** | string | 只有 channel_type 是 EMAIL 時才會有這資料 |
 | open | 是否開啟 | **`"open": true `** | bool | 只有 channel_type 是 EMAIL 時才會有這資料 |
-| open_time | 開啟時間 | **`"open_time": ["2022-08-12 23:23:45+00"] `** | string | 只有 channel_type 是 EMAIL 時才會有這資料 |
+| open_time | 開啟時間 | **`"open_time": ["2022-08-12 23:23:45+00"] `** | list with string | 只有 channel_type 是 EMAIL 時才會有這資料，若沒有 `open_time` 資料時為 `null` |
 | click | 是否點擊 | **`"click": true `** | bool | |
-| click_time | 點擊時間 | **`"click_time": ["2022-08-12 23:24:13+00"] `** | string | |
-| click_link | 點擊連結 | **`"click_link": ["https://do-not-click"] `** | string | |
+| click_event | 點擊事件 | **`"click_event": [{"click_time": "2022-08-12 23:24:13+00", "click_link": "https://do-not-click"}]`** | list with dict object | `click_time` (點擊時間), `click_link` (點擊連結)，若沒有 `click_event` 資料時為 `null` |
 | email_status | email最後狀態 | **`"email_status": "sent" `** | string | 只有 channel_type 是 EMAIL 時才會有這資料。 包含 `sent, open, click, bounce, blocked, unsub, spam`|
 
 #### Email status
