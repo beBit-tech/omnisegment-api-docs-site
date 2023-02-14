@@ -144,7 +144,7 @@ curl --location --request GET 'https://api.omnisegment.com/api/v1/interaction-re
 | report_url | Report URL |  | string |  |
 
 ### Note
- - report 狀態為 SUCCESS，才會有 url 資料
+ - report 狀態為 SUCCESS，才會有 url 資料 (json file)
 
 ### Example
 
@@ -154,7 +154,7 @@ curl --location --request GET 'https://api.omnisegment.com/api/v1/interaction-re
     "PAYLOAD": {
         "report_name": "八月報告",
         "status": "SUCCESS",
-        "report_url": "https://xxx/xxx/xxx/xxx/xxx.csv"
+        "report_url": "https://xxx/xxx/xxx/xxx/xxx.json"
     }
 }
 ```
@@ -186,3 +186,16 @@ curl --location --request GET 'https://api.omnisegment.com/api/v1/interaction-re
 | blocked | Receiving server could not or would not accept the message temporarily. If a recipient has previously unsubscribed from your emails, the message is dropped. |
 | unsub | Recipient clicked on the 'Opt Out of All Emails' link (available after clicking the message's subscription management link). Subscription Tracking needs to be enabled for this type of event. |
 | spam | Recipient marked message as spam. |
+
+#### JSON Report File Sample
+```json
+{"member_sn":"demo_1","channel_type":"email","template_name":"Demo Email Template","template_id":29,"template_title":"Demo Email Title","delivery_time":"2022-12-31 16:00:00+00","open":true,"open_time":["2023-01-01 16:00:00+00","2023-01-01 16:00:00+00"],"click":true,"click_event":[{"click_link":"https:\/\/test-email-link-2","click_time":"2023-01-01 16:00:00+00"},{"click_link":"https:\/\/test-email-link","click_time":"2022-12-31 16:00:00+00"}],"email_status":null}
+{"member_sn":"demo_10","channel_type":"email","template_name":"Demo Email Template","template_id":29,"template_title":"Demo Email Title","delivery_time":"2022-12-31 16:00:00+00","open":false,"open_time":null,"click":false,"click_event":null,"email_status":null}
+{"member_sn":"demo_100","channel_type":"email","template_name":"Demo Email Template","template_id":29,"template_title":"Demo Email Title","delivery_time":"2022-12-31 16:00:00+00","open":false,"open_time":null,"click":false,"click_event":null,"email_status":null}
+{"member_sn":"demo_201","channel_type":"line","template_name":"Demo Line Template","template_id":28,"template_title":null,"delivery_time":"2022-12-31 16:00:00+00","open":false,"open_time":null,"click":true,"click_event":[{"click_link":"https:\/\/test-line-link","click_time":"2022-12-31 16:00:00+00"}],"email_status":null}
+{"member_sn":"demo_202","channel_type":"line","template_name":"Demo Line Template","template_id":28,"template_title":null,"delivery_time":"2022-12-31 16:00:00+00","open":false,"open_time":null,"click":false,"click_event":null,"email_status":null}
+{"member_sn":"demo_203","channel_type":"line","template_name":"Demo Line Template","template_id":28,"template_title":null,"delivery_time":"2022-12-31 16:00:00+00","open":false,"open_time":null,"click":false,"click_event":null,"email_status":null}
+{"member_sn":"demo_101","channel_type":"sms","template_name":"Demo SMS Template","template_id":30,"template_title":null,"delivery_time":"2022-12-31 16:00:00+00","open":false,"open_time":null,"click":true,"click_event":[{"click_link":"https:\/\/test-sms-link","click_time":"2022-12-31 16:00:00+00"}],"email_status":null}
+{"member_sn":"demo_102","channel_type":"sms","template_name":"Demo SMS Template","template_id":30,"template_title":null,"delivery_time":"2022-12-31 16:00:00+00","open":false,"open_time":null,"click":false,"click_event":null,"email_status":null}
+{"member_sn":"demo_103","channel_type":"sms","template_name":"Demo SMS Template","template_id":30,"template_title":null,"delivery_time":"2022-12-31 16:00:00+00","open":false,"open_time":null,"click":false,"click_event":null,"email_status":null}
+```
