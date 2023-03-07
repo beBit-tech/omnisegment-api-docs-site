@@ -10,8 +10,9 @@ An API endpoint for import audience's purchase history data
 
 - data: Purchase data content.
 
-  - Allowed fields: `['member_sn', 'datetime', 'transaction_id', 'transaction_revenue', 'transaction_status', products', 'products_quantity', 'coupon', 'source', 'device', 'user_agent', 'quantities', 'physical_store_name', 'shipping_address']`
+  - Allowed fields: `['member_sn', 'datetime', 'transaction_id', 'transaction_revenue', 'transaction_status', products', 'products_quantity', 'coupon', 'source', 'device', 'user_agent', 'quantities', 'physical_store_name', 'shipping_address', 'voucher']`
     - Allowed fields for `shipping_address`: `['address1', 'address2', 'city', 'company', 'country', 'country_code', 'latitude', 'longitude', 'province', 'province_code', 'zip']`
+    - Allowed fields for `voucher`: `['voucher_name']`
   - Required fields: `member_sn`, `datetime`, `transaction_id` and `transaction_revenue`
 
 ## Example
@@ -46,11 +47,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-
          "province_code": "KY",
          "zip": "40003"
       },
-      "promotion": {
-         "name": "promo1",
-         "date_start": "2022-11-01",
-         "date_end": "2022-11-30",
-         "promo_id": "123456",
+      "voucher": {
+         "voucher_name" : "birthday_gift"
       }
    }
 }'
@@ -87,6 +85,9 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-
          "province": "Kentucky",
          "province_code": "KY",
          "zip": "40003"
+      },
+      "voucher": {
+         "voucher_name" : "birthday_gift"
       }
    }
 }'
@@ -111,7 +112,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-
 | quantities | **`"quantities": 2`**<br>訂單內商品總數量 | | 任一次購買產品數量 |
 | physical_store_name | **`"physical_store_name": "Fake Store"`**<br>線下商店名稱| | |
 | shipping_address | **`"shipping_address": <Shipping Address Object>"`**<br>寄送地址資訊|<Shipping Address Object> 資訊請見附錄| |
-| promotion | **`"promotion": <Promotion Object>"`**<br>promotion 資訊|<Promotion Object> | |
+| voucher | **`"voucher": <Voucher Object>"`**<br>voucher 資訊|<Voucher Object> | |
 
 ## 附錄
 
@@ -148,3 +149,17 @@ Example
 | province | `"province": "Kentucky"`<br>州 | | |
 | province_code| `"province_code": "KY"`<br>州碼 | | |
 | zip | `"zip": "40003"`<br>郵遞區號 | | |
+
+### Voucher Object
+
+Example
+
+```
+{
+    "voucher_name" : "birthday_gift"
+}
+```
+
+| **選填欄位** | **說明** | **備註** |
+| :------: | ------ | ------ |
+| voucher_name | `"voucher_name": "My Voucher Name"`<br>購物金名稱 | |
