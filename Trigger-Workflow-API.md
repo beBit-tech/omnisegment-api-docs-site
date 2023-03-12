@@ -1,4 +1,4 @@
-## Trriger Workflow
+## Trriger Workflow API
 
 ### Endpoint
 
