@@ -6,7 +6,6 @@ key的範例
 example:
 
 # If your account support multi-site, you can use this curl.
-# In this case, there should be a custom field named 優惠券 (JSON type) with 名稱 (Char), 金額 (Decimal), 是否 (Boolean), 到期日 (Date), 時間(Datetime) as its subfields
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-audience/' \
@@ -50,7 +49,7 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
     "ignore_empty_value": true
 }'
 ```
-
+# In this case, there should be a custom field named 優惠券 (JSON type) with 名稱 (Char), 金額 (Decimal), 是否 (Boolean), 到期日 (Date), 時間(Datetime) as its subfields
 ---------------------------------------
 
 # If your account not support multi-site, please use this curl.
