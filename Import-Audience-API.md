@@ -175,7 +175,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/audiences/bat
 ```
 
 
-## data內欄位說明
+## data內欄位說明(在batch data request中指data array中的每一個json object)
 | **必填欄位** | **說明** | **備註** | **『使用者資料』節點當中的應用** |
 | :------: | ------ | ------ | ------ |
 | member_sn | **`"member_sn": 1`**<br>會員編號 |||
