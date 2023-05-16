@@ -96,6 +96,7 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
 }'
 ```
 # Batch data request example
+* Maximum number of audience in a batch request should not be larger than 50
 ```
 curl --location --request POST 'https://api.omnisegment.com/api/v2/audiences/batch-import/' \
 --header 'Content-Type: application/json' \
