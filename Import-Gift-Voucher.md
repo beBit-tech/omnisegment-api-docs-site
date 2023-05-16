@@ -33,7 +33,7 @@
 
 
 #### single data example:
-> The sigle data rate limiter is 30 request/s.
+> Rate limit of single data request: 30 request/s.
 ```
 curl --location --request POST 'https://api.omnisegment.com/api/import-gift-voucher/' \
 --header 'Content-Type: application/json' \
@@ -55,7 +55,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-gift-vouc
 ```
 
 #### batch data example:
-> The batch data maximum size is 100. And the rate limiter is 10 request/s.
+> The batch data maximum size is 100. And rate limit is 10 request/s.
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/api/import-gift-voucher/' \
