@@ -53,7 +53,7 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
 # In this case, there should be a custom field named 優惠券 (JSON type) with 名稱 (Char), 金額 (Decimal), 是否 (Boolean), 到期日 (Date), 時間(Datetime) as its subfields
 ---------------------------------------
 
-# If your account not support multi-site, please use this curl.
+# If your account does not support multi-site, please use this curl.
 ```
 curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-audience/' \
 --header 'Content-Type: application/json' \
