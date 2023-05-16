@@ -95,6 +95,85 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
     "ignore_empty_value": true
 }'
 ```
+# Batch data request example
+```
+curl --location --request POST 'https://api.omnisegment.com/api/v2/audiences/batch-import/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "data": [
+        {
+        "member_sn": "1",
+        "name": "Eason Lee",
+        "first_name": "Eason",
+        "last_name": "Lee",
+        "email": "eason@demo",
+        "phone": "+886912345678",
+        "member_level": "1",
+        "sex": "female",
+        "birthday": "1990-01-01",
+        "register_date": "2020-6-4",
+        "facebook_id": "facebook_id",
+        "google_id": "google_id",
+        "line_id": "line_id",
+        "fcm_token": "fcm_token",
+        "apns_token": "apns_token",
+        "is_subscriber": true,
+        "is_subscriber_line": true,
+        "is_subscriber_sms": true,
+        "is_subscriber_pn": true,
+        "is_active": true,
+        "is_headless_account": false,
+        "crm_pk": "1",
+        "tags": "tag_a,tag_b,tag_c",
+        "iso_code": "TW",
+        "city": "Taipei",
+        "country": "Taiwan",
+        "province": 'Natal',
+        "zip_code": '30084',
+        "address": 'National Taiwan University No. 1, Sec. 4, Roosevelt Rd. Da'an Dist., Taipei City 10617 R.O.C.',
+        "register_type": "line"
+         },
+        {
+        "member_sn": "2",
+        "name": "Lebron James",
+        "first_name": "Lebron",
+        "last_name": "James",
+        "email": "lebron@demo",
+        "phone": "+886912345677",
+        "member_level": "2",
+        "sex": "male",
+        "birthday": "1990-01-01",
+        "register_date": "2020-6-4",
+        "facebook_id": "facebook_id",
+        "google_id": "google_id",
+        "line_id": "line_id",
+        "fcm_token": "fcm_token",
+        "apns_token": "apns_token",
+        "is_subscriber": true,
+        "is_subscriber_line": true,
+        "is_subscriber_sms": true,
+        "is_subscriber_pn": true,
+        "is_active": true,
+        "is_headless_account": false,
+        "crm_pk": "1",
+        "tags": "tag_a,tag_b,tag_c",
+        "iso_code": "TW",
+        "city": "Taipei",
+        "country": "Taiwan",
+        "province": 'Natal',
+        "zip_code": '30084',
+        "address": 'National Taiwan University No. 1, Sec. 4, Roosevelt Rd. Da'an Dist., Taipei City 10617 R.O.C.',
+        "register_type": "line",
+        "優惠券": [{"名稱":"V6","金額":1000,"是否":true,"到期日":"2023-03-31 13:47:06","時間":"2023-03-20 13:47:17"}]
+         }
+    ]
+    "tid": "OA-xxxxxxxx",
+    "api_key": "xxxxxx-xxxxxxx-xxxxxx",
+    "ignore_empty_value": true,
+    "tag_mode": "replace"
+}'
+```
+
 
 ## data內欄位說明
 | **必填欄位** | **說明** | **備註** | **『使用者資料』節點當中的應用** |
