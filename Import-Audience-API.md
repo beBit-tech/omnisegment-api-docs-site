@@ -112,7 +112,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/audiences/bat
         "member_level": "1",
         "sex": "female",
         "birthday": "1990-01-01",
-        "register_date": "2020-6-4",
+        "register_date": "2020-06-04T08:30:37.235482+08:00",
         "facebook_id": "facebook_id",
         "google_id": "google_id",
         "line_id": "line_id",
@@ -144,7 +144,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/audiences/bat
         "member_level": "2",
         "sex": "male",
         "birthday": "1990-01-01",
-        "register_date": "2020-6-4",
+        "register_date": "2020-06-04T08:30:37.235482+08:00",
         "facebook_id": "facebook_id",
         "google_id": "google_id",
         "line_id": "line_id",
@@ -189,7 +189,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/audiences/bat
 | member_level | **`"member_level": "1"`**<br>會員等級 | | 會員等級 |
 | sex | **`"sex": "male"`**<br>**`"sex": "female"`**<br>性別<br>男: male<br>女: female | | 性別 |
 | birthday | **`"birthday": "1990-01-01"`**<br>生日 | | 年齡 |
-| register_date | **`"register_date": "2020-6-4"`**<br>註冊日期 | | 註冊日期 |
+| register_date | **`"register_date": "2020-06-04T08:30:37.235482+08:00"`**<br>註冊日期 | | 註冊日期 |
 | facebook_id | **`"facebook_id": "facebook_id"`**<br> facebook id | | |
 | google_id | **`"google_id": "google_id"`**<br> google id | | |
 | line_id | **`"line_id": "line_id"`**<br> line id | | 是否有Line id |
