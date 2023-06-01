@@ -93,6 +93,75 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-
 }'
 ```
 
+## Example of batch import api
+
+```
+curl --location --request POST 'https://api.omnisegment.com/api/v2/purchase/batch-import/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "tid": "OA-xxxxxx",
+   "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+   "data": [
+     {
+      "member_sn": 1,
+      "transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1",
+      "datetime": "2020-1-1 0:0:0",
+      "products": "1,2",
+      "quantities": 2,
+      "products_quantity": "1,1",
+      "transaction_revenue": 5000.0,
+      "transaction_status": "SUCCESS",
+      "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",
+      "physical_store_name": "Fake Store",
+      "shipping_address": {
+         "address1": "123 Shipping Street",
+         "address2": null,
+         "city": "Shippington",
+         "company": "Shipping Company",
+         "country": "United States",
+         "country_code": "US",
+         "latitude": null,
+         "longitude": null,
+         "province": "Kentucky",
+         "province_code": "KY",
+         "zip": "40003"
+      },
+      "voucher": [
+         {"voucher_name" : "birthday_gift"}
+      ]
+     },
+     {
+      "member_sn": 1,
+      "transaction_id": "98w1m44-5872-4363-qs23-5532a89e4cb1",
+      "datetime": "2020-1-1 0:0:0",
+      "products": "1,2",
+      "quantities": 2,
+      "products_quantity": "1,1",
+      "transaction_revenue": 10000.0,
+      "transaction_status": "FAIL",
+      "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",
+      "physical_store_name": "Fake Store",
+      "shipping_address": {
+         "address1": "123 Shipping Street",
+         "address2": null,
+         "city": "Shippington",
+         "company": "Shipping Company",
+         "country": "United States",
+         "country_code": "US",
+         "latitude": null,
+         "longitude": null,
+         "province": "Kentucky",
+         "province_code": "KY",
+         "zip": "40003"
+      },
+      "voucher": [
+         {"voucher_name" : "birthday_gift"}
+      ]
+   },
+   ]
+}'
+```
+
 ## data 內欄位說明
 
 | **必填欄位** | **說明** | **備註** | **『歷史資料追蹤』節點當中的應用** |
