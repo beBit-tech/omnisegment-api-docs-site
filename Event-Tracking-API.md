@@ -80,6 +80,7 @@ but it must be persistent and unique.**
 
 ## Product Impression Parameter
 > Product Impression parameter 以組為單位傳送, 最高30組, 如果要傳送多組, 以il1pi1id=id1..., il1pi2id=id2...,il1pi3id=id3... 以此類推
+
 | 必填欄位 | 資料型別 | 說明 | 
 | ---- | -------- | -------- | 
 |   il1pi1id   |    string      |  與pr1id意義相同, 只在product impression 中使用|
