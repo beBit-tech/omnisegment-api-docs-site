@@ -31,10 +31,14 @@
 > Custom event registered in Omnisegment and trigger based on which your system define.
 
 
+***
+
 ## Integrate with MemberSN(uid)
 **Mapping visit user with your member system.<br/> 
 The membersn could be encoded or plain,<br/> 
 but it must be persistent and unique.**
+
+***
 
 ## Parameters
 | 必填欄位 | 資料型別 | 說明 | 
@@ -62,7 +66,7 @@ but it must be persistent and unique.**
 |   uid   |    string      |     User ID。 會員編號 ，使用者登入後須帶入     |
 |   v   |     string     |     api version; "2.0.4"     | 
 
-
+***
 
 ## Product Parameters
 > Product parameter 以組為單位傳送, 最高30組, 如果要傳送多組, 以pr1id=id1..., pr2id=id2...,pr3id=id3... 以此類推
@@ -78,6 +82,8 @@ but it must be persistent and unique.**
 |   pr1qt   |    string      |  Product Quantities; 商品數量; 表示訂單中此商品的個數|
 |   pr1va   |    string      |  Product variant; 商品規格; 顏色, size, 包裝數量等等|
 
+***
+
 ## Product Impression Parameter
 > Product Impression parameter 以組為單位傳送, 最高30組, 如果要傳送多組, 以il1pi1id=id1..., il1pi2id=id2...,il1pi3id=id3... 以此類推
 
@@ -91,6 +97,8 @@ but it must be persistent and unique.**
 |   il1pi1br   |    string      |  與pr1br意義相同, 只在product impression 中使用|
 |   il1pi1va   |    string      |  與pr1va意義相同, 只在product impression 中使用|
 
+
+***
 
 ## Request sample code
 
@@ -150,6 +158,8 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 }'
 ```
 
+***
+
 ### Product Clicks
 | 必填欄位 | 範例 |
 | ---- | -------- |
@@ -199,6 +209,8 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 }'
 ```
 
+***
+
 ### Product Detail Impressions
 | 必填欄位 | 範例 |
 | ---- | -------- |
@@ -246,7 +258,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
     "il1pi1va": "藍色"
 }'
 ```
-
+***
 
 ### Add / Remove from Cart
 | 必填欄位 | 範例 |
@@ -298,6 +310,8 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 ```
 
 
+***
+
 ### Checkout
 | 必填欄位 | 範例 |
 | ---- | -------- |
@@ -347,6 +361,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 }'
 ```
 
+***
 
 ### Purchases and Refund
 | 必填欄位 | 範例 |
@@ -409,6 +424,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 }'
 ```
 
+***
 
 ### Complete Registration
 | 必填欄位 | 範例 |
@@ -449,6 +465,8 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 }'
 ```
 
+***
+
 ### Submit a search
 | 必填欄位 | 範例 |
 | ---- | -------- |
@@ -488,6 +506,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 }'
 ```
 
+***
 
 ### Custom Events
 | 必填欄位 | 範例 |
