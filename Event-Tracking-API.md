@@ -1,6 +1,6 @@
-# Event beacon tracking API
+# Event tracking API
 
-## Event Beacons Categories
+## Event Categories
 
 1. [Product Impressions](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-impressions)
 > Tracking Product list. Such as Home page, Category page or Search result page.
