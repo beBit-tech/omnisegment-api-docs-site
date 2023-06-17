@@ -2,32 +2,32 @@
 
 ## Event Beacons Categories
 
-1. [Product Impressions](https://to_sample_request)
+1. [Product Impressions](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-impressions)
 > Tracking Product list. Such as Home page, Category page or Search result page.
 
 
-2. [Product Clicks]()
+2. [Product Clicks](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-impressions)
 > A user expresses interest in this particular product by clicking on the product listing to view more details.
 
-3. [Product Detail Impressions]()
+3. [Product Detail Impressions](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-impressions)
 > After clicking on the product listing, a user views the product details page.
 
-4. [Add / Remove from Cart]()
+4. [Add / Remove from Cart](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-impressions)
 > The user expresses intent to buy the item by adding it to a shopping cart.
 
-5. [Checkout]()
+5. [Checkout](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-impressions)
 > Check user is ready to begin the checkout process.
 
-6. [Purchases and Refund]()
+6. [Purchases and Refund](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-impressions)
 > User completes the checkout process and submits their purchase.
 
-7. [Complete Registration]()
+7. [Complete Registration](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-impressions)
 > When user complete the registration.
 
-8. [Submit a search]()
+8. [Submit a search](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-impressions)
 > User use any web site search engine to search products.
 
-9. [Custom Events]()
+9. [Custom Events](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-impressions)
 > Custom event registered in Omnisegment and trigger based on which your system define.
 
 
