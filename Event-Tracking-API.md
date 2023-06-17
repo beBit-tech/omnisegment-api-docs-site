@@ -102,8 +102,8 @@ but it must be persistent and unique.**
 
 ## Request sample code
 
-### Endpoint: https://api.omnisegment.com/collect
-### Request method: **POST**
+**Endpoint: https://api.omnisegment.com/collect**<br/> 
+**Request method: POST**
 
 ### Product Impressions:
 | 必填欄位 | 範例 |
