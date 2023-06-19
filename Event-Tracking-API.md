@@ -111,10 +111,8 @@ but it must be persistent and unique.**
 |   cid   |    "1235621.1252357334"      | 
 |   tid   |    "OA-xxxxxxxx"      |
 |   ds   |     "web"     |
-|   ea   |    "ViewContent"      |
-|   ec   |    "Ecommerce"      |
 |   v   |     "2.0.4"     |
-|   t   |     "event"     |
+|   t   |     "pageview"     |
 |   il1pi1id   |     "DCAN8J-A90097H2N"     |
 |   il1pi1nm   |     "羅技 M221 靜音無線滑鼠"     |
 |   **選填欄位**   |          | 
@@ -137,11 +135,9 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
     "cid": "1235621.1252357334"
     "uid": "139540"
     "tid": "OA-xxxxxxxx",
-    "ea": "ViewContent",
-    "ec": "Ecommerce",
     "ds": "web",
     "v": "2.0.4",
-    "t": "event",
+    "t": "pageview",
     "il1pi1id": "DCAN8J-A90097H2N",
     "il1pi1nm": "羅技 M221 靜音無線滑鼠",
     "il1pi2id": "DCAN8J-A90097Q9R",     
@@ -217,10 +213,8 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 |   cid   |    "1235621.1252357334"      | 
 |   tid   |    "OA-xxxxxxxx"      |
 |   ds   |     "web"     |
-|   ea   |    "ViewContent"      |
-|   ec   |    "Ecommerce"      |
 |   v   |     "2.0.4"     |
-|   t   |     "event"     |
+|   t   |     "pageview"     |
 |   il1pi1id   |     "DCAN8J-A90097H2N"     |
 |   il1pi1nm   |     "羅技 M221 靜音無線滑鼠"     |
 |   **選填欄位**   |          | 
@@ -243,11 +237,9 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
     "cid": "1235621.1252357334"
     "uid": "139540"
     "tid": "OA-xxxxxxxx",
-    "ea": "ViewContent",
-    "ec": "Ecommerce",
     "ds": "web",
     "v": "2.0.4",
-    "t": "event",
+    "t": "pageview",
     "il1pi1id": "DCAN8J-A90097H2N",
     "il1pi1nm": "羅技 M221 靜音無線滑鼠", 
     "cu": "TWD",
