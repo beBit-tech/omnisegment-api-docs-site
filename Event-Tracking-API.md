@@ -43,114 +43,89 @@ but it must be persistent and unique.**
 ## Parameters
 | 必填欄位 | 資料型別 | 說明 | 
 | ---- | -------- | -------- | 
-|   cid   |    string      |  Client ID;裝置ID;系統中未登入user的ID, IOS：送IDFA，若無，則傳送IDFV(值後面加上-IDFV), 安卓：送AAID，若無，則傳送SSAID|
+|   client_id   |    string      |  Client ID;裝置ID;系統中未登入user的ID, IOS：送IDFA，若無，則傳送IDFV(值後面加上-IDFV), 安卓：送AAID，若無，則傳送SSAID|
 |   tid   |    string      |   在Omnisegment中組織的ID       | 
 |   **選填欄位**   |          |          | 
-|   aid   |     string     |     Application ID     | 
-|   av   |     string     |     Application Version     | 
-|   an   |     string     |     Application Name     | 
-|   cu   |     string     |     訂單金額的currency code     | 
-|   dl   |     string     |     trigger事件的網站url;包含parameter     | 
-|   dt   |     string     |     trigger事件的網站主旨(Document title)  | 
-|   ds   |     string     |   DataSource; "web" or "app"       | 
-|   ea   |    string      |   Event Action, Choices are "AddToCart", "Checkout", "Refund", "ClickProduct", "CompleteRegistration", "ViewContent", "Purchase", "RemoveFromCart", "Search", "AddToWishlist", "FormFillOut"       | 
-|   ec   |    string      | Event Category, Choices are "ClickFooter", "ViewContent", "Ecommerce", "CompleteRegistration", "Sort", "Filter", "ClickMenu", "Search", "FormFillOut"        | 
-|   el   |     string     |     json format string, express value in Search & CompleteRegistration     | 
-|   ev   |     string     |     Event value     | 
-|   t   |     string     |     "pageview" or "event"     | 
-|   tr   |    int      |    訂單總金額      | 
-|   ti   |     string     |     訂單ID     | 
-|   tt   |     string     |      訂單稅額    | 
-|   ts   |     string     |     訂單運費     | 
-|   tcc   |     string     |   訂單優惠卷(transaction coupon code)       | 
+|   app_id   |     string     |     Application ID     | 
+|   app_version   |     string     |     Application Version     | 
+|   app_name   |     string     |     Application Name     | 
+|   currency_code   |     string     |     訂單金額的currency code     | 
+|   document_location   |     string     |     trigger事件的網站url;包含parameter     | 
+|   document_title   |     string     |     trigger事件的網站主旨(Document title)  | 
+|   data_source   |     string     |   DataSource; "web" or "app"       | 
+|   event_action   |    string      |   Event Action, Choices are "AddToCart", "Checkout", "Refund", "ClickProduct", "CompleteRegistration", "ViewContent", "Purchase", "RemoveFromCart", "Search", "AddToWishlist", "FormFillOut"       | 
+|   event_category   |    string      | Event Category, Choices are "ClickFooter", "ViewContent", "Ecommerce", "CompleteRegistration", "Sort", "Filter", "ClickMenu", "Search", "FormFillOut"        | 
+|   event_label   |     string     |     json format string, express value in Search & CompleteRegistration     | 
+|   event_value   |     string     |     Event value     | 
+|   hit_type   |    string      |   "pageview" or "event"       | 
+|   products   |    list of json object    | 詳見 [Product Parameters]() |  
+|   transaction_revenue   |    int      |    訂單總金額      | 
+|   transaction_id   |     string     |     訂單ID     | 
+|   transaction_tax   |     string     |      訂單稅額    | 
+|   transaction_shipping   |     string     |     訂單運費     | 
+|   transaction_couponcode   |     string     |   訂單優惠卷       | 
 |   uid   |    string      |     User ID。 會員編號 ，使用者登入後須帶入     |
-|   v   |     string     |     api version; "2.0.4"     | 
 
 ***
 
 ## Product Parameters
-> Product parameter 以組為單位傳送, 最高30組, 如果要傳送多組, 以pr1id=id1..., pr2id=id2...,pr3id=id3... 以此類推
+> Product parameter 以每個product object為單位傳送, 最高30組
 
 | 必填欄位 | 資料型別 | 說明 | 
 | ---- | -------- | -------- | 
-|   pr1id   |    string      |  Product ID; 商品編號; 須與ProductFeed 中的 ID欄位相同, 缺少或錯誤的ID會讓事件無法對應到正確的商品|
-|   pr1nm   |    string      |  Product Name|
+|   id   |    string      |  Product ID; 商品編號; 須與ProductFeed 中的 ID欄位相同, 缺少或錯誤的ID會讓事件無法對應到正確的商品|
+|   name   |    string      |  Product Name|
 |   **選填欄位**   |          |          | 
-|   pr1pr   |    int      |  Product Price|
-|   pr1ca   |    string      |  Product Category; 商品類別|
-|   pr1br   |    string      |  Product Brand; 商品品牌; 多品牌用逗號分開; 如"Samsung,Apple"|
-|   pr1qt   |    string      |  Product Quantities; 商品數量; 表示訂單中此商品的個數|
-|   pr1va   |    string      |  Product variant; 商品規格; 顏色, size, 包裝數量等等|
+|   price   |    int      |  Product Price|
+|   category   |    string      |  Product Category; 商品類別|
+|   brand   |    string      |  Product Brand; 商品品牌; 多品牌用逗號分開; 如"Samsung,Apple"|
+|   quantity   |    string      |  Product Quantities; 商品數量; 表示訂單中此商品的個數|
+|   variant   |    string      |  Product variant; 商品規格; 顏色, size, 包裝數量等等|
 
 ***
 
-## Product Impression Parameter
-> Product Impression parameter 以組為單位傳送, 最高30組, 如果要傳送多組, 以il1pi1id=id1..., il1pi2id=id2...,il1pi3id=id3... 以此類推
-
-| 必填欄位 | 資料型別 | 說明 | 
-| ---- | -------- | -------- | 
-|   il1pi1id   |    string      |  與pr1id意義相同, 只在product impression 中使用|
-|   il1pi1nm   |    string      |  與pr1nm意義相同, 只在product impression 中使用|
-|   **選填欄位**   |          |          | 
-|   il1pi1pr   |    int      |  與pr1pr意義相同, 只在product impression 中使用|
-|   il1pi1ca   |    string      |  與pr1ca意義相同, 只在product impression 中使用|
-|   il1pi1br   |    string      |  與pr1br意義相同, 只在product impression 中使用|
-|   il1pi1va   |    string      |  與pr1va意義相同, 只在product impression 中使用|
-
-
-***
 
 ## Request sample code
 
 **Endpoint: https://api.omnisegment.com/collect**<br/> 
 **Request method: POST**
 
+***
+
 ### Product Impressions:
 | 必填欄位 | 範例 |
 | ---- | -------- |
-|   cid   |    "1235621.1252357334"      | 
+|   client_id   |    "1235621.1252357334"      | 
 |   tid   |    "OA-xxxxxxxx"      |
-|   ds   |     "web"     |
-|   v   |     "2.0.4"     |
-|   t   |     "pageview"     |
-|   il1pi1id   |     "DCAN8J-A90097H2N"     |
-|   il1pi1nm   |     "羅技 M221 靜音無線滑鼠"     |
+|   data_source   |     "web"     |
+|   version   |     "2.0.4"     |
+|   hit_type   |     "pageview"     |
+|   products(id, name)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠"}]     |
 |   **選填欄位**   |          | 
-|   cu   |     "TWD"     |
-|   dl   |     "https://test.com.tw/store/DEDI0R"     |
-|   dt   |     "iloom⧑全系列商品"     |
+|   currency_code   |     "TWD"     |
+|   document_location   |     "https://test.com.tw/store/DEDI0R"     |
+|   document_title   |     "iloom⧑全系列商品"     |
 |   uid   |    "139540"      |
-|   il1pi1br   |     "Logitech"     |
-|   il1pi1pr   |     800     |
-|   il1pi1va   |     "藍色"     |
-|   aid   |     "com.company.app"     |
-|   av   |     "1.3.2"     |
-|   an   |     "appname"     |
+| products(brand, price, variant)  | [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}] |
+|   app_id   |     "com.company.app"     |
+|   app_version   |     "1.3.2"     |
+|   app_name   |     "appname"     |
 
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/collect' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "cid": "1235621.1252357334"
+    "client_id": "1235621.1252357334"
     "uid": "139540"
     "tid": "OA-xxxxxxxx",
-    "ds": "web",
-    "v": "2.0.4",
-    "t": "pageview",
-    "il1pi1id": "DCAN8J-A90097H2N",
-    "il1pi1nm": "羅技 M221 靜音無線滑鼠",
-    "il1pi2id": "DCAN8J-A90097Q9R",     
-    "il1pi2nm": "羅技 k65m 機械式鍵盤",    
-    "cu": "TWD",
-    "dl": "https://test.com.tw/store/DEDI0R",
-    "dt": "iloom 全系列商品",
-    "il1pi1br": "Logitech",
-    "il1pi1pr": 800,
-    "il1pi1va": "藍色"
-    "il1pi1br": "Logitech",
-    "il1pi1pr": 2800,
-    "il1pi1va": "黑色"
+    "data_source": "web",
+    "version": "2.0.4",
+    "hit_type": "pageview",
+    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}, {"id": "DCAN8J-A90097Q9R", "name": "羅技 k65m 機械式鍵盤", "brand": "Logitech", "price": 2800, "variant": "黑色"},]
+    "currency_code: "TWD",
+    "document_location": "https://test.com.tw/store/DEDI0R",
+    "document_title": "iloom 全系列商品",
 }'
 ```
 
@@ -159,49 +134,42 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 ### Product Clicks
 | 必填欄位 | 範例 |
 | ---- | -------- |
-|   cid   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
+|   client_id   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
 |   tid   |    "OA-xxxxxxxx"      |
-|   ds   |     "app"     |
-|   ea   |    "ClickProduct"      |
-|   ec   |    "Ecommerce"      |
-|   v   |     "2.0.4"     |
-|   t   |     "event"     |
-|   pr1id   |     "DCAN8J-A90097H2N"     |
-|   pr1nm   |     "羅技 M221 靜音無線滑鼠"     |
+|   data_source   |     "app"     |
+|   event_action   |    "ClickProduct"      |
+|   event_category   |    "Ecommerce"      |
+|   version   |     "2.0.4"     |
+|   hit_type   |     "event"     |
+|   products(id, name)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠"}]     |
 |   **選填欄位**   |          | 
-|   cu   |     "TWD"     |
+|   currency_code   |     "TWD"     |
 |   uid   |    "139540"      |
-|   pr1br   |     "Logitech"     |
-|   pr1pr   |     800     |
-|   pr1va   |     "藍色"     |
-|   aid   |     "com.company.app"     |
-|   av   |     "1.3.2"     |
-|   an   |     "appname"     |
-|   dl   |     "https://test.com.tw/store/DEDI0R"     |
-|   dt   |     "iloom⧑全系列商品"     |
+| products(brand, price, variant)  | [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}] |
+|   app_id   |     "com.company.app"     |
+|   app_version   |     "1.3.2"     |
+|   app_name   |     "appname"     |
+|   document_location   |     "https://test.com.tw/store/DEDI0R"     |
+|   document_title   |     "iloom⧑全系列商品"     |
 
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/collect' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "cid": "EA7583CD-A667-48BC-B806-42ECB2B48606"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
     "tid": "OA-xxxxxxxx",
-    "ea": "ClickProduct",
-    "ec": "Ecommerce",
-    "ds": "app",
-    "v": "2.0.4",
-    "t": "event",
-    "pr1id": "DCAN8J-A90097H2N",
-    "pr1nm": "羅技 M221 靜音無線滑鼠",
-    "pr1br": "Logitech",
-    "pr1pr": 800,
-    "pr1va": "藍色"
-    "cu": "TWD",
-    "aid": "com.company.app",
-    "av": "1.3.2",
-    "an": "appname"
+    "event_action": "ClickProduct",
+    "event_category": "Ecommerce",
+    "data_source": "app",
+    "version": "2.0.4",
+    "hit_type": "event",
+    "products":{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}],
+    "currency_code: "TWD",
+    "app_id": "com.company.app",
+    "app_version": "1.3.2",
+    "app_name": "appname"
 }'
 ```
 
@@ -210,44 +178,38 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 ### Product Detail Impressions
 | 必填欄位 | 範例 |
 | ---- | -------- |
-|   cid   |    "1235621.1252357334"      | 
+|   client_id   |    "1235621.1252357334"      | 
 |   tid   |    "OA-xxxxxxxx"      |
-|   ds   |     "web"     |
-|   v   |     "2.0.4"     |
-|   t   |     "pageview"     |
-|   il1pi1id   |     "DCAN8J-A90097H2N"     |
-|   il1pi1nm   |     "羅技 M221 靜音無線滑鼠"     |
+|   data_source   |     "web"     |
+|   version   |     "2.0.4"     |
+|   hit_type   |     "pageview"     |
+|   products(id, name)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠"}]     |
 |   **選填欄位**   |          | 
-|   cu   |     "TWD"     |
-|   dl   |     "https://test.com.tw/store/DEDI0R"     |
-|   dt   |     "iloom⧑全系列商品"     |
+|   currency_code   |     "TWD"     |
+|   document_location   |     "https://test.com.tw/store/DEDI0R"     |
+|   document_title   |     "iloom⧑全系列商品"     |
 |   uid   |    "139540"      |
-|   il1pi1br   |     "Logitech"     |
-|   il1pi1pr   |     800     |
-|   il1pi1va   |     "藍色"     |
-|   aid   |     "com.company.app"     |
-|   av   |     "1.3.2"     |
-|   an   |     "appname"     |
+|   products(brand, price, variant)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}]     |
+|   app_id   |     "com.company.app"     |
+|   app_version   |     "1.3.2"     |
+|   app_name   |     "appname"     |
 
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/collect' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "cid": "1235621.1252357334"
+    "client_id": "1235621.1252357334"
     "uid": "139540"
     "tid": "OA-xxxxxxxx",
-    "ds": "web",
-    "v": "2.0.4",
-    "t": "pageview",
-    "il1pi1id": "DCAN8J-A90097H2N",
-    "il1pi1nm": "羅技 M221 靜音無線滑鼠", 
-    "cu": "TWD",
-    "dl": "https://test.com.tw/store/DEDI0R",
-    "dt": "iloom 全系列商品",
-    "il1pi1br": "Logitech",
-    "il1pi1pr": 800,
-    "il1pi1va": "藍色"
+    "data_source": "web",
+    "version": "2.0.4",
+    "hit_type": "pageview",
+    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠",
+    "brand": "Logitech", "price": 800, "variant": "藍色"}]
+    "currency_code: "TWD",
+    "document_location": "https://test.com.tw/store/DEDI0R",
+    "document_title": "iloom 全系列商品",
 }'
 ```
 ***
@@ -255,49 +217,42 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 ### Add / Remove from Cart
 | 必填欄位 | 範例 |
 | ---- | -------- |
-|   cid   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
+|   client_id   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
 |   tid   |    "OA-xxxxxxxx"      |
-|   ds   |     "app"     |
-|   ea   |    "AddToCart" or "RemoveFromCart"      |
-|   ec   |    "Ecommerce"      |
-|   v   |     "2.0.4"     |
-|   t   |     "event"     |
-|   pr1id   |     "DCAN8J-A90097H2N"     |
-|   pr1nm   |     "羅技 M221 靜音無線滑鼠"     |
+|   data_source   |     "app"     |
+|   event_action   |    "AddToCart" or "RemoveFromCart"      |
+|   event_category   |    "Ecommerce"      |
+|   version   |     "2.0.4"     |
+|   hit_type   |     "event"     |
+|   products   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}]     |
 |   **選填欄位**   |          | 
-|   cu   |     "TWD"     |
+|   currency_code   |     "TWD"     |
 |   uid   |    "139540"      |
-|   pr1br   |     "Logitech"     |
-|   pr1pr   |     800     |
-|   pr1va   |     "藍色"     |
-|   aid   |     "com.company.app"     |
-|   av   |     "1.3.2"     |
-|   an   |     "appname"     |
-|   dl   |     "https://test.com.tw/store/DEDI0R"     |
-|   dt   |     "iloom⧑全系列商品"     |
+|   app_id   |     "com.company.app"     |
+|   app_version   |     "1.3.2"     |
+|   app_name   |     "appname"     |
+|   document_location   |     "https://test.com.tw/store/DEDI0R"     |
+|   document_title   |     "iloom⧑全系列商品"     |
 
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/collect' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "cid": "EA7583CD-A667-48BC-B806-42ECB2B48606"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
     "tid": "OA-xxxxxxxx",
-    "ea": "AddToCart",
-    "ec": "Ecommerce",
-    "ds": "app",
-    "v": "2.0.4",
-    "t": "event",
-    "pr1id": "DCAN8J-A90097H2N",
-    "pr1nm": "羅技 M221 靜音無線滑鼠",
-    "pr1br": "Logitech",
-    "pr1pr": 800,
-    "pr1va": "藍色"
-    "cu": "TWD",
-    "aid": "com.company.app",
-    "av": "1.3.2",
-    "an": "appname"
+    "event_action": "AddToCart",
+    "event_category": "Ecommerce",
+    "data_source": "app",
+    "version": "2.0.4",
+    "hit_type": "event",
+    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠",
+    "brand": "Logitech", "price": 800, "variant": "藍色"}]
+    "currency_code: "TWD",
+    "app_id": "com.company.app",
+    "app_version": "1.3.2",
+    "app_name": "appname"
 }'
 ```
 
@@ -307,49 +262,42 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 ### Checkout
 | 必填欄位 | 範例 |
 | ---- | -------- |
-|   cid   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
+|   client_id   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
 |   tid   |    "OA-xxxxxxxx"      |
-|   ds   |     "app"     |
-|   ea   |    "Checkout"      |
-|   ec   |    "Ecommerce"      |
-|   v   |     "2.0.4"     |
-|   t   |     "event"     |
-|   pr1id   |     "DCAN8J-A90097H2N"     |
-|   pr1nm   |     "羅技 M221 靜音無線滑鼠"     |
+|   data_source   |     "app"     |
+|   event_action   |    "Checkout"      |
+|   event_category   |    "Ecommerce"      |
+|   version   |     "2.0.4"     |
+|   hit_type   |     "event"     |
+|   products(id, name)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠"}]     |
 |   **選填欄位**   |          | 
-|   cu   |     "TWD"     |
+|   currency_code   |     "TWD"     |
 |   uid   |    "139540"      |
-|   pr1br   |     "Logitech"     |
-|   pr1pr   |     800     |
-|   pr1va   |     "藍色"     |
-|   aid   |     "com.company.app"     |
-|   av   |     "1.3.2"     |
-|   an   |     "appname"     |
-|   dl   |     "https://test.com.tw/store/DEDI0R"     |
-|   dt   |     "iloom⧑全系列商品"     |
+|   products(brand, price, variant)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}]     |
+|   app_id   |     "com.company.app"     |
+|   app_version   |     "1.3.2"     |
+|   app_name   |     "appname"     |
+|   document_location   |     "https://test.com.tw/store/DEDI0R"     |
+|   document_title   |     "iloom⧑全系列商品"     |
 
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/collect' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "cid": "EA7583CD-A667-48BC-B806-42ECB2B48606"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
     "tid": "OA-xxxxxxxx",
-    "ea": "Checkout",
-    "ec": "Ecommerce",
-    "ds": "app",
-    "v": "2.0.4",
-    "t": "event",
-    "pr1id": "DCAN8J-A90097H2N",
-    "pr1nm": "羅技 M221 靜音無線滑鼠",
-    "pr1br": "Logitech",
-    "pr1pr": 800,
-    "pr1va": "藍色"
-    "cu": "TWD",
-    "aid": "com.company.app",
-    "av": "1.3.2",
-    "an": "appname"
+    "event_action": "Checkout",
+    "event_category": "Ecommerce",
+    "data_source": "app",
+    "version": "2.0.4",
+    "hit_type": "event",
+    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}],
+    "currency_code: "TWD",
+    "app_id": "com.company.app",
+    "app_version": "1.3.2",
+    "app_name": "appname"
 }'
 ```
 
@@ -358,61 +306,46 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 ### Purchases and Refund
 | 必填欄位 | 範例 |
 | ---- | -------- |
-|   cid   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
+|   client_id   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
 |   tid   |    "OA-xxxxxxxx"      |
-|   ds   |     "app"     |
-|   ea   |    "Purchase" or "Refund"      |
-|   ec   |    "Ecommerce"      |
-|   v   |     "2.0.4"     |
-|   t   |     "event"     |
-|   pr1id   |     "DCAN8J-A90097H2N"     |
-|   pr1nm   |     "羅技 M221 靜音無線滑鼠"     |
-|   pr1qt   |     2     |
+|   data_source   |     "app"     |
+|   event_action   |    "Purchase" or "Refund"      |
+|   event_category   |    "Ecommerce"      |
+|   version   |     "2.0.4"     |
+|   hit_type   |     "event"     |
+|   products(id, name, quantity)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "quantity": 2}]     |
 |   ti  |     "#8701873727"     |
-|   tr   |     800     |
+|   transaction_revenue   |     800     |
 |   **選填欄位**   |          | 
-|   cu   |     "TWD"     |
+|   currency_code   |     "TWD"     |
 |   uid   |    "139540"      |
-|   pr1br   |     "Logitech"     |
-|   pr1pr   |     800     |
-|   pr1va   |     "藍色"     |
-|   aid   |     "com.company.app"     |
-|   av   |     "1.3.2"     |
-|   an   |     "appname"     |
-|   dl   |     "https://test.com.tw/store/DEDI0R"     |
-|   dt   |     "iloom⧑全系列商品"     |
+|   products(brand, price, variant)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "quantity": 2, "brand": "Logitech", "price": 800, "variant": "藍色"}]     |
+|   app_id   |     "com.company.app"     |
+|   app_version   |     "1.3.2"     |
+|   app_name   |     "appname"     |
+|   document_location   |     "https://test.com.tw/store/DEDI0R"     |
+|   document_title   |     "iloom⧑全系列商品"     |
 
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/collect' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "cid": "EA7583CD-A667-48BC-B806-42ECB2B48606"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
     "tid": "OA-xxxxxxxx",
-    "ea": "Purchase",
-    "ec": "Ecommerce",
-    "ds": "app",
-    "v": "2.0.4",
-    "t": "event",
-    "ti": "#8701873727",
-    "tr": 3400,
-    "pr1id": "DCAN8J-A90097H2N",
-    "pr1nm": "羅技 M221 靜音無線滑鼠",
-    "pr1br": "Logitech",
-    "pr1pr": 800,
-    "pr1va": "藍色"
-    "pr1qt": 2,
-    "pr2id": "DCAN8J-A90097HK2",
-    "pr2nm": "羅技 K65M 機械式鍵盤",
-    "pr2br": "Logitech",
-    "pr2pr": 1800,
-    "pr2qt": 1,
-    "pr2va": "黑色"
-    "cu": "TWD",
-    "aid": "com.company.app",
-    "av": "1.3.2",
-    "an": "appname"
+    "event_action": "Purchase",
+    "event_category": "Ecommerce",
+    "data_source": "app",
+    "version": "2.0.4",
+    "hit_type": "event",
+    "transaction_id": "#8701873727",
+    "transaction_revenue": 3400,
+    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "quantity": 2, "brand": "Logitech", "price": 800, "variant": "藍色"}, {"id": "DCAN8J-A90097HK2", "name": "羅技 K65M 機械式鍵盤", "quantity": 1, "brand": "Logitech", "price": 1800, "variant": "黑色"}],
+    "currency_code: "TWD",
+    "app_id": "com.company.app",
+    "app_version": "1.3.2",
+    "app_name": "appname"
 }'
 ```
 
@@ -421,39 +354,39 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 ### Complete Registration
 | 必填欄位 | 範例 |
 | ---- | -------- |
-|   cid   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
+|   client_id   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
 |   tid   |    "OA-xxxxxxxx"      |
-|   ds   |     "app"     |
-|   ea   |    "CompleteRegistration"      |
-|   ec   |    "Ecommerce"      |
-|   v   |     "2.0.4"     |
-|   t   |     "event"     |
+|   data_source   |     "app"     |
+|   event_action   |    "CompleteRegistration"      |
+|   event_category   |    "Ecommerce"      |
+|   version   |     "2.0.4"     |
+|   hit_type   |     "event"     |
 |   **選填欄位**   |          | 
 |   uid   |    "139540"      |
-|   el   |    '{"email": "fake@gmail.com"}'      |
-|   aid   |     "com.company.app"     |
-|   av   |     "1.3.2"     |
-|   an   |     "appname"     |
-|   dl   |     "https://test.com.tw/register"     |
-|   dt   |     "註冊或登入會員"     |
+|   event_label   |    '{"email": "fake@gmail.com"}'      |
+|   app_id   |     "com.company.app"     |
+|   app_version   |     "1.3.2"     |
+|   app_name   |     "appname"     |
+|   document_location   |     "https://test.com.tw/register"     |
+|   document_title   |     "註冊或登入會員"     |
 
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/collect' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "cid": "EA7583CD-A667-48BC-B806-42ECB2B48606"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
     "tid": "OA-xxxxxxxx",
-    "ea": "CompleteRegistration",
-    "ec": "Ecommerce",
-    "ds": "app",
-    "v": "2.0.4",
-    "t": "event",
-    "aid": "com.company.app",
-    "av": "1.3.2",
-    "an": "appname",
-    "el": '{"email": "fake@gmail.com"}'
+    "event_action": "CompleteRegistration",
+    "event_category": "Ecommerce",
+    "data_source": "app",
+    "version": "2.0.4",
+    "hit_type": "event",
+    "app_id": "com.company.app",
+    "app_version": "1.3.2",
+    "app_name": "appname",
+    "event_label": '{"email": "fake@gmail.com"}'
 }'
 ```
 
@@ -462,39 +395,39 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 ### Submit a search
 | 必填欄位 | 範例 |
 | ---- | -------- |
-|   cid   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
+|   client_id   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
 |   tid   |    "OA-xxxxxxxx"      |
-|   ds   |     "app"     |
-|   ea   |    "Search"      |
-|   ec   |    "Search"      |
-|   v   |     "2.0.4"     |
-|   t   |     "event"     |
+|   data_source   |     "app"     |
+|   event_action   |    "Search"      |
+|   event_category   |    "Search"      |
+|   version   |     "2.0.4"     |
+|   hit_type   |     "event"     |
 |   **選填欄位**   |          | 
 |   uid   |    "139540"      |
-|   el   |    '{"search_string": "滑鼠"}'      |
-|   aid   |     "com.company.app"     |
-|   av   |     "1.3.2"     |
-|   an   |     "appname"     |
-|   dl   |     "https://test.com.tw/search?q=滑鼠"     |
-|   dt   |     "搜尋"     |
+|   event_label   |    '{"search_string": "滑鼠"}'      |
+|   app_id   |     "com.company.app"     |
+|   app_version   |     "1.3.2"     |
+|   app_name   |     "appname"     |
+|   document_location   |     "https://test.com.tw/search?q=滑鼠"     |
+|   document_title   |     "搜尋"     |
 
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/collect' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "cid": "EA7583CD-A667-48BC-B806-42ECB2B48606"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
     "tid": "OA-xxxxxxxx",
-    "ea": "Search",
-    "ec": "Search",
-    "ds": "app",
-    "v": "2.0.4",
-    "t": "event",
-    "aid": "com.company.app",
-    "av": "1.3.2",
-    "an": "appname",
-    "el": '{"search_string": "滑鼠"}'
+    "event_action": "Search",
+    "event_category": "Search",
+    "data_source": "app",
+    "version": "2.0.4",
+    "hit_type": "event",
+    "app_id": "com.company.app",
+    "app_version": "1.3.2",
+    "app_name": "appname",
+    "event_label": '{"search_string": "滑鼠"}'
 }'
 ```
 
@@ -503,35 +436,35 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 ### Custom Events
 | 必填欄位 | 範例 |
 | ---- | -------- |
-|   cid   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
+|   client_id   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
 |   tid   |    "OA-xxxxxxxx"      |
-|   ds   |     "app"     |
-|   ea   |    "Subscribe"      |
-|   ev   |    "遊戲微服務計畫"      |
-|   v   |     "2.0.4"     |
-|   t   |     "event"     |
+|   data_source   |     "app"     |
+|   event_action   |    "Subscribe"      |
+|   event_value   |    "遊戲微服務計畫"      |
+|   version   |     "2.0.4"     |
+|   hit_type   |     "event"     |
 |   **選填欄位**   |          | 
 |   uid   |    "139540"      |
-|   aid   |     "com.company.app"     |
-|   av   |     "1.3.2"     |
-|   an   |     "appname"     |
-|   dl   |     "https://test.com.tw/category/13"     |
-|   dt   |     "訂閱頻道"     |
+|   app_id   |     "com.company.app"     |
+|   app_version   |     "1.3.2"     |
+|   app_name   |     "appname"     |
+|   document_location   |     "https://test.com.tw/category/13"     |
+|   document_title   |     "訂閱頻道"     |
 
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/collect' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "cid": "EA7583CD-A667-48BC-B806-42ECB2B48606"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
     "tid": "OA-xxxxxxxx",
-    "ea": "Subscribe",
-    "ev": "遊戲微服務計畫",
-    "ds": "web",
-    "v": "2.0.4",
-    "t": "event",
-    "dl": "https://test.com.tw/category/13",
-    "dt": "訂閱頻道"
+    "event_action": "Subscribe",
+    "event_value": "遊戲微服務計畫",
+    "data_source": "web",
+    "version": "2.0.4",
+    "hit_type": "event",
+    "document_location": "https://test.com.tw/category/13",
+    "document_title": "訂閱頻道"
 }'
 ```
