@@ -117,7 +117,7 @@ but it must be persistent and unique.**
 |   il1pi1nm   |     "羅技 M221 靜音無線滑鼠"     |
 |   **選填欄位**   |          | 
 |   cu   |     "TWD"     |
-|   dl   |     "https//test.com.tw/store/DEDI0R"     |
+|   dl   |     "https://test.com.tw/store/DEDI0R"     |
 |   dt   |     "iloom⧑全系列商品"     |
 |   uid   |    "139540"      |
 |   il1pi1br   |     "Logitech"     |
@@ -143,7 +143,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
     "il1pi2id": "DCAN8J-A90097Q9R",     
     "il1pi2nm": "羅技 k65m 機械式鍵盤",    
     "cu": "TWD",
-    "dl": "https//test.com.tw/store/DEDI0R",
+    "dl": "https://test.com.tw/store/DEDI0R",
     "dt": "iloom 全系列商品",
     "il1pi1br": "Logitech",
     "il1pi1pr": 800,
@@ -177,7 +177,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 |   aid   |     "com.company.app"     |
 |   av   |     "1.3.2"     |
 |   an   |     "appname"     |
-|   dl   |     "https//test.com.tw/store/DEDI0R"     |
+|   dl   |     "https://test.com.tw/store/DEDI0R"     |
 |   dt   |     "iloom⧑全系列商品"     |
 
 
@@ -219,7 +219,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 |   il1pi1nm   |     "羅技 M221 靜音無線滑鼠"     |
 |   **選填欄位**   |          | 
 |   cu   |     "TWD"     |
-|   dl   |     "https//test.com.tw/store/DEDI0R"     |
+|   dl   |     "https://test.com.tw/store/DEDI0R"     |
 |   dt   |     "iloom⧑全系列商品"     |
 |   uid   |    "139540"      |
 |   il1pi1br   |     "Logitech"     |
@@ -243,7 +243,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
     "il1pi1id": "DCAN8J-A90097H2N",
     "il1pi1nm": "羅技 M221 靜音無線滑鼠", 
     "cu": "TWD",
-    "dl": "https//test.com.tw/store/DEDI0R",
+    "dl": "https://test.com.tw/store/DEDI0R",
     "dt": "iloom 全系列商品",
     "il1pi1br": "Logitech",
     "il1pi1pr": 800,
@@ -273,7 +273,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 |   aid   |     "com.company.app"     |
 |   av   |     "1.3.2"     |
 |   an   |     "appname"     |
-|   dl   |     "https//test.com.tw/store/DEDI0R"     |
+|   dl   |     "https://test.com.tw/store/DEDI0R"     |
 |   dt   |     "iloom⧑全系列商品"     |
 
 
@@ -325,7 +325,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 |   aid   |     "com.company.app"     |
 |   av   |     "1.3.2"     |
 |   an   |     "appname"     |
-|   dl   |     "https//test.com.tw/store/DEDI0R"     |
+|   dl   |     "https://test.com.tw/store/DEDI0R"     |
 |   dt   |     "iloom⧑全系列商品"     |
 
 
@@ -379,7 +379,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 |   aid   |     "com.company.app"     |
 |   av   |     "1.3.2"     |
 |   an   |     "appname"     |
-|   dl   |     "https//test.com.tw/store/DEDI0R"     |
+|   dl   |     "https://test.com.tw/store/DEDI0R"     |
 |   dt   |     "iloom⧑全系列商品"     |
 
 
@@ -434,7 +434,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 |   aid   |     "com.company.app"     |
 |   av   |     "1.3.2"     |
 |   an   |     "appname"     |
-|   dl   |     "https//test.com.tw/register"     |
+|   dl   |     "https://test.com.tw/register"     |
 |   dt   |     "註冊或登入會員"     |
 
 
@@ -475,7 +475,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 |   aid   |     "com.company.app"     |
 |   av   |     "1.3.2"     |
 |   an   |     "appname"     |
-|   dl   |     "https//test.com.tw/search?q=滑鼠"     |
+|   dl   |     "https://test.com.tw/search?q=滑鼠"     |
 |   dt   |     "搜尋"     |
 
 
@@ -515,7 +515,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 |   aid   |     "com.company.app"     |
 |   av   |     "1.3.2"     |
 |   an   |     "appname"     |
-|   dl   |     "https//test.com.tw/category/13"     |
+|   dl   |     "https://test.com.tw/category/13"     |
 |   dt   |     "訂閱頻道"     |
 
 
@@ -531,7 +531,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
     "ds": "web",
     "v": "2.0.4",
     "t": "event",
-    "dl": "https//test.com.tw/category/13",
+    "dl": "https://test.com.tw/category/13",
     "dt": "訂閱頻道"
 }'
 ```
