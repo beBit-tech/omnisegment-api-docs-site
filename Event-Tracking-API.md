@@ -363,7 +363,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 |   hit_type   |     "event"     |
 |   **選填欄位**   |          | 
 |   uid   |    "139540"      |
-|   event_label   |    '{"email": "fake@gmail.com", "city": "Taipei", "birthdayYear": "1996", "regType": "google"}'      |
+|   event_label   |    '{"email": "fake@gmail.com", "city": "Taipei", "regType": "google"}'      |
 |   app_id   |     "com.company.app"     |
 |   app_version   |     "1.3.2"     |
 |   app_name   |     "appname"     |
