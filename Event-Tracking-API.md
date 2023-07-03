@@ -87,7 +87,7 @@ but it must be persistent and unique.**
 
 ## Request sample code
 
-**Endpoint: https://api.omnisegment.com/collect**<br/> 
+**Endpoint: https://api.omnisegment.com/api/v1/beacon/track-event/**<br/> 
 **Request method: POST**
 
 ***
