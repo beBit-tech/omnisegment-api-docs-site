@@ -6,7 +6,7 @@
 > Tracking Product list. Such as Home page, Category page or Search result page.
 
 
-2. [Product Clicks](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-impressions)
+2. [Product Clicks](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-clicks)
 > A user expresses interest in this particular product by clicking on the product listing to view more details.
 
 3. [Product Detail Impressions](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Event-Tracking-API#product-detail-impressions)
