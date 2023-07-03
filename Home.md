@@ -26,4 +26,6 @@ This is the Omnisegment API document.
 
 [[Interaction Report APIs]]
 
+[[Event Tracking API]]
+
 [[API Common Specifications]]
