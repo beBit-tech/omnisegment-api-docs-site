@@ -87,8 +87,9 @@ but it must be persistent and unique.**
 
 ## Request sample code
 
-**Endpoint: https://api.omnisegment.com/api/v1/beacon/track-event/**<br/> 
-**Request method: POST**
+### Endpoint: https://api.omnisegment.com/api/v1/beacon/track-event/
+### Request method: POST
+### Request Headers: X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 ***
 
@@ -113,8 +114,9 @@ but it must be persistent and unique.**
 
 
 ```
-curl --location --request POST 'https://api.omnisegment.com/collect' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-event/' \
 --header 'Content-Type: application/json' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "client_id": "1235621.1252357334"
     "uid": "139540"
@@ -154,8 +156,9 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 
 
 ```
-curl --location --request POST 'https://api.omnisegment.com/collect' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-event/' \
 --header 'Content-Type: application/json' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
@@ -196,8 +199,9 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 
 
 ```
-curl --location --request POST 'https://api.omnisegment.com/collect' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-event/' \
 --header 'Content-Type: application/json' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "client_id": "1235621.1252357334"
     "uid": "139540"
@@ -236,8 +240,9 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 
 
 ```
-curl --location --request POST 'https://api.omnisegment.com/collect' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-event/' \
 --header 'Content-Type: application/json' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
@@ -282,8 +287,9 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 
 
 ```
-curl --location --request POST 'https://api.omnisegment.com/collect' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-event/' \
 --header 'Content-Type: application/json' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
@@ -328,8 +334,9 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 
 
 ```
-curl --location --request POST 'https://api.omnisegment.com/collect' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-event/' \
 --header 'Content-Type: application/json' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
@@ -372,8 +379,9 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 
 
 ```
-curl --location --request POST 'https://api.omnisegment.com/collect' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-event/' \
 --header 'Content-Type: application/json' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
@@ -413,8 +421,9 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 
 
 ```
-curl --location --request POST 'https://api.omnisegment.com/collect' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-event/' \
 --header 'Content-Type: application/json' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
@@ -453,8 +462,9 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 
 
 ```
-curl --location --request POST 'https://api.omnisegment.com/collect' \
+curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-event/' \
 --header 'Content-Type: application/json' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
     "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
     "uid": "139540"
