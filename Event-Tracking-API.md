@@ -314,7 +314,7 @@ curl --location --request POST 'https://api.omnisegment.com/collect' \
 |   version   |     "2.0.4"     |
 |   hit_type   |     "event"     |
 |   products(id, name, quantity)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "quantity": 2}]     |
-|   ti  |     "#8701873727"     |
+|   transaction_id  |     "#8701873727"     |
 |   transaction_revenue   |     800     |
 |   **選填欄位**   |          | 
 |   currency_code   |     "TWD"     |
