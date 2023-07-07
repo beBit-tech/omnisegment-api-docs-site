@@ -80,7 +80,8 @@ but it must be persistent and unique.**
 |   category   |    string      |  Product Category; 商品類別|
 |   brand   |    string      |  Product Brand; 商品品牌; 多品牌用逗號分開; 如"Samsung,Apple"|
 |   quantity   |    string      |  Product Quantities; 商品數量; 表示訂單中此商品的個數|
-|   variant   |    string      |  Product variant; 商品規格; 顏色, size, 包裝數量等等|
+|   variant   |    json formatted string      |  Product variant; 商品規格; 顏色, size, 包裝數量等等|
+|   sku   |    string      |  Product sku; Product variant sku number |
 
 ***
 
@@ -107,7 +108,7 @@ but it must be persistent and unique.**
 |   document_location   |     "https://test.com.tw/store/DEDI0R"     |
 |   document_title   |     "iloom⧑全系列商品"     |
 |   uid   |    "139540"      |
-| products(brand, price, variant)  | [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}] |
+| products(brand, price, variant)  | [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}] |
 |   app_id   |     "com.company.app"     |
 |   app_version   |     "1.3.2"     |
 |   app_name   |     "appname"     |
@@ -124,7 +125,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
     "data_source": "web",
     "version": "2.0.4",
     "hit_type": "pageview",
-    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}, {"id": "DCAN8J-A90097Q9R", "name": "羅技 k65m 機械式鍵盤", "brand": "Logitech", "price": 2800, "variant": "黑色"},]
+    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}, {"id": "DCAN8J-A90097Q9R", "name": "羅技 k65m 機械式鍵盤", "brand": "Logitech", "price": 2800, "variant": '{"color": "黑色"}', "sku": "SM21-SH-M02-RD-S-002"},]
     "currency_code: "TWD",
     "document_location": "https://test.com.tw/store/DEDI0R",
     "document_title": "iloom 全系列商品",
@@ -147,7 +148,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 |   **選填欄位**   |          | 
 |   currency_code   |     "TWD"     |
 |   uid   |    "139540"      |
-| products(brand, price, variant)  | [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}] |
+| products(brand, price, variant)  | [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}] |
 |   app_id   |     "com.company.app"     |
 |   app_version   |     "1.3.2"     |
 |   app_name   |     "appname"     |
@@ -168,7 +169,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
     "data_source": "app",
     "version": "2.0.4",
     "hit_type": "event",
-    "products":{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}],
+    "products":{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}],
     "currency_code: "TWD",
     "app_id": "com.company.app",
     "app_version": "1.3.2",
@@ -192,7 +193,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 |   document_location   |     "https://test.com.tw/store/DEDI0R"     |
 |   document_title   |     "iloom⧑全系列商品"     |
 |   uid   |    "139540"      |
-|   products(brand, price, variant)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}]     |
+|   products(brand, price, variant)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}]     |
 |   app_id   |     "com.company.app"     |
 |   app_version   |     "1.3.2"     |
 |   app_name   |     "appname"     |
@@ -210,7 +211,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
     "version": "2.0.4",
     "hit_type": "pageview",
     "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠",
-    "brand": "Logitech", "price": 800, "variant": "藍色"}]
+    "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}]
     "currency_code: "TWD",
     "document_location": "https://test.com.tw/store/DEDI0R",
     "document_title": "iloom 全系列商品",
@@ -228,7 +229,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 |   event_category   |    "Ecommerce"      |
 |   version   |     "2.0.4"     |
 |   hit_type   |     "event"     |
-|   products   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}]     |
+|   products   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}]     |
 |   **選填欄位**   |          | 
 |   currency_code   |     "TWD"     |
 |   uid   |    "139540"      |
@@ -253,7 +254,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
     "version": "2.0.4",
     "hit_type": "event",
     "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠",
-    "brand": "Logitech", "price": 800, "variant": "藍色"}]
+    "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}]
     "currency_code: "TWD",
     "app_id": "com.company.app",
     "app_version": "1.3.2",
@@ -278,7 +279,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 |   **選填欄位**   |          | 
 |   currency_code   |     "TWD"     |
 |   uid   |    "139540"      |
-|   products(brand, price, variant)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}]     |
+|   products(brand, price, variant)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}]     |
 |   app_id   |     "com.company.app"     |
 |   app_version   |     "1.3.2"     |
 |   app_name   |     "appname"     |
@@ -299,7 +300,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
     "data_source": "app",
     "version": "2.0.4",
     "hit_type": "event",
-    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "藍色"}],
+    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}],
     "currency_code: "TWD",
     "app_id": "com.company.app",
     "app_version": "1.3.2",
@@ -325,7 +326,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 |   **選填欄位**   |          | 
 |   currency_code   |     "TWD"     |
 |   uid   |    "139540"      |
-|   products(brand, price, variant)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "quantity": 2, "brand": "Logitech", "price": 800, "variant": "藍色"}]     |
+|   products(brand, price, variant)   |     [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "quantity": 2, "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}]     |
 |   app_id   |     "com.company.app"     |
 |   app_version   |     "1.3.2"     |
 |   app_name   |     "appname"     |
@@ -348,7 +349,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
     "hit_type": "event",
     "transaction_id": "#8701873727",
     "transaction_revenue": 3400,
-    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "quantity": 2, "brand": "Logitech", "price": 800, "variant": "藍色"}, {"id": "DCAN8J-A90097HK2", "name": "羅技 K65M 機械式鍵盤", "quantity": 1, "brand": "Logitech", "price": 1800, "variant": "黑色"}],
+    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "quantity": 2, "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}, {"id": "DCAN8J-A90097HK2", "name": "羅技 K65M 機械式鍵盤", "quantity": 1, "brand": "Logitech", "price": 1800, "variant": '{"color": "黑色"}', "sku": "SM21-SH-M02-RD-S-001"}],
     "currency_code: "TWD",
     "app_id": "com.company.app",
     "app_version": "1.3.2",
