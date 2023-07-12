@@ -487,11 +487,118 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 - Implement a module to track user interactions
 
 ```javascript
+import { Platform } from "react-native";
+import DeviceInfo from "react-native-device-info";
+import WebAPI from "./WebAPI";
+
+interface AnalyticsEvent {
+  event_action?: string;
+  event_label?: string;
+  event_category?: string;
+  [key: string]: string | undefined;
+}
+
+export const getDeviceInfo = async (): Promise<{
+  deviceId: string | null;
+  version: string;
+  bundleId: string;
+  appName: string;
+}> => {
+  let deviceId: string | null = null;
+
+  if (Platform.OS === "ios") {
+    // On iOS, use the advertising identifier (IDFA) as the device ID
+    deviceId = await DeviceInfo.getUniqueId();
+  } else if (Platform.OS === "android") {
+    // On Android, use the Android advertising ID as the device ID
+    deviceId = await DeviceInfo.getAndroidId();
+  }
+  const version = DeviceInfo.getVersion();
+  const bundleId = DeviceInfo.getBundleId();
+  const appName = DeviceInfo.getApplicationName();
+
+  return {
+    deviceId,
+    version,
+    bundleId,
+    appName,
+  };
+};
+
+export const trackAnalytics = async (
+  event: AnalyticsEvent = {},
+  type: string = "Event"
+): Promise<void> => {
+  const { deviceId, version, bundleId, appName } = await getDeviceInfo();
+  const endpoint = "https://api.omnisegment.com/api/v1/beacon/track-event/";
+  const user_id = "xxxxxxxxxx";
+  const baseInfo = {
+    version: "2.0.4",
+    data_source: "app",
+    tid: "OA-4aa13903",
+    currency_code: "TWD",
+    hit_type: type,
+    client_id: deviceId!,
+    app_version: version,
+    app_id: bundleId,
+    app_name: appName,
+    document_location: base_url,
+    uid: user_id,
+  };
+
+  fetch(endpoint, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "X-OmniSegment-Api-Key": "xxxxxxxxxxxxxxx",
+      "X-CSRFToken": "xxxxxxxxxxxxxxx",
+      Referer: base_url,
+    },
+    body: JSON.stringify({ ...baseInfo, ...event }),
+  })
+    .then((response) => console.log("Analytics request success"))
+    .catch((error) => {
+      console.error("Analytics request failed:", error);
+    });
+};
 
 ```
 - Collect information when an event occurs and send the event
 
 ```javascript
+
+export default class LoginView extends Component {
+    componentDidMount() {
+        trackAnalytics({
+            event_action: 'ViewContent',
+            event_category: 'Ecommerce',
+            products: [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠"}],
+            document_title: 'iloom 系列商品',
+        }, "pageview");
+    }
+
+   private _LoginButton(): ReactNode {
+        return (
+            <TouchableHighlight
+                style={[styles.button, { top: 32 }]}
+                onPress={() => {
+                    trackAnalytics({
+                        event_action: 'CompleteRegistration',
+                        event_category: 'CompleteRegistration',
+                        event_label: JSON.stringify({
+                            email: 'example@gmail.com'
+                        }),
+                    }, "event");
+                }}
+            >
+                <Text style={{ textAlign: "center", color: "white" }}>登入</Text>
+            </TouchableHighlight>
+        )
+    }
+}
+
+
 
 ```
 
@@ -512,11 +619,21 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { getDeviceInfo } from './Sources/Modules/trackAnalytics'
 
 export default class App extends Component {
+
   render() {
+    const { deviceId, version, bundleId, appName } = getDeviceInfo()
     const deviceInfo = `
-      window.DeviceConfig = ${JSON.stringify(this.props.deviceInfo)}
+      window.isNativeApp = true;
+      true; // note: this is required, or you'll sometimes get silent failures
+      window.DeviceConfig = ${JSON.stringify({
+         client_id: ${deviceId},
+         app_id: ${bundleId},
+         app_name: ${appName},
+         app_version: ${version}
+      })}
     `;
     return (
       <View style={{ flex: 1 }}>
