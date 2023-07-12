@@ -479,3 +479,71 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
     "document_title": "訂閱頻道"
 }'
 ```
+
+***
+
+### Examples For Integrate With App
+
+- create trackAnalytics function
+
+```javascript
+
+```
+- send event
+
+```javascript
+
+```
+
+#### Examples For Integrate With WebView in App
+
+- ios - inject JavaScript into webView
+  - Use `WKUserScript` to injects script
+  - reference: [WKUserScript](https://developer.apple.com/documentation/webkit/wkuserscript)
+
+- react native - inject JavaScript into webView
+```javascript
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import { WebView } from 'react-native-webview';
+
+export default class App extends Component {
+  render() {
+    const deviceInfo = `
+      window.DeviceConfig = ${JSON.stringify(this.props.deviceInfo)}
+    `;
+    return (
+      <View style={{ flex: 1 }}>
+        <WebView
+          source={{
+            uri: 'https://example.com/react-native-webview',
+          }}
+          injectedJavaScript={deviceInfo}
+        />
+      </View>
+    );
+  }
+}
+```
+- Get DeviceInfo From WebView
+  - please check web is also integrate with beacons api
+
+```javascript
+if (window.ReactNativeWebView) {
+  const deviceInfo = (window as any).DeviceConfig
+  window.i13n.dispatch( 'action', {
+   I13N: {
+     action: '[your-action-name]',
+     products: [your products]
+   }
+  });
+}
+```
+
+#### Check The Browsing History on Omnisegment
+<img width="923" alt="截圖 2023-07-12 下午6 02 32" src="https://github.com/beBit-tech/omnisegment-api-docs/assets/32828379/7364dd43-7212-4601-a762-fad03ecefa4e">
+
+
+
+
+
