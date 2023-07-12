@@ -501,6 +501,10 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
   - Use `WKUserScript` to injects script
   - reference: [WKUserScript](https://developer.apple.com/documentation/webkit/wkuserscript)
 
+- android - inject JavaScript into webView
+  - Use `evaluateJavascript` and `addJavascriptInterface` to injects script
+  - reference: [evaluateJavascript](https://developer.android.com/reference/android/webkit/WebView#evaluateJavascript(java.lang.String,%20android.webkit.ValueCallback%3Cjava.lang.String%3E)), [addJavascriptInterface](https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String))
+
 - react native - inject JavaScript into webView
 ```javascript
 import React, { Component } from 'react';
