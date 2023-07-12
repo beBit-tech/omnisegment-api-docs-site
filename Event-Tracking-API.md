@@ -535,7 +535,7 @@ export const trackAnalytics = async (
   const baseInfo = {
     version: "2.0.4",
     data_source: "app",
-    tid: "OA-4aa13903",
+    tid: "OA-xxxxx",
     currency_code: "TWD",
     hit_type: type,
     client_id: deviceId!,
