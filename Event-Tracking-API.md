@@ -485,6 +485,9 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 ### Examples For Integrate With App
 
 - Implement a module to track user interactions
+  - get device info
+  - get CSRFToken and OmniSegment Api Key
+  - Integrate With beacon api
 
 ```javascript
 import { Platform } from "react-native";
