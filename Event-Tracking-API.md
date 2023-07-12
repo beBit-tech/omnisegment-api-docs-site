@@ -484,12 +484,12 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 
 ### Examples For Integrate With App
 
-- create trackAnalytics function
+- Implement a module to track user interactions
 
 ```javascript
 
 ```
-- send event
+- Collect information when an event occurs and send the event
 
 ```javascript
 
@@ -506,6 +506,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
   - reference: [evaluateJavascript](https://developer.android.com/reference/android/webkit/WebView#evaluateJavascript(java.lang.String,%20android.webkit.ValueCallback%3Cjava.lang.String%3E)), [addJavascriptInterface](https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String))
 
 - react native - inject JavaScript into webView
+  - Use `injectedJavaScript` to injects script
+  - reference: [injectedJavaScript](https://github.com/react-native-webview/react-native-webview/blob/master/docs/Guide.md#communicating-between-js-and-native)
 ```javascript
 import React, { Component } from 'react';
 import { View } from 'react-native';
@@ -530,21 +532,27 @@ export default class App extends Component {
 }
 ```
 - Get DeviceInfo From WebView
-  - please check web is also integrate with beacons api
+  - Please verify if the WebView has also been embedded with the tracking code from Omnitag
 
 ```javascript
 if (window.ReactNativeWebView) {
   const deviceInfo = (window as any).DeviceConfig
-  window.i13n.dispatch( 'action', {
-   I13N: {
-     action: '[your-action-name]',
-     products: [your products]
-   }
-  });
+  
+  /*
+    Send tracking code based on web page interactions,
+    the events sent from the WebView should include the app device information
+  */
+     window.i13n.dispatch('action', {
+        I13N: {
+          action: 'ClickProduct',
+          ...deviceInfo,
+        }
+      }
 }
 ```
 
-#### Check The Browsing History on Omnisegment
+#### Verify if the events have been successfully received
+- Checking the customer's browsing history in Omnisegment
 <img width="923" alt="截圖 2023-07-12 下午6 02 32" src="https://github.com/beBit-tech/omnisegment-api-docs/assets/32828379/7364dd43-7212-4601-a762-fad03ecefa4e">
 
 
