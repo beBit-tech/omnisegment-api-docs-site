@@ -673,6 +673,7 @@ if (window.ReactNativeWebView) {
 
 #### Verify if the events have been successfully received
 - Checking the customer's browsing history in Omnisegment
+  - Audience page -> Audience detail page -> Audience's browsing history
 <img width="923" alt="截圖 2023-07-12 下午6 02 32" src="https://github.com/beBit-tech/omnisegment-api-docs/assets/32828379/7364dd43-7212-4601-a762-fad03ecefa4e">
 
 
