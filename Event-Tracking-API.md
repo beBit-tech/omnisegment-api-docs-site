@@ -119,16 +119,16 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
-    "client_id": "1235621.1252357334"
-    "uid": "139540"
+    "client_id": "1235621.1252357334",
+    "uid": "139540",
     "tid": "OA-xxxxxxxx",
     "data_source": "web",
     "version": "2.0.4",
     "hit_type": "pageview",
-    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}, {"id": "DCAN8J-A90097Q9R", "name": "羅技 k65m 機械式鍵盤", "brand": "Logitech", "price": 2800, "variant": '{"color": "黑色"}', "sku": "SM21-SH-M02-RD-S-002"},]
-    "currency_code: "TWD",
+    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "{\"color\": \"藍色\"}", "sku": "SM21-SH-M02-RD-S-001"}, {"id": "DCAN8J-A90097Q9R", "name": "羅技 k65m 機械式鍵盤", "brand": "Logitech", "price": 2800, "variant": "{\"color\": \"黑色\"}", "sku": "SM21-SH-M02-RD-S-002"}],
+    "currency_code": "TWD",
     "document_location": "https://test.com.tw/store/DEDI0R",
-    "document_title": "iloom 全系列商品",
+    "document_title": "iloom 全系列商品"
 }'
 ```
 
