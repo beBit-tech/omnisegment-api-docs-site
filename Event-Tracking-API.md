@@ -161,15 +161,15 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
-    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
-    "uid": "139540"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606",
+    "uid": "139540",
     "tid": "OA-xxxxxxxx",
     "event_action": "ClickProduct",
     "event_category": "Ecommerce",
     "data_source": "app",
     "version": "2.0.4",
     "hit_type": "event",
-    "products":{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}],
+    "products":{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "{\"color\": \"藍色\"}", "sku": "SM21-SH-M02-RD-S-001"}],
     "currency_code: "TWD",
     "app_id": "com.company.app",
     "app_version": "1.3.2",
@@ -204,17 +204,17 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
-    "client_id": "1235621.1252357334"
-    "uid": "139540"
+    "client_id": "1235621.1252357334",
+    "uid": "139540",
     "tid": "OA-xxxxxxxx",
     "data_source": "web",
     "version": "2.0.4",
     "hit_type": "pageview",
     "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠",
-    "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}]
+    "brand": "Logitech", "price": 800, "variant": "{\"color\": \"藍色\"}", "sku": "SM21-SH-M02-RD-S-001"}],
     "currency_code: "TWD",
     "document_location": "https://test.com.tw/store/DEDI0R",
-    "document_title": "iloom 全系列商品",
+    "document_title": "iloom 全系列商品"
 }'
 ```
 ***
@@ -245,8 +245,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
-    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
-    "uid": "139540"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606",
+    "uid": "139540",
     "tid": "OA-xxxxxxxx",
     "event_action": "AddToCart",
     "event_category": "Ecommerce",
@@ -254,7 +254,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
     "version": "2.0.4",
     "hit_type": "event",
     "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠",
-    "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}]
+    "brand": "Logitech", "price": 800, "variant": "{\"color\": \"藍色\"}", "sku": "SM21-SH-M02-RD-S-001"}],
     "currency_code: "TWD",
     "app_id": "com.company.app",
     "app_version": "1.3.2",
@@ -292,15 +292,15 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
-    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
-    "uid": "139540"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606",
+    "uid": "139540",
     "tid": "OA-xxxxxxxx",
     "event_action": "Checkout",
     "event_category": "Ecommerce",
     "data_source": "app",
     "version": "2.0.4",
     "hit_type": "event",
-    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}],
+    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "brand": "Logitech", "price": 800, "variant": "{\"color\": \"藍色\"}", "sku": "SM21-SH-M02-RD-S-001"}],
     "currency_code: "TWD",
     "app_id": "com.company.app",
     "app_version": "1.3.2",
@@ -339,8 +339,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
-    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
-    "uid": "139540"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606",
+    "uid": "139540",
     "tid": "OA-xxxxxxxx",
     "event_action": "Purchase",
     "event_category": "Ecommerce",
@@ -349,7 +349,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
     "hit_type": "event",
     "transaction_id": "#8701873727",
     "transaction_revenue": 3400,
-    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "quantity": 2, "brand": "Logitech", "price": 800, "variant": '{"color": "藍色"}', "sku": "SM21-SH-M02-RD-S-001"}, {"id": "DCAN8J-A90097HK2", "name": "羅技 K65M 機械式鍵盤", "quantity": 1, "brand": "Logitech", "price": 1800, "variant": '{"color": "黑色"}', "sku": "SM21-SH-M02-RD-S-001"}],
+    "products": [{"id": "DCAN8J-A90097H2N", "name": "羅技 M221 靜音無線滑鼠", "quantity": 2, "brand": "Logitech", "price": 800, "variant": "{\"color\": \"藍色\"}", "sku": "SM21-SH-M02-RD-S-001"}, {"id": "DCAN8J-A90097HK2", "name": "羅技 K65M 機械式鍵盤", "quantity": 1, "brand": "Logitech", "price": 1800, "variant": "{\"color\": \"黑色\"}", "sku": "SM21-SH-M02-RD-S-001"}],
     "currency_code: "TWD",
     "app_id": "com.company.app",
     "app_version": "1.3.2",
@@ -384,8 +384,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
-    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
-    "uid": "139540"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606",
+    "uid": "139540",
     "tid": "OA-xxxxxxxx",
     "event_action": "CompleteRegistration",
     "event_category": "Ecommerce",
@@ -395,7 +395,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
     "app_id": "com.company.app",
     "app_version": "1.3.2",
     "app_name": "appname",
-    "event_label": '{"email": "fake@gmail.com", "city": "Taipei", "birthdayYear": "1996", "regType": "google"}'
+    "event_label": "{\"email\": \"fake@gmail.com\", \"city\": \"Taipei\", \"birthdayYear\": \"1996\", \"regType\": \"google\"}"
 }'
 ```
 
@@ -426,8 +426,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
-    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
-    "uid": "139540"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606",
+    "uid": "139540",
     "tid": "OA-xxxxxxxx",
     "event_action": "Search",
     "event_category": "Search",
@@ -437,7 +437,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
     "app_id": "com.company.app",
     "app_version": "1.3.2",
     "app_name": "appname",
-    "event_label": '{"search_string": "滑鼠"}'
+    "event_label": "{\"search_string\": \"滑鼠\"}"
 }'
 ```
 
@@ -467,8 +467,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 --header 'Content-Type: application/json' \
 --header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
 --data-raw '{
-    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606"
-    "uid": "139540"
+    "client_id": "EA7583CD-A667-48BC-B806-42ECB2B48606",
+    "uid": "139540",
     "tid": "OA-xxxxxxxx",
     "event_action": "Subscribe",
     "event_value": "遊戲微服務計畫",
@@ -675,8 +675,5 @@ if (window.ReactNativeWebView) {
 - Checking the customer's browsing history in Omnisegment
   - Audience page -> Audience detail page -> Audience's browsing history
 <img width="923" alt="截圖 2023-07-12 下午6 02 32" src="https://github.com/beBit-tech/omnisegment-api-docs/assets/32828379/7364dd43-7212-4601-a762-fad03ecefa4e">
-
-
-
 
 
