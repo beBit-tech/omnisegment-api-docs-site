@@ -4,6 +4,8 @@ This is the Omnisegment API document.
 
 ## API-Pages
 
+[[API Common Specifications]]
+
 [[Import Audience API]]
 
 [[Import Purchase Data API]]
@@ -18,14 +20,14 @@ This is the Omnisegment API document.
 
 [[Import Event Registration API]]
 
-[[Omnitag---Beacon---埋碼]]
-
-[[Third-Party-Personal-Information-Application-Programming-Interface-Guideline]]
-
 [[Tracking Event Report APIs]]
 
 [[Interaction Report APIs]]
 
 [[Event Tracking API]]
 
-[[API Common Specifications]]
+[[Third-Party-Personal-Information-Application-Programming-Interface-Guideline]]
+
+[[External Tracking Guide]]
+
+[[Omnitag---Beacon---埋碼]]
