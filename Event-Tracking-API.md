@@ -555,7 +555,6 @@ export const trackAnalytics = async (
     headers: {
       "Content-Type": "application/json",
       "X-OmniSegment-Api-Key": "xxxxxxxxxxxxxxx",
-      "X-CSRFToken": "xxxxxxxxxxxxxxx",
       Referer: base_url,
     },
     body: JSON.stringify({ ...baseInfo, ...event }),
