@@ -59,7 +59,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/products/impo
 |       id   | 商品的 id，可以是一個字串，也可以是一個 object，當 id 為 object 時，可以帶入多組 id 表示該商品在各個不同系統中的 id。                | 此為唯一值，可以是 SKU                                     |
 |      title       | 商品的名稱                               | e.g. 普通 T 恤                   |
 |       link       | 商品的網址 |連結必須是有效且開頭為 http:// 或 https:// 的網址。|
-|      availability       | 商品目前提供的狀態|  e.g. `in stock`、`available for order`, `preorder`，其餘值皆視為False。 |
+|      availability       | 商品目前提供的狀態，對應商品頁的「啟用中」|  e.g. `in stock`、`available for order`, `preorder`視為「是」，其餘值皆視為「否」。 |
 |    image_link    | 商品主要圖像的網址。圖像必須為 JPEG 或 PNG 格式，至少 500 x 500 像素，最大 8 MB。 | e.g. http://www.test.com/products/shirt.jpg |
 |      price      | 商品的價錢| 將價格的格式設定為數字，後面接一個空格和 3 個字母的 ISO 4217 幣別代碼。一律使用句點 (.) 作為小數點，不要使用逗點 (,)。 e.g. 999 TWD|
 
