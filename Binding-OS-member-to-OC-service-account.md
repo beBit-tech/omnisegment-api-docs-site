@@ -31,7 +31,7 @@
 
 | **Type** | **Description** | **Sample** |
 | :------: | ------ | ------ |
-| InputError | request data is wrong | member_sn 不存在 OS or account_id not exists | 
+| InputError | request data is wrong | member_sn or account_id 不符合格式 | 
 | MissingInputError | request data is missing | request data 未給 account_id |
 | PermissionDenied | permission denied | request data missing api key |
 
