@@ -15,7 +15,7 @@
 
 - **api_key**: organization's api key.
 
-- **data_list**: bind info data (support multi data).
+- **data_list**: bind info data (support multi data, max size is 50).
 
 
 ## data_list 內欄位說明
