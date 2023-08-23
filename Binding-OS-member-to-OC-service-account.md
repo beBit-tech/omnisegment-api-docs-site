@@ -15,10 +15,10 @@
 
 - **api_key**: organization's api key.
 
-- **data**: bind info data.
+- **data_list**: bind info data (support multi data).
 
 
-## data 內欄位說明
+## data_list 內欄位說明
 
 | **Parameter** | **Description** | **Sample** | **Data Type** | **Required** | Note |
 | :------: | ------ | ------ | ------ | ------ | ------ |
@@ -43,9 +43,15 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/audience/oc-s
 --data-raw '{
    "tid": "OA-xxxxxx",
    "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-   "data": {
-      "member_sn": "www123",
-      "account_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-   }
+   "data_list": [
+       {
+          "member_sn": "www123",
+          "account_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+       },
+       {
+          "member_sn": "qqq456",
+          "account_id": "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz"
+       },
+       ...
 }'
 ```
