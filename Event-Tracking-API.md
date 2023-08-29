@@ -489,6 +489,20 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
   - get CSRFToken and OmniSegment Api Key
   - Integrate With beacon api
 
+<details>
+<summary> SWIFT </summary>
+
+
+</details>
+
+<details>
+<summary> KOTLIN </summary>
+
+</details>
+
+<details>
+<summary> REACT NATIVE </summary>
+
 ```javascript
 import { Platform } from "react-native";
 import DeviceInfo from "react-native-device-info";
@@ -566,7 +580,25 @@ export const trackAnalytics = async (
 };
 
 ```
+
+</details>
+
+
 - Collect information when an event occurs and send the event
+
+<details>
+<summary> SWIFT </summary>
+
+
+</details>
+
+<details>
+<summary> KOTLIN </summary>
+
+</details>
+
+<details>
+<summary> REACT NATIVE </summary>
 
 ```javascript
 
@@ -604,19 +636,39 @@ export default class LoginView extends Component {
 
 ```
 
+
+</details>
+
+
 #### Examples For Integrate With WebView in App
 
 - ios - inject JavaScript into webView
   - Use `WKUserScript` to injects script
   - reference: [WKUserScript](https://developer.apple.com/documentation/webkit/wkuserscript)
 
+<details>
+<summary> SWIFT </summary>
+
+
+</details>
+
 - android - inject JavaScript into webView
   - Use `evaluateJavascript` and `addJavascriptInterface` to injects script
   - reference: [evaluateJavascript](https://developer.android.com/reference/android/webkit/WebView#evaluateJavascript(java.lang.String,%20android.webkit.ValueCallback%3Cjava.lang.String%3E)), [addJavascriptInterface](https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String))
 
+<details>
+<summary> KOTLIN </summary>
+
+</details>
+
+
 - react native - inject JavaScript into webView
   - Use `injectedJavaScript` to injects script
   - reference: [injectedJavaScript](https://github.com/react-native-webview/react-native-webview/blob/master/docs/Guide.md#communicating-between-js-and-native)
+
+<details>
+<summary> REACT NATIVE </summary>
+
 ```javascript
 import React, { Component } from 'react';
 import { View } from 'react-native';
@@ -650,8 +702,28 @@ export default class App extends Component {
   }
 }
 ```
+
+</details>
+
+
+
+
 - Get DeviceInfo From WebView
   - Please verify if the WebView has also been embedded with the tracking code from Omnitag
+
+<details>
+<summary> SWIFT </summary>
+
+
+</details>
+
+<details>
+<summary> KOTLIN </summary>
+
+</details>
+
+<details>
+<summary> REACT NATIVE </summary>
 
 ```javascript
 if (window.ReactNativeWebView) {
@@ -669,6 +741,10 @@ if (window.ReactNativeWebView) {
       }
 }
 ```
+
+</details>
+
+
 
 #### Verify if the events have been successfully received
 - Checking the customer's browsing history in Omnisegment
