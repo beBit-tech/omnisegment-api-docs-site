@@ -486,7 +486,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 
 - Implement a module to track user interactions
   - get device info
-  - get CSRFToken and OmniSegment Api Key
+  - get OmniSegment Api Key
   - Integrate With beacon api
 
 <details>
