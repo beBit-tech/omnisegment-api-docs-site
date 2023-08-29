@@ -484,7 +484,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 
 ### Examples For Integrate With App
 
-- Implement a module to track user interactions
+- Implement a service to track user interactions
   - get device info
   - get OmniSegment Api Key
   - Integrate With beacon api
