@@ -492,11 +492,163 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 <details>
 <summary> SWIFT </summary>
 
+- making network requests: [Alamofire](https://github.com/Alamofire/Alamofire) 
+- get device info: [UIDevice](https://developer.apple.com/documentation/uikit/uidevice)
+
+```swift
+import Foundation
+import DeviceCheck
+
+func getDeviceInfo() -> [String: String] {
+    var deviceId: String = ""
+    
+    // Try to fetch the IDFA first
+    if let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString, !idfa.isEmpty {
+        deviceId = idfa
+    } else {
+        // If IDFA is not available, use IDFV and append "-IDFV"
+        if let idfv = UIDevice.current.identifierForVendor?.uuidString {
+            deviceId = "\(idfv)-IDFV"
+        }
+    }
+
+    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    let bundleId = Bundle.main.bundleIdentifier ?? ""
+    let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? ""
+    
+    return ["deviceId": deviceId, "version": version, "bundleId": bundleId, "appName": appName]
+}
+
+func trackAnalytics(event: [String: Any], type: String = "Event") {
+    let deviceInfo = getDeviceInfo()
+    
+    var requestInfo: [String: Any] = [
+        "version": "2.0.4",
+        "data_source": "app",
+        "tid": "OA-xxxxx",
+        "currency_code": "TWD",
+        "hit_type": type,
+        "client_id": deviceInfo["deviceId"]!,
+        "app_version": deviceInfo["version"]!,
+        "app_id": deviceInfo["bundleId"]!,
+        "app_name": deviceInfo["appName"]!,
+        "document_location": "base_url",
+        "uid": "user_id"
+    ]
+    
+    for (key, value) in event {
+        requestInfo[key] = value
+    }
+    
+    let url = URL(string: "https://api.omnisegment.com/api/v1/beacon/track-event/")!
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.addValue("xxxxxxxxxxxxxxx", forHTTPHeaderField: "X-OmniSegment-Api-Key")
+    
+    let jsonData = try? JSONSerialization.data(withJSONObject: requestInfo)
+    request.httpBody = jsonData
+    
+    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        if let error = error {
+            print("Analytics request failed:", error)
+        } else {
+            print("Analytics request success")
+        }
+    }
+    
+    task.resume()
+}
+
+
+```
 
 </details>
 
 <details>
 <summary> KOTLIN </summary>
+
+- making network requests: [OkHttp](https://square.github.io/okhttp/) 
+- get device info: [AdvertisingIdClient](https://developer.android.com/training/articles/ad-id#configure-client), [ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)
+
+```gradle
+implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+```
+
+```kotlin
+import okhttp3.*
+import org.json.JSONObject
+import android.content.Context
+import android.provider.Settings
+import com.google.android.gms.ads.identifier.AdvertisingIdClient
+import java.io.IOException
+
+fun getDeviceInfo(context: Context): HashMap<String, String> {
+    var deviceId: String = ""
+    
+    // Try to fetch the AAID first
+    try {
+        val info = AdvertisingIdClient.getAdvertisingIdInfo(context)
+        deviceId = info?.id ?: ""
+    } catch (e: Exception) {
+        // Handle exception
+    }
+
+    // If AAID is not available, use SSAID and append "-SSAID"
+    if (deviceId.isEmpty()) {
+        deviceId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID) + "-SSAID"
+    }
+    
+    val version = android.os.Build.VERSION.RELEASE
+    val bundleId = context.packageName
+    val appName = context.getString(android.R.string.app_name) // Replace with your actual app name resource
+
+    return hashMapOf("deviceId" to deviceId, "version" to version, "bundleId" to bundleId, "appName" to appName)
+}
+
+fun trackAnalytics(context: Context, event: HashMap<String, Any>, type: String = "Event") {
+    val client = OkHttpClient()
+
+    val deviceInfo = getDeviceInfo(context)
+    val requestInfo = JSONObject()
+
+    requestInfo.put("version", "2.0.4")
+    requestInfo.put("data_source", "app")
+    requestInfo.put("tid", "OA-xxxxx")
+    requestInfo.put("currency_code", "TWD")
+    requestInfo.put("hit_type", type)
+    requestInfo.put("client_id", deviceInfo["deviceId"])
+    requestInfo.put("app_version", deviceInfo["version"])
+    requestInfo.put("app_id", deviceInfo["bundleId"])
+    requestInfo.put("app_name", deviceInfo["appName"])
+    requestInfo.put("document_location", "base_url")
+    requestInfo.put("uid", "user_id")
+
+    for ((key, value) in event) {
+        requestInfo.put(key, value)
+    }
+
+    val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestInfo.toString())
+    val request = Request.Builder()
+        .url("https://api.omnisegment.com/api/v1/beacon/track-event/")
+        .post(body)
+        .addHeader("Content-Type", "application/json")
+        .addHeader("X-OmniSegment-Api-Key", "xxxxxxxxxxxxxxx")
+        .build()
+
+    client.newCall(request).enqueue(object : Callback {
+        override fun onFailure(call: Call, e: IOException) {
+            println("Analytics request failed: $e")
+        }
+
+        override fun onResponse(call: Call, response: Response) {
+            println("Analytics request success")
+        }
+    })
+}
+
+```
+
 
 </details>
 
