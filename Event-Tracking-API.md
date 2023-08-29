@@ -912,7 +912,7 @@ class ViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
 <details>
 <summary> KOTLIN </summary>
-  - [evaluateJavascript](https://developer.android.com/reference/android/webkit/WebView#evaluateJavascript(java.lang.String,%20android.webkit.ValueCallback%3Cjava.lang.String%3E))
+  - evaluateJavascript -https://developer.android.com/reference/android/webkit/WebView#evaluateJavascript(java.lang.String,%20android.webkit.ValueCallback%3Cjava.lang.String%3E)
 
 ```kotlin
 import android.os.Bundle
@@ -1048,22 +1048,8 @@ export default class App extends Component {
 - Get DeviceInfo From WebView
   - Please verify if the WebView has also been embedded with the tracking code from Omnitag
 
-<details>
-<summary> SWIFT </summary>
-
-
-</details>
-
-<details>
-<summary> KOTLIN </summary>
-
-</details>
-
-<details>
-<summary> REACT NATIVE </summary>
-
 ```javascript
-if (window.ReactNativeWebView) {
+if (window.DeviceConfig) {
   const deviceInfo = (window as any).DeviceConfig
   
   /*
@@ -1078,10 +1064,6 @@ if (window.ReactNativeWebView) {
       }
 }
 ```
-
-</details>
-
-
 
 #### Verify if the events have been successfully received
 - Checking the customer's browsing history in Omnisegment
