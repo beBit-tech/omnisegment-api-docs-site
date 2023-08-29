@@ -492,8 +492,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 <details>
 <summary> SWIFT </summary>
 
-- making network requests: [Alamofire](https://github.com/Alamofire/Alamofire) 
-- get device info: [UIDevice](https://developer.apple.com/documentation/uikit/uidevice)
+- making network requests: [URLRequest](https://developer.apple.com/documentation/foundation/urlrequest) , [URLSession](https://developer.apple.com/documentation/foundation/urlsession)
+- get device info: [ASIdentifierManager](https://developer.apple.com/documentation/adsupport/asidentifiermanager) ,[UIDevice](https://developer.apple.com/documentation/uikit/uidevice)
 
 ```swift
 import Foundation
@@ -741,11 +741,67 @@ export const trackAnalytics = async (
 <details>
 <summary> SWIFT </summary>
 
+```swift
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Example of tracking a page view
+        trackAnalytics(event: ["event_action": "ViewContent", "event_category": "Ecommerce"], type: "pageview")
+        
+        // Example of tracking a button click or some other user interaction
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 100, y: 100, width: 100, height: 50)
+        button.setTitle("Click Me", for: .normal)
+        button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        self.view.addSubview(button)
+    }
+
+    @objc func buttonClicked() {
+        trackAnalytics(event: ["event_action": "ButtonClick", "event_category": "Interaction"], type: "event")
+    }
+}
+
+```
 
 </details>
 
 <details>
 <summary> KOTLIN </summary>
+
+```kotlin
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.Button
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // Example of tracking a page view
+        val pageViewEvent: HashMap<String, Any> = hashMapOf(
+            "event_action" to "ViewContent",
+            "event_category" to "Ecommerce"
+        )
+        trackAnalytics(this, pageViewEvent, "pageview")
+
+        // Example of tracking a button click or some other user interaction
+        val button: Button = findViewById(R.id.myButton)
+        button.setOnClickListener {
+            val clickEvent: HashMap<String, Any> = hashMapOf(
+                "event_action" to "ButtonClick",
+                "event_category" to "Interaction"
+            )
+            trackAnalytics(this, clickEvent, "event")
+        }
+    }
+}
+```
 
 </details>
 
@@ -801,15 +857,144 @@ export default class LoginView extends Component {
 <details>
 <summary> SWIFT </summary>
 
+```swift
+import UIKit
+import WebKit
+
+class ViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
+  
+    var webView: WKWebView!
+  
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Create WKWebView
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+
+        // Get device information
+        let deviceInfo = getDeviceInfo() // Assume this function exists and returns a dictionary
+        let deviceId = deviceInfo["deviceId"] ?? ""
+        let version = deviceInfo["version"] ?? ""
+        let bundleId = deviceInfo["bundleId"] ?? ""
+        let appName = deviceInfo["appName"] ?? ""
+
+        // Inject JavaScript
+        let deviceInfoScript = """
+            window.isNativeApp = true;
+            window.DeviceConfig = {
+                client_id: '\(deviceId)',
+                app_id: '\(bundleId)',
+                app_name: '\(appName)',
+                app_version: '\(version)'
+            };
+        """
+        let userScript = WKUserScript(source: deviceInfoScript, injectionTime: .atDocumentStart, forMainFrameOnly: true)
+        webConfiguration.userContentController.addUserScript(userScript)
+
+        // Load WebView
+        webView.frame = self.view.frame
+        self.view.addSubview(webView)
+        let myURL = URL(string:"https://example.com/react-native-webview")
+        let myRequest = URLRequest(url: myURL!)
+        webView.load(myRequest)
+    }
+}
+
+```
 
 </details>
 
 - android - inject JavaScript into webView
   - Use `evaluateJavascript` and `addJavascriptInterface` to injects script
-  - reference: [evaluateJavascript](https://developer.android.com/reference/android/webkit/WebView#evaluateJavascript(java.lang.String,%20android.webkit.ValueCallback%3Cjava.lang.String%3E)), [addJavascriptInterface](https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String))
 
 <details>
 <summary> KOTLIN </summary>
+  - [evaluateJavascript](https://developer.android.com/reference/android/webkit/WebView#evaluateJavascript(java.lang.String,%20android.webkit.ValueCallback%3Cjava.lang.String%3E))
+
+```kotlin
+import android.os.Bundle
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val webView: WebView = findViewById(R.id.webview)
+        webView.settings.javaScriptEnabled = true
+
+        // Load a web page
+        webView.loadUrl("https://example.com")
+
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+
+                // Inject JavaScript after the page is loaded
+                val deviceInfo = getDeviceInfo(this@MainActivity)
+                val javascriptCode = """
+                    window.isNativeApp = true;
+                    window.DeviceConfig = {
+                        client_id: '${deviceInfo["deviceId"]}',
+                        app_id: '${deviceInfo["bundleId"]}',
+                        app_name: '${deviceInfo["appName"]}',
+                        app_version: '${deviceInfo["version"]}'
+                    };
+                """
+                webView.evaluateJavascript(javascriptCode, null)
+            }
+        }
+    }
+}
+
+```
+
+- [addJavascriptInterface](https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String))
+
+```kotlin
+class WebAppInterface(private val mContext: Context) {
+    @JavascriptInterface
+    fun getDeviceConfig(): String {
+        val deviceInfo = getDeviceInfo(mContext)
+        return Gson().toJson(deviceInfo)
+    }
+}
+```
+
+```kotlin
+import android.os.Bundle
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val webView: WebView = findViewById(R.id.webview)
+        webView.settings.javaScriptEnabled = true
+
+        // Add JavaScript Interface
+        webView.addJavascriptInterface(WebAppInterface(this), "Android")
+
+        // Load a web page
+        webView.loadUrl("https://example.com")
+
+        // Now you can use `Android.getDeviceConfig()` in your JavaScript code to get the device config.
+    }
+}
+
+```
 
 </details>
 
