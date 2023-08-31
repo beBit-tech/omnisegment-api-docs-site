@@ -23,7 +23,7 @@
 | **Parameter** | **Description** | **Sample** | **Data Type** | **Required** | Note |
 | :------: | ------ | ------ | ------ | ------ | ------ |
 | member_sn | 會員編號 | **`"member_sn": "www123"`** | string | &#10004; | os 會員編碼 |
-| account_id | 服務單位編號 | **`"account_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"`** | string |  &#10004; | 於 oc 系統後台匯出 |
+| account_id | 服務單位編號 | **`"account_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"`** | string |  &#10004; | 於 oc 系統後台匯出, must be uuid type |
 
 * Note: 綁定時會自動檢查 member_sn 是否有 line_id(Line 的 UserId)，有的話才會進行綁定
 
