@@ -553,7 +553,9 @@ func trackAnalytics(event: [String: Any], type: String = "Event") {
         if let error = error {
             print("Analytics request failed:", error)
         } else {
-            print("Analytics request success")
+            // you can get more detail for debug
+            print("data", data)
+            print("response", response)
         }
     }
     
@@ -642,7 +644,9 @@ fun trackAnalytics(context: Context, event: HashMap<String, Any>, type: String =
         }
 
         override fun onResponse(call: Call, response: Response) {
+            // you can get more detail for debug
             println("Analytics request success")
+            println("response", response)
         }
     })
 }
@@ -725,7 +729,7 @@ export const trackAnalytics = async (
     },
     body: JSON.stringify({ ...baseInfo, ...event }),
   })
-    .then((response) => console.log("Analytics request success"))
+    .then((response) => console.log("Analytics request success: response", response))
     .catch((error) => {
       console.error("Analytics request failed:", error);
     });
