@@ -5,7 +5,7 @@
 * Note： 此 API 僅供 member 已存在 OmniSegmemt 的狀況
 
 ## API URL
-* `https://api.omnisegment.com/api/v2/audience/oc-sa-bind/`
+* `https://api.omnisegment.com/api/v2/audiences/oc-sa-bind/`
 
 ## API Method
 * `POST`
