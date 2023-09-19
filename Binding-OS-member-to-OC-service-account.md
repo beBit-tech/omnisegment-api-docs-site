@@ -38,7 +38,7 @@
 ## Example
 
 ```
-curl --location --request POST 'https://api.omnisegment.com/api/v2/audience/oc-sa-bind/' \
+curl --location --request POST 'https://api.omnisegment.com/api/v2/audiences/oc-sa-bind/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
    "tid": "OA-xxxxxx",
