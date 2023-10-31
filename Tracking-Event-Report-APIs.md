@@ -20,7 +20,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | end_date | 結束日期 | **`"end_date": "2022-09-30"`** | string | &#10004; | |
 
 ### Note
- - 撈取時間不得超過 31 days
+ - 報表的撈取區間不得超過 31 天
 
 ## Response
 ```
@@ -48,7 +48,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ### Note
- - 只會給一天內的 report 狀態
+ - 僅提供一天內產生的報表資料，請於一天內抓取報表
 
 ## Response
 ```
