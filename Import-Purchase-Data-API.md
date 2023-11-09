@@ -95,6 +95,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-
 
 ## Example of batch import api
 
+* Maximum number of purchase data in a batch request should not be larger than 50
+
 ```
 curl --location --request POST 'https://api.omnisegment.com/api/v2/purchase/batch-import/' \
 --header 'Content-Type: application/json' \
