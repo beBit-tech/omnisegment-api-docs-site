@@ -61,8 +61,8 @@ but it must be persistent and unique.**
 |   products   |    list of json object    | 詳見 [Product Parameters]() |  
 |   transaction_revenue   |    int      |    訂單總金額      | 
 |   transaction_id   |     string     |     訂單ID     | 
-|   transaction_tax   |     string     |      訂單稅額    | 
-|   transaction_shipping   |     string     |     訂單運費     | 
+|   transaction_tax   |     int    |      訂單稅額    | 
+|   transaction_shipping   |     int     |     訂單運費     | 
 |   transaction_couponcode   |     string     |   訂單優惠卷       | 
 |   uid   |    string      |     User ID。 會員編號 ，使用者登入後須帶入     |
 
