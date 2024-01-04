@@ -24,9 +24,9 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-
    "tid": "OA-xxxxxx",
    "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
    "data": {
-      "member_sn": 1,
+      "member_sn": "1",
       "transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1",
-      "datetime": "2020-1-1 0:0:0",
+      "datetime": "2020-1-1T00:00:00+0800",
       "products": "1,2",
       "quantities": 2,
       "products_quantity": "1,1",
@@ -63,9 +63,9 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-
    "tid": "OA-xxxxxx",
    "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
    "data": {
-      "member_sn": 1,
+      "member_sn": "1",
       "transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1",
-      "datetime": "2020-1-1 0:0:0",
+      "datetime": "2020-1-1T00:00:00+0800",
       "products": {"default": "1,2", "CRM": "crm_id1,crm_id2", "ERP": "erp_id1,erp_id2"},
       "quantities": 2,
       "products_quantity": "1,1",
@@ -105,9 +105,9 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/purchase/batc
    "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
    "data": [
      {
-      "member_sn": 1,
+      "member_sn": "1",
       "transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1",
-      "datetime": "2020-1-1 0:0:0",
+      "datetime": "2020-1-1T00:00:00+0800",
       "products": "1,2",
       "quantities": 2,
       "products_quantity": "1,1",
@@ -133,9 +133,9 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/purchase/batc
       ]
      },
      {
-      "member_sn": 1,
+      "member_sn": "1",
       "transaction_id": "98w1m44-5872-4363-qs23-5532a89e4cb1",
-      "datetime": "2020-1-1 0:0:0",
+      "datetime": "2020-1-1T00:00:00+0800",
       "products": "1,2",
       "quantities": 2,
       "products_quantity": "1,1",
@@ -168,7 +168,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/purchase/batc
 
 | **必填欄位** | **說明** | **備註** | **『歷史資料追蹤』節點當中的應用** |
 | :------: | ------ | ------ | ------ | 
-| member_sn | **`"member_sn": 1`**<br>會員編號 |
+| member_sn | **`"member_sn": "1"`**<br>會員編號 |
 | datetime | **`"datetime": "2022-12-08T09:51:23+0800"`**<br>訂單日期, 日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> | | 最後轉換時間 |
 | transaction_id | **`"transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1"`**<br>訂單ID |
 | transaction_revenue | **`"transaction_revenue": 5000`**<br>訂單總金額 | | - 最後一次消費金額<br>- 總金額<br>- 平均花費|
