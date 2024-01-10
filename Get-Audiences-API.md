@@ -89,36 +89,39 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ### Report data scheme
 
 ```
-{
-    "member_sn": "string",
-    "is_headless_acc": false,
-    "tags": ["string", "string", "string"],
-    "cid_objects": [
-        {
-            "cid": "string",
-            "webpush_info":
-                {
-                    "endpoint": "string",
-                    "p256dh": "string",
-                    "auth": "string",
-                    "expirationTime" : "string[datetime: UTC]"
-                },
-            "fcm_token": "string"
-        },
-        {
-            "cid": "string",
-            "webpush_info":
-                {
-                    "endpoint": "string",
-                    "p256dh": "string",
-                    "auth": "string",
-                    "expirationTime" : "string[datetime: UTC]"
-                },
-            "fcm_token": "string"
-        }
-        // ... many cid_objects
-    ]
-}
+[
+    {
+        "member_sn": "string",
+        "is_headless_acc": false,
+        "tags": ["string", "string", "string"],
+        "cid_objects": [
+            {
+                "cid": "string",
+                "webpush_info":
+                    {
+                        "endpoint": "string",
+                        "p256dh": "string",
+                        "auth": "string",
+                        "expirationTime" : "string[datetime: UTC]"
+                    },
+                "fcm_token": "string"
+            },
+            {
+                "cid": "string",
+                "webpush_info":
+                    {
+                        "endpoint": "string",
+                        "p256dh": "string",
+                        "auth": "string",
+                        "expirationTime" : "string[datetime: UTC]"
+                    },
+                "fcm_token": "string"
+            },
+            // ... many cid_objects
+        ]
+    },
+    // ... many audiences
+]
 ```
 
 
