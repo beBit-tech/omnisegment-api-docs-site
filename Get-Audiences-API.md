@@ -86,9 +86,9 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | end_date | The request data: `end_date` | **`"end_date": "2023-09-30" `** | string | |
 
 
-### Report data scheme
+### Report data scheme (JSON)
 
-```
+```json
 [
     {
         "member_sn": "string",
