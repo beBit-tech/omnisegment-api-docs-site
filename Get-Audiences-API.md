@@ -117,10 +117,10 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
                     },
                 "fcm_token": "string"
             },
-            // ... many cid_objects
+            // ... cid_objects
         ]
     },
-    // ... many audiences
+    // ... audiences
 ]
 ```
 
