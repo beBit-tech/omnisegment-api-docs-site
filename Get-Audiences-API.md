@@ -2,6 +2,8 @@
 
 ## Description
 * Retrieve audiences who have interacted within the specified timeframe.
+* The export link expires in 7 days after it is ready.
+* The rate limit is 1 request per day. Not include failed.
 
 ## API URL
 * `https://api.omnisegment.com/api/v1/audiences/interactive-audiences-report/?tid=OA-xxxxxx`
