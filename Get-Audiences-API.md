@@ -1,7 +1,7 @@
 # Get Audiences API
 
 ## Description
-* Get audiences who have interactive within the timeframe
+* Retrieve audiences who have interacted within the specified timeframe.
 
 ## API URL
 * `https://api.omnisegment.com/api/v1/audiences/interactive-audiences-report/?tid=OA-xxxxxx`
@@ -21,7 +21,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | end_date | 結束日期 | **`"end_date": "2023-09-30"`** | string | &#10004; | |
 
 ### Note
- - start_date and end_date need within (Now - 30) days
+ - start_date and end_date need to be within (Now - 30 days）
 
 ## Response
 ```
@@ -31,13 +31,24 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 }
 ```
 
+## Example
+
+```
+curl --location --request POST 'https://api.omnisegment.com/api/v1/audiences/interactive-audiences-report/?tid=OA-xxxxxx' \
+--header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
+--data-raw '{
+   "start_date": "2023-09-01",
+   "end_date": "2023-09-30"
+}'
+```
+
 -----------------------------------------------------------------
 
 ## API URL
 * `https://api.omnisegment.com/api/v1/interactive-audiences-report/?tid=OA-xxxxxx`
 
 ## Description
- - 獲取一天內所有報告狀態 and report link 
+ - 獲取一天內所有報告狀態 and report url 
 
 ## API Method
 * `GET`
@@ -48,7 +59,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ### Note
- - 僅提供一天內產生的報表資料，請於一天內抓取報表
+ - 僅提供一天內產生的報表資料
 
 ## Response
 ```
@@ -66,9 +77,9 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 | **Parameter** | **Description** | **Sample** | **Data Type** | Note |
 | :------: | ------ | ------ | ------ | ------ |
-| report_name | Report 名稱 | **`"report_name": "八月報告" `** | string | |
+| report_name | Report 名稱 | **`"report_name": "2024_01_10_file" `** | string | |
 | status | Report 狀態 | **`"status": "SUCCESS" `** | string | 包含 `RUNNING, SUCCESS, FAIL` |
-| file_url | Report link url | **`"file_url": "2024_01_10_file.json" `** | string | |
+| file_url | Report link url | **`"file_url": "https://omnisegmeny/org/report/2024_01_10_file.json" `** | string | |
 | start_date | The request data `start_date` | **`"start_date": "2023-09-01" `** | string | |
 | end_date | The request data: `end_date` | **`"end_date": "2023-09-30" `** | string | |
 
@@ -111,15 +122,6 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 
 ## Example
-
-```
-curl --location --request POST 'https://api.omnisegment.com/api/v1/audiences/interactive-audiences-report/?tid=OA-xxxxxx' \
---header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' \
---data-raw '{
-   "start_date": "2023-09-01",
-   "end_date": "2023-09-30"
-}'
-```
 
 ```
 curl --location --request GET 'https://api.omnisegment.com/api/v1/audiences/interactive-audiences-report/?tid=OA-xxxxxx' \
