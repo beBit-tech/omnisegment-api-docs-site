@@ -1,4 +1,4 @@
-# Get Audiences API
+# Create Report
 
 ## Description
 * Retrieve audiences who have interacted within the specified timeframe.
@@ -45,6 +45,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/audiences/int
 ```
 
 -----------------------------------------------------------------
+
+# Get Report
 
 ## API URL
 * `https://api.omnisegment.com/api/v1/interactive-audiences-report/?tid=OA-xxxxxx`
