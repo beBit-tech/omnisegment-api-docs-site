@@ -2,7 +2,6 @@
 
 ## Description
 * Retrieve audiences who have interacted within the specified timeframe.
-* The export link expires in 7 days after it is ready.
 * The rate limit is 1 request per day. Not include failed.
 
 ## API URL
@@ -52,7 +51,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/audiences/int
 * `https://api.omnisegment.com/api/v1/interactive-audiences-report/?tid=OA-xxxxxx`
 
 ## Description
- - 獲取一天內所有報告狀態 and report url 
+* 獲取一天內所有報告狀態 and report url 
+* The export link expires in 7 days after it is ready.
 
 ## API Method
 * `GET`
