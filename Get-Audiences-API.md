@@ -66,14 +66,16 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
  - 僅提供一天內產生的報表資料
 
 ## Response
-```
+```json
 {
     "SUCCESS": true,
     "PAYLOAD": [
          {
               "report_name": "Report1",
-              "report_id": 1,
-              "status": "RUNNING"
+              "status": "RUNNING",
+              "file_url": "https://omnisegmeny/org/report/2024_01_10_file.csv",
+              "start_date": "2023-09-01",
+              "end_date": "2023-09-30"
          },
     ]
 }
