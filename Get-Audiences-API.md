@@ -81,14 +81,14 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | :------: | ------ | ------ | ------ | ------ |
 | report_name | Report 名稱 | **`"report_name": "2024_01_10_file" `** | string | |
 | status | Report 狀態 | **`"status": "SUCCESS" `** | string | 包含 `RUNNING, SUCCESS, FAIL` |
-| file_url | Report link url | **`"file_url": "https://omnisegmeny/org/report/2024_01_10_file.json" `** | string | |
+| file_url | Report link url | **`"file_url": "https://omnisegmeny/org/report/2024_01_10_file.csv" `** | string | |
 | start_date | The request data `start_date` | **`"start_date": "2023-09-01" `** | string | |
 | end_date | The request data: `end_date` | **`"end_date": "2023-09-30" `** | string | |
 
 
-### Report data scheme (JSON)
+### Report data scheme
 
-```json
+```
 [
     {
         "member_sn": "string",
