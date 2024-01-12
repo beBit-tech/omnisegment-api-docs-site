@@ -15,4 +15,4 @@
 *  APP應對點擊推播後的處理為以下兩步驟
 
 1.   使用者點擊推播之後, 根據 `omnisegment_tracking_url` 發送一個 GET request, response應回傳 302 Redirect to `document_location`
-2.   根據收到的 `document_location` 覆蓋瀏覽頁面應帶有的參數 `document_location`, 並送出對應的追蹤request
+2.   根據收到的 `document_location` 覆蓋瀏覽頁面應帶有的參數 `document_location`, 並送出對應的追蹤request(trackEvent)
