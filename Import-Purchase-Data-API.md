@@ -26,7 +26,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-
    "data": {
       "member_sn": "1",
       "transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1",
-      "datetime": "2020-1-1T00:00:00+0800",
+      "datetime": "2020-01-01T00:00:00+0800",
       "products": "1,2",
       "quantities": 2,
       "products_quantity": "1,1",
@@ -65,7 +65,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-purchase-
    "data": {
       "member_sn": "1",
       "transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1",
-      "datetime": "2020-1-1T00:00:00+0800",
+      "datetime": "2020-01-01T00:00:00+0800",
       "products": {"default": "1,2", "CRM": "crm_id1,crm_id2", "ERP": "erp_id1,erp_id2"},
       "quantities": 2,
       "products_quantity": "1,1",
