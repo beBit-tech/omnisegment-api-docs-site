@@ -9,5 +9,5 @@
 
 *  APP應對此 `omnisegment_tracking_url` 的處理為以下兩步驟
 
-1.   點擊推播之後, 根據 `omnisegment_tracking_url` 發送一個 GET request, 此request應回傳 302 Redirect to `document_location`
+1.   使用者點擊推播之後, 根據 `omnisegment_tracking_url` 發送一個 GET request, 此request應回傳 302 Redirect to `document_location`
 2.   根據收到的 `document_location` 覆蓋瀏覽頁面應帶有的參數 `document_location`, 並送出對應的追蹤request
