@@ -1,4 +1,4 @@
-# Create Report
+# Interactive Audiences Report
 
 ## Description
 * Retrieve audiences who have interacted within the specified timeframe.
