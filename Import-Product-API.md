@@ -19,7 +19,17 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/products/impo
         "sale_price": "1",
         "sale_price_effective_date": "2020-08-01T00:00:00+08:00/2020-08-31T23:59:59+08:00",
         "product_type": "T-shirt",
-        "item_group_id": "group"
+        "item_group_id": "group",
+        "additional_image_link": [
+            {
+                "name": "100x100",
+                "link": "https://test.com/media/widGh1bWIiLCI2MDB4NjAwIl1d-100x100.png?sha=0e0ad71b5e5ccaf7"
+            },
+            {
+                "name": "300x300",
+                "link": "https://test.com/media/widGh1bWIiLCI2MDB4NjAwIl1d-300x300.png?sha=0e0ad71b5e5ccaf7"
+            }
+        ]
     },
     "tid": "OA-xxxxxxxx",
     "api_key": "xxxxxx-xxxxxxx-xxxxxx",
@@ -43,7 +53,17 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/products/impo
         "sale_price": "1",
         "sale_price_effective_date": "2020-08-01T00:00:00+08:00/2020-08-31T23:59:59+08:00",
         "product_type": "T-shirt",
-        "item_group_id": "group"
+        "item_group_id": "group",
+        "additional_image_link": [
+            {
+                "name": "100x100",
+                "link": "https://test.com/media/widGh1bWIiLCI2MDB4NjAwIl1d-100x100.png?sha=0e0ad71b5e5ccaf7"
+            },
+            {
+                "name": "300x300",
+                "link": "https://test.com/media/widGh1bWIiLCI2MDB4NjAwIl1d-300x300.png?sha=0e0ad71b5e5ccaf7"
+            }
+        ]
     },
     "tid": "OA-xxxxxxxx",
     "api_key": "xxxxxx-xxxxxxx-xxxxxx",
@@ -55,7 +75,6 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/products/impo
 
 ### data 必填欄位說明
 
-
 |     欄位     | 說明                                                         | 備註                                                         |
 | :----------: | ------------------------------------------------------------ | ------------------------------------------------------------ |
 |      id      | 商品的 id，可以是一個字串，也可以是一個 object，當 id 為 object 時，可以帶入多組 id 表示該商品在各個不同系統中的 id。 | 此為唯一值，可以是 SKU                                       |
@@ -65,10 +84,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/products/impo
 |  image_link  | 商品主要圖像的網址。圖像必須為 JPEG 或 PNG 格式，至少 500 x 500 像素，最大 8 MB。 | e.g. http://www.test.com/products/shirt.jpg                  |
 |    price     | 商品的價錢                                                   | 將價格的格式設定為數字，後面接一個空格和 3 個字母的 ISO 4217 幣別代碼。一律使用句點 (.) 作為小數點，不要使用逗點 (,)。 e.g. 999 TWD |
 
-
-
 ### data 選填欄位說明
-
 
 | 欄位                      | 說明                                                         | 備註                                                         |
 | ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -78,3 +94,19 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/products/impo
 | product_type              | 商品的**標籤**及**類別**。                                   | 一個商品貼多個標籤用 `>`分隔。e.g. "tagA>tagB>tagC"          |
 | 自定義欄位名稱            | 組織需另外開啟**自定義欄位**功能，需依照當初設定的資料型別輸入，支援的資料型別有：datetime（日期時間）, date(日期), string(文字), 數值（Decimal)。<br />`"自定義欄位名稱":"自定義欄位值"` | 1. 若有給key沒有value會跳過這筆自定義欄位。<br />2. 若資料型別不符合，會跳出錯誤訊息<br />3. 若有多筆資料，當中不合法的資料不會匯入，其餘仍會進入系統當中。<br />e.g. 系統已設定一文字自定義欄位「口味」，<br />可在body的data當中放入：<br />`"口味"："巧克力"` |
 | item_group_id            | 商品群組 id |  |
+| additional_image_link | 商品額外圖像的網址。圖像必須為 JPEG 或 PNG 格式，至少 500 x 500 像素，最大 8 MB。 | [格式說明](#additional_image_link-格式)。 |
+
+#### additional_image_link 格式
+
+```json
+[
+  {
+    "name": "100x100",
+    "link": "http://www.test.com/products/shirt-100x100.jpg"
+  },
+  {
+    "name": "300x300",
+    "link": "http://www.test.com/products/shirt-300x300.jpg"
+  }
+]
+```
