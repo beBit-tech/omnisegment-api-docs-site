@@ -26,6 +26,8 @@ This is the Omnisegment API document.
 
 [[Event Tracking API]]
 
+[[Product Recommendation API]]
+
 [[Third-Party-Personal-Information-Application-Programming-Interface-Guideline]]
 
 [[External Tracking Guide]]
