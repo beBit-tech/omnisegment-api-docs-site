@@ -15,10 +15,10 @@ curl --location --request GET 'https://api.omnisegment.com/ai-recommendation/get
 | uid | 會員 ID | | 除非為訪客，否則建議都帶上 |
 | recommend_type | 推薦類型 | &#10004; | Choices: `user_item_embedding`, `also_bought`, `also_viewed` |
 | num | 推薦商品數量 | &#10004; | 最多 30 個 |
-| product_ids | 商品的 id，會以這些商品來找相似的推薦商品 | | e.g. `product1,product2` |
+| product_ids | 商品的 id，會以這些商品來找相似的推薦商品 | | e.g. `product1,product2`<br>最多 10 個 |
 | product_tag | 指定商品標籤 | | e.g. `product_tag1,product_tag2` |
 | product_category | 指定商品類別 | | e.g. `product_category1,product_category2` |
-| excluded_product_ids | 排除指定商品 | | e.g. `product1,product2` |
+| excluded_product_ids | 排除指定商品 | | e.g. `product1,product2`<br>最多 10 個 |
 | excluded_product_tag | 排除指定商品標籤 | | e.g. `product_tag1,product_tag2` |
 
 ### Response
