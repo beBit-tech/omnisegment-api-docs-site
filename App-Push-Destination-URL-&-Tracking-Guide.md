@@ -4,7 +4,7 @@
 舉例：可以對 OmniSegment 發送的每則推播訊息，設定使用者點擊推播後，進入特定的 APP 頁面或顯示指定的圖片網址等等。
 
 
-# Configuration Steps
+## Configuration Steps
 ### Step 1: Key Setup in OmniSegment
 
 進入 OmniSegment 設定/推播/key設定頁面
