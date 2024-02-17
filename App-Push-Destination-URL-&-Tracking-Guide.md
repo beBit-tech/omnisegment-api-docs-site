@@ -1,10 +1,7 @@
-# Overview
+# 導轉設定
 
-> 可以設定在推播訊息中，帶入其他所需的資料。
+可以設定在推播訊息中，帶入其他所需的資料。
 舉例：可以對 OmniSegment 發送的每則推播訊息，設定使用者點擊推播後，進入特定的 APP 頁面或顯示指定的圖片網址等等。
-
-
-This guide details the setup and tracking of app push notifications, focusing on custom key configurations for enhanced user interactions through OmniSegment.
 
 
 # Configuration Steps
@@ -56,7 +53,7 @@ FCM Payload Example:
 ```
 
 ***
-
+# App Push Tracking Guide
 
 ## Use Case
 
