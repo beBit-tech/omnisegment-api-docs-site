@@ -18,7 +18,9 @@ This guide details the setup and tracking of app push notifications, focusing on
 | key=action      | name=行為              |
 | key=docid | name=文章id           |
 | key=url       | name=導轉連結    |
-其中 name 僅代表在 Omnisegment 中的別名，不會影響到推播的內容。
+
+> [!NOTE]
+> 其中 name 僅代表在 Omnisegment 中的別名，不會影響到推播的內容。
 
 
 <img width="892" alt="截圖 2024-02-17 下午5 43 49" src="https://github.com/beBit-tech/omnisegment-api-docs/assets/32828379/391208ea-cee6-443c-a435-31c7b55eb213">
@@ -30,6 +32,7 @@ This guide details the setup and tracking of app push notifications, focusing on
 Specify the desired values for actions or document IDs in the OmniSegment editor. This ensures users are directed to the intended app page or action upon interacting with the notification.
 
 以 FCM 為例，最終的推播會在 request json payload 的 "data" object 之中加入這些 custom key。
+
 > [!NOTE]
 > Ref：
 https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json 
