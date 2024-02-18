@@ -62,16 +62,23 @@ FCM Payload Example:
 
 ## Variables
 
+* `destination_url`: 作為產出 `omnisegment_tracking_url` 的基礎, 表示欲追蹤的連結
 * `omnisegment_tracking_url`: OS發送的推播訊息中, [DataMessage](https://firebase.google.com/docs/cloud-messaging/concept-options) 會帶有 `omnisegment_tracking_url`, 此參數是用來追蹤此次發送與使用者後續的互動關係
 * `document_location`: page key / page url, 在 SDK中的名稱為 [location](https://github.com/beBit-tech/bebit-tech-ios-app-sdk/wiki/Track-events#event-properties)
 * variable sample
 ```
-omnisegment_tracking_url:  https://omnsegment.com/collect?v=1&t=event&dr=pn&tid=oa-319523&ea=TrackingClick&ec=Tracking&luid=_135123125&tuid=1231412351_13251232_3412351
+destination_url: https://shop/product/123
+omnisegment_tracking_url:  https://omnsegment.com/collect?v=1&t=event&dr=pn&tid=oa-319523&ea=TrackingClick&ec=Tracking&luid=35431545_135123125&tuid=1231412351_13251232_3412351
 document_location: https://shop/product/123?omniclid=1325123_1251932&utm_id=omnisegment
 ```
 
 
 ## How to
+
+* 在 OS 系統中的前置作業
+
+1. 在 OmniSegment 設定/推播/key設定頁面 加入 key `destination_url`
+2. 在 Omnisegment 推播模板編輯器中, 加入對應的 `destination_url` value
 
 *  APP應對點擊推播後的處理為以下兩步驟
 
