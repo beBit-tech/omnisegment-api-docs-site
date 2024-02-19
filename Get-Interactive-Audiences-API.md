@@ -48,7 +48,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/audiences/int
 # Get Report
 
 ## API URL
-* `https://api.omnisegment.com/api/v1/interactive-audiences-report/?tid=OA-xxxxxx`
+* `https://api.omnisegment.com/api/v1/audiences/interactive-audiences-report/?tid=OA-xxxxxx`
 
 ## Description
 * 獲取一天內所有報告狀態 and report url 
