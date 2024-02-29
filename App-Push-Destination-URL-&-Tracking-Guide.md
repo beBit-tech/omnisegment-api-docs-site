@@ -35,7 +35,21 @@ Specify the desired values for actions or document IDs in the OmniSegment editor
 https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json 
 
 
-FCM Payload Example:
+FCM Payload Example (Android):
+```json
+{
+  "registration_ids": ["1", "2", "3", ...],
+  "data": {
+    "title": "TITLE",
+    "body": "BODY",
+    "action": "popup",
+    "docid": "123",
+    ...
+  }
+}
+```
+
+FCM Payload Example (iOS):
 ```json
 {
   "registration_ids": ["1", "2", "3", ...],
@@ -45,11 +59,10 @@ FCM Payload Example:
     ...
   },
   "notification": {
-    ...
+    "title": "TITLE",
+    "body": "BODY",
   }
 }
-
-
 ```
 
 ***
