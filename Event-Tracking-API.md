@@ -450,7 +450,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 |   tid   |    "OA-xxxxxxxx"      |
 |   data_source   |     "app"     |
 |   event_action   |    "Subscribe"      |
-|   event_value   |    "遊戲微服務計畫"      |
+|   event_value(CustomEvent為字串)   |    "遊戲微服務計畫"      |
+|   event_value(CustomEvent為json)   |    '{"code": "T12094", "number": 19.38, "time": "2024-03-07T09:24:21.361878+00:00", "description": "what do you want?"}'      |
 |   version   |     "2.0.4"     |
 |   hit_type   |     "event"     |
 |   **選填欄位**   |          | 
