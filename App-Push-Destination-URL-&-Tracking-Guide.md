@@ -97,3 +97,29 @@ document_location: https://shop/product/123?omniclid=1325123_1251932&utm_id=omni
 
 1.   使用者點擊推播之後, APP端根據 `omnisegment_tracking_url` 發送一個 GET request, response應回傳 302 Redirect to `document_location`
 2.   APP端根據收到的 `document_location` 覆蓋瀏覽頁面應帶有的參數 `document_location`, 並送出對應的追蹤request(trackEvent)
+
+## Example
+
+```javascript
+ private _didTapNotificationBannerAndOpenApp(props: {notification: Notification, completion: () => void}) {
+        const payload = props.notification.payload
+
+        const tracking_url = props.notification.payload?.omnisegment_tracking_url
+        if (tracking_url) {
+            fetch(tracking_url).then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                // !!NOTE: you can get document_location here
+                console.log('tracking url res:', JSON.stringify(myJson));
+            });
+        }
+
+        console.log(
+            `Opne App for Notification payload: ` +
+            JSON.stringify(props) 
+        )
+
+        props.completion()
+    }
+```
