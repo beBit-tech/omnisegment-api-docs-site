@@ -101,21 +101,33 @@ document_location: https://shop/product/123?omniclid=1325123_1251932&utm_id=omni
 ## Example
 
 ```javascript
+import RNFetchBlob from 'rn-fetch-blob';
+
+
  private _didTapNotificationBannerAndOpenApp(props: {notification: Notification, completion: () => void}) {
         const payload = props.notification.payload
 
         const tracking_url = props.notification.payload?.omnisegment_tracking_url
         if (tracking_url) {
-               fetch(tracking_url, { method: "GET", redirect: "manual" })
-                   .then((response) => {
-                     //!!NOTE GET location here
-                     console.log(response, "redirected");
-                     if (response.redirected === false && response.status === 302) {
-                          const location = response.headers.get("Location");
-                          console.log("Redirect location:", location);
-                     }
-               })
-                   .catch((error) => console.error("Fetching error:", error));
+               RNFetchBlob.config({
+                // Configuration options
+              })
+              .fetch('GET', tracking_url)
+              .then((res) => {
+                if (res.info().status === 302 || res.info().status === 301) {
+   
+                } else {
+                  //!!NOTE GET LOCATION HERE
+                  // EXPECT DOCUMENT LOCATION URL will have omniclid in params
+                  console.log('respInfo: ', res);
+
+                }
+              })
+              .catch((error) => {
+                // Handle error
+                console.log('Redirected error:', error);
+
+              });
 
         }
 
