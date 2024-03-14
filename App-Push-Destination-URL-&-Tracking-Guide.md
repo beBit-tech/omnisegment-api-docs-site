@@ -106,13 +106,15 @@ document_location: https://shop/product/123?omniclid=1325123_1251932&utm_id=omni
 
         const tracking_url = props.notification.payload?.omnisegment_tracking_url
         if (tracking_url) {
-            fetch(tracking_url).then(function (response) {
-                return response.json();
-            })
-            .then(function (myJson) {
-                // !!NOTE: you can get document_location here
-                console.log('tracking url res:', JSON.stringify(myJson));
-            });
+               fetch(tracking_url, { method: "GET", redirect: "manual" }).then((response) => {
+            console.log(response, "redirected");
+            if (response.redirected === false && response.status === 302) {
+                const location = response.headers.get("Location");
+                console.log("Redirect location:", location);
+            }
+        })
+            .catch((error) => console.error("Fetching error:", error));
+
         }
 
         console.log(
