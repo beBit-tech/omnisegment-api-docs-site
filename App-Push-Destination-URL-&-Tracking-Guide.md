@@ -114,13 +114,12 @@ import RNFetchBlob from 'rn-fetch-blob';
               })
               .fetch('GET', tracking_url)
               .then((res) => {
-                if (res.info().status === 302 || res.info().status === 301) {
-   
-                } else {
+                if (res.info().status === 200) {
                   //!!NOTE GET LOCATION HERE
                   // EXPECT DOCUMENT LOCATION URL will have omniclid in params
-                  console.log('respInfo: ', res);
+                  console.log('document location here: ', res.respInfo.redirects[1]);
 
+                 }
                 }
               })
               .catch((error) => {
