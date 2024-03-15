@@ -138,3 +138,24 @@ import RNFetchBlob from 'rn-fetch-blob';
         props.completion()
     }
 ```
+
+## Manually handle notification on android
+
+Because currently we only send data message for android device, you will need to manually show notification on android by your self
+here's some example for how to do it
+
+### react native
+
+```js
+import PushNotification from "react-native-push-notification";
+
+PushNotification.localNotification({
+  channelId: "android.bebit.newmessage", // Make sure to create this channel on Android
+  title: notification.payload.title, // The title of the notification
+  message: notification.payload.body,
+  playSound: true, // Sound
+  soundName: "default", // Play the default sound
+  importance: "high", // Android only
+  priority: "high", // Android only
+});
+```
