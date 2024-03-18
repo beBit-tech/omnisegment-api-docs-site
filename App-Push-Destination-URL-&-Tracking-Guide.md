@@ -95,7 +95,8 @@ document_location: https://shop/product/123?omniclid=1325123_1251932&utm_id=omni
 
 *  APP應對點擊推播後的處理為以下兩步驟
 
-1.   使用者點擊推播之後, APP端根據 `omnisegment_tracking_url` 發送一個 GET request, response應回傳 302 Redirect to `document_location`
+1.  (a)使用者點擊推播之後, APP端根據 `omnisegment_tracking_url` 發送一個 GET request, response應回傳 302 Redirect to `document_location`<br/>
+  (b)在無法如(1.a.)正確取得redirect location的情形, 可以將 `omnisegment_tracking_url` 中 parameter `goto=1` replace 為 `goto=0`, 發送一個 GET request, response 將回傳 200_OK & `document_location` <br/>
 2.   APP端根據收到的 `document_location` 覆蓋瀏覽頁面應帶有的參數 `document_location`, 並送出對應的追蹤request(trackEvent)
 
 ## Example
