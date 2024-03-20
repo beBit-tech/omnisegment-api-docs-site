@@ -101,6 +101,23 @@ document_location: https://shop/product/123?omniclid=1325123_1251932&utm_id=omni
 
 ## Example
 
+if you want to only get document location, you can add `goto=0` and then the response text will be the document location
+
+```javascript
+  const getDocumentLocation = async () => {
+    try {
+      const response = await fetch(
+        "https://omnisegment.com/collect?v=1&t=event&dr=PN&tid=OA-4c295f0d&ea=PNTrackingLink&ec=Tracking&luid=64ced2e2-da5e-419c-94d3-4b439f06a79d_91131518&tuid=e8ed0881-3861-433e-9afe-f8202f69a295_30660636_1513627&goto=0&sc=00"
+      );
+      const text = await response.text();
+      console.log(text);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    }
+  };
+
+```
+
 ```javascript
 import RNFetchBlob from 'rn-fetch-blob';
 
