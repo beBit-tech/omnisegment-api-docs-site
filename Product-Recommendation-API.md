@@ -14,7 +14,7 @@ curl --location --request GET 'https://api.omnisegment.com/ai-recommendation/get
 | cid | 裝置 ID | | 當 recommend_type 為 `user_item_embedding` 時為必填 |
 | uid | 會員 ID | | 除非為訪客，否則建議都帶上 |
 | recommend_type | 推薦類型 | &#10004; | Choices: `user_item_embedding`, `also_bought`, `also_viewed` |
-| num | 推薦商品數量 | &#10004; | 最多 30 個 |
+| num | 推薦商品數量 | &#10004; | 最多 50 個 |
 | product_ids | 商品的 id，會以這些商品來找相似的推薦商品 | | 最多 10 個<br><br>e.g. `product1,product2` |
 | product_tag | 指定商品標籤 ID | | e.g. `1,2` |
 | product_tag_names | 指定商品標籤名稱 | | e.g. `product_tag1,product_tag2` |
