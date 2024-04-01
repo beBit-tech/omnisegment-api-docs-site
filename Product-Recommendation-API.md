@@ -23,7 +23,7 @@ curl --location --request GET 'https://api.omnisegment.com/ai-recommendation/get
 | excluded_product_ids | 排除指定商品 ID | | 最多 10 個<br><br>e.g. `product1,product2` |
 | excluded_product_tag | 排除指定商品標籤 ID | | e.g. `1,2` |
 | excluded_product_tag_names | 排除指定商品標籤名稱 | | e.g. `product_tag1,product_tag2` |
-| sorting | 排序 | | Choices: `random`<br><br>預設會以推薦程度排序 |
+| sorting | 排序 | | Choices: `random`<br><br>預設會以推薦程度排序，第一個商品為推薦程度最高的商品 |
 
 ### Response
 
