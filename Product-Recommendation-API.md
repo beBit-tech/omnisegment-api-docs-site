@@ -3,7 +3,7 @@
 ## Example
 
 ```
-curl --location --request GET 'https://api.omnisegment.com/ai-recommendation/get-ai-recommendation/?tid=OA-xxx&cid=xxxxxx&recommend_type=user_item_embedding&num=30&product_ids=p1,p2'
+curl --location --request GET 'https://api.omnisegment.com/ai-recommendation/get-ai-recommendation/?tid=OA-xxx&cid=xxxxxx&recommend_type=user_item_embedding&num=30&product_ids=p1&product_ids=p2'
 ```
 
 ### Query Parameters
@@ -15,14 +15,14 @@ curl --location --request GET 'https://api.omnisegment.com/ai-recommendation/get
 | uid | 會員 ID | | 除非為訪客，否則建議都帶上 |
 | recommend_type | 推薦類型 | &#10004; | Choices: `user_item_embedding`, `also_bought`, `also_viewed` |
 | num | 推薦商品數量 | &#10004; | 最多 50 個 |
-| product_ids | 商品的 id，會以這些商品來找相似的推薦商品 | | 最多 10 個<br><br>e.g. `product1,product2` |
-| product_tag | 指定商品標籤 ID | | e.g. `1,2` |
-| product_tag_names | 指定商品標籤名稱 | | e.g. `product_tag1,product_tag2` |
-| product_category | 指定商品類別 ID | | e.g. `1,2` |
-| product_category_names | 指定商品類別名稱 | | e.g. `product_category1,product_category2` |
-| excluded_product_ids | 排除指定商品 ID | | 最多 10 個<br><br>e.g. `product1,product2` |
-| excluded_product_tag | 排除指定商品標籤 ID | | e.g. `1,2` |
-| excluded_product_tag_names | 排除指定商品標籤名稱 | | e.g. `product_tag1,product_tag2` |
+| product_ids | 商品的 id，會以這些商品來找相似的推薦商品 | | 最多 10 個<br><br>e.g. `product_ids=product1&product_ids=product2` |
+| product_tag | 指定商品標籤 ID | | e.g. `product_tag=1&product_tag=2` |
+| product_tag_names | 指定商品標籤名稱 | | e.g. `product_tag_names=product_tag1&product_tag_names=product_tag2` |
+| product_category | 指定商品類別 ID | | e.g. `product_category=1&product_category=2` |
+| product_category_names | 指定商品類別名稱 | | e.g. `product_category_names=product_category1&product_category_names=product_category2` |
+| excluded_product_ids | 排除指定商品 ID | | 最多 10 個<br><br>e.g. `excluded_product_ids=product1&excluded_product_ids=product2` |
+| excluded_product_tag | 排除指定商品標籤 ID | | e.g. `excluded_product_tag=1&excluded_product_tag=2` |
+| excluded_product_tag_names | 排除指定商品標籤名稱 | | e.g. `excluded_product_tag_names=product_tag1&excluded_product_tag_names=product_tag2` |
 | sorting | 排序 | | Choices: `random`<br><br>預設會以推薦程度排序，第一個商品為推薦程度最高的商品，當 `sorting=random` 時則以隨機排序 |
 
 ### Response
