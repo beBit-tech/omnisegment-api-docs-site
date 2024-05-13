@@ -1,11 +1,102 @@
-key的範例
+# Import Audience API
 
-* api key : xxxxxx-xxxxxxx-xxxxxx 
-* tid : OA-xxxxxxxx 
+```
+POST https://api.omnisegment.com/ma_audience/import-audience/
+```
 
-example:
+## Request headers
 
-# If your account support multi-site, you can use this curl.
+`Content-Type: application/json`
+
+## Request body
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| tid | string | &#10004; | 組織 tid |
+| api_key | string | &#10004; | 組織 api_key |
+| data | object | &#10004; | [data object](#data-object) |
+| ignore_empty_value | boolean | | - 當 ignore_empty_value 為 `true` 時，輸入資料為 `""` 或是 `null` 時，舊資料不會被清空；輸入資料為 `"none"` 時資料會被清空。<br>- 當 ignore_empty_value 為 `false` 時，輸入資料為 `""`、`null`、`"none"` 時資料會被清空。<br>無法被清空的欄位依舊無法被清空，否則會出現錯誤。 |
+| merge_key | string | | 預設值為 `member_sn`，可接受之選項有 `line_id`, `email`, `phone`, `messenger_psid` |
+| tag_mode | string | | 預設值為 `append`，可接受之選項有 `append`, `replace`<br><br>- 當 tag_mode 為 `append` 時，data 內 tag 欄位輸入的標籤會以 append 方式加到會員身上，例如會員A 原先有 `tag_a`, `tag_b` 標籤，若 data 內提供 ``"tags": "tag_b,tag_c"``，則會員A 會多出 `tag_c` 標籤。<br>- 當 tag_mode 為 `replace` 時，data 內 tag 欄位輸入的標籤會以 replace 方式取代會員身上原有標籤，例如會員A 原先有 `tag_a`, `tag_b` 標籤，若 data 內提供 ``"tags": "tag_c,tag_d"``，則會員A 身上標籤會變成 `tag_c`, `tag_d` 標籤，原本的 `tag_a`, `tag_b` 兩個標籤會被移除。|
+
+### data object
+
+| Name | Type | Description | 可於編輯器中帶入個人化資訊 | 「顧客資料」節點中的應用 |
+|------|------|-------------|-----------------------|------------------------|
+| name | string | 姓名<br><br>若沒有給 name 這個 key, 則會以 first_name + last_name 的值代替 | &#10004; |
+| first_name | string | 名字 | &#10004; |
+| last_name | string | 姓氏 | &#10004; |
+| email | string | 信箱 | &#10004; | - 電子信箱<br>- 是否有 Email 地址 |
+| phone | string | 手機 | &#10004; | - 電話<br>- 是否有電話號碼 |
+| member_level | string | 會員等級 | | - 會員等級 |
+| sex | string | 性別<br><br>男: `male`<br>女: `female` | | - 性別 |
+| birthday | string | 生日<br><br>格式: `YYYY-MM-DD`<br>範例: `2020-06-04` | | - 年齡 |
+| register_date | string | 註冊日期<br><br>格式: `YYYY-MM-DDTHH:mm:ss+z`<br>範例: `2020-06-04T08:30:37.235482+08:00` | | - 註冊日期 |
+| register_type | string | 註冊管道 | | - 註冊管道 |
+| facebook_id | string | | | |
+| google_id | string | | | |
+| line_id | string | | | - 是否有 LINE ID |
+| messenger_psid | string | | | - 是否有 Messenger PSID |
+| fcm_token | string | 顧客在 APP 上的 token<br>如果有多個，請帶入 `fcm_tokens` | | - 是否有 PN token |
+| fcm_tokens | object | [fcm_tokens object](#fcm_tokens-object) | | - 是否有 PN token |
+| is_subscriber | boolean | 是否訂閱 Email | | - 是否訂閱 |
+| is_subscriber_sms | boolean | 是否訂閱 SMS | | - 是否訂閱 SMS |
+| is_subscriber_line | boolean | 是否訂閱 LINE | | - 是否訂閱 LINE |
+| is_subscriber_pn | boolean | 是否訂閱推播通知 | | - 是否訂閱推播通知 |
+| is_active | boolean | 啟用狀態 | | |
+| is_headless_account | boolean | 是否為無頭會員<br><br>無頭會員有可能被合併到有頭會員 | | - 是否為無頭會員 |
+| crm_pk | string | | | |
+| tags | string | 標籤<br><br>若有多個標籤則以 `,` 分隔 | | | - 標籤 |
+| iso_code | string | [國碼](https://zh.wikipedia.org/wiki/國家地區代碼) | | - 國碼 |
+| sites | string | 網站<br><br>產品自動帶入也與此欄位有關聯 | | - 網站 |
+| city | string | 城市 | | - 城市 |
+| country | string | 國家 | | - 國家 |
+| province | string | 省/州 | | - 省/州 |
+| zip_code | string | 郵遞區號 | | - 郵遞區號 |
+| address | string | 地址 | | - 地址 |
+
+#### fcm_tokens object
+
+| Name | Type | Description | Required |
+|------|------|-------------|----------|
+| token | string | 裝置 ID | &#10004; |
+| active | boolean | 啟用狀態，預設為 `true` | |
+| type | string | 裝置類型<br><br>iOS: `ios`<br>Android: `android` | |
+
+## Response
+
+Returns status `200` and a JSON object with the following information.
+
+```json
+{
+    "SUCCESS": true,
+    "PAYLOAD": {
+        "status": "OK",
+        "error_msg": ""
+    }
+}
+```
+
+## Error Response
+
+Returns the following HTTP status code and an error response:
+
+- `400 Bad Request`
+- `403 Forbidden`
+
+```json
+{
+    "SUCCESS": false,
+    "ERR_MSG": "Missing Input Error: These values are required in post data : api_key, tid, data",
+    "ERR_TYPE_KEY": "Missing Input Error",
+    "ERR_MSG_KEY": null,
+    "EXTRA_INFO": null,
+    "INTP_KEY": {},
+    "INTP_VALUE": {}
+}
+```
+
+## Example
 
 ```
 curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-audience/' \
@@ -16,65 +107,24 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
         "name": "Eason Lee",
         "first_name": "Eason",
         "last_name": "Lee",
-        "email": "eason@demo",
+        "email": "eason@example.com",
         "phone": "+886912345678",
         "member_level": "1",
         "sex": "female",
         "birthday": "1990-01-01",
         "register_date": "2020-6-4",
-        "facebook_id": "facebook_id",
-        "google_id": "google_id",
-        "line_id": "line_id",
-        "fcm_token": "fcm_token",
-        "apns_token": "apns_token",
-        "is_subscriber": true,
-        "is_subscriber_line": true,
-        "is_subscriber_sms": true,
-        "is_subscriber_pn": true,
-        "is_active": true,
-        "crm_pk": "1",
-        "tags": "tag_a,tag_b,tag_c",
-        "sites": "site_a,site_b,site_c",
-        "iso_code": "TW",
-        "city": "Taipei",
-        "country": "Taiwan",
-        "province": 'Natal',
-        "zip_code": '30084',
-        "address": 'National Taiwan University No. 1, Sec. 4, Roosevelt Rd. Da'an Dist., Taipei City 10617 R.O.C.',
         "register_type": "line",
-        "優惠券": [{"名稱":"V6","金額":1000,"是否":true,"到期日":"2023-03-31 13:47:06","時間":"2023-03-20 13:47:17"}]
-    },
-    "tid": "OA-xxxxxxxx",
-    "api_key": "xxxxxx-xxxxxxx-xxxxxx",
-    "ignore_empty_value": true,
-    "merge_key": "member_sn",
-    "tag_mode": "replace"
-}'
-```
-# In this case, there should be a custom field named 優惠券 (JSON type) with 名稱 (Char), 金額 (Decimal), 是否 (Boolean), 到期日 (Date), 時間(Datetime) as its subfields
----------------------------------------
-
-# If your account does not support multi-site, please use this curl.
-```
-curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-audience/' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "data": {
-        "member_sn": "1",
-        "name": "Eason Lee",
-        "first_name": "Eason",
-        "last_name": "Lee",
-        "email": "eason@demo",
-        "phone": "+886912345678",
-        "member_level": "1",
-        "sex": "female",
-        "birthday": "1990-01-01",
-        "register_date": "2020-6-4",
         "facebook_id": "facebook_id",
         "google_id": "google_id",
-        "line_id": "line_id",
+        "line_id": "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "fcm_token": "fcm_token",
-        "apns_token": "apns_token",
+        "fcm_tokens": [
+            {
+                "token": "fcm_token",
+                "active": true,
+                "type": "android"
+            }
+        ],
         "is_subscriber": true,
         "is_subscriber_line": true,
         "is_subscriber_sms": true,
@@ -86,140 +136,13 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
         "iso_code": "TW",
         "city": "Taipei",
         "country": "Taiwan",
-        "province": 'Natal',
-        "zip_code": '30084',
-        "address": 'National Taiwan University No. 1, Sec. 4, Roosevelt Rd. Da'an Dist., Taipei City 10617 R.O.C.',
-        "register_type": "line"
+        "province": "Natal",
+        "zip_code": "30084",
+        "address": "17F., No. 109, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan (R.O.C.)"
     },
-    "tid": "OA-xxxxxxxx",
-    "api_key": "xxxxxx-xxxxxxx-xxxxxx",
+    "tid": "OA-xxxxxx",
+    "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     "ignore_empty_value": true,
     "merge_key": "member_sn"
 }'
 ```
-# Batch data request example
-* Maximum number of audience in a batch request should not be larger than 50
-```
-curl --location --request POST 'https://api.omnisegment.com/api/v2/audiences/batch-import/' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "data": [
-        {
-        "member_sn": "1",
-        "name": "Eason Lee",
-        "first_name": "Eason",
-        "last_name": "Lee",
-        "email": "eason@demo",
-        "phone": "+886912345678",
-        "member_level": "1",
-        "sex": "female",
-        "birthday": "1990-01-01",
-        "register_date": "2020-06-04T08:30:37.235482+08:00",
-        "facebook_id": "facebook_id",
-        "google_id": "google_id",
-        "line_id": "line_id",
-        "fcm_token": "fcm_token",
-        "apns_token": "apns_token",
-        "is_subscriber": true,
-        "is_subscriber_line": true,
-        "is_subscriber_sms": true,
-        "is_subscriber_pn": true,
-        "is_active": true,
-        "is_headless_account": false,
-        "crm_pk": "1",
-        "tags": "tag_a,tag_b,tag_c",
-        "iso_code": "TW",
-        "city": "Taipei",
-        "country": "Taiwan",
-        "province": 'Natal',
-        "zip_code": '30084',
-        "address": 'National Taiwan University No. 1, Sec. 4, Roosevelt Rd. Da'an Dist., Taipei City 10617 R.O.C.',
-        "register_type": "line"
-         },
-        {
-        "member_sn": "2",
-        "name": "Lebron James",
-        "first_name": "Lebron",
-        "last_name": "James",
-        "email": "lebron@demo",
-        "phone": "+886912345677",
-        "member_level": "2",
-        "sex": "male",
-        "birthday": "1990-01-01",
-        "register_date": "2020-06-04T08:30:37.235482+08:00",
-        "facebook_id": "facebook_id",
-        "google_id": "google_id",
-        "line_id": "line_id",
-        "fcm_token": "fcm_token",
-        "apns_token": "apns_token",
-        "is_subscriber": true,
-        "is_subscriber_line": true,
-        "is_subscriber_sms": true,
-        "is_subscriber_pn": true,
-        "is_active": true,
-        "is_headless_account": false,
-        "crm_pk": "1",
-        "tags": "tag_a,tag_b,tag_c",
-        "iso_code": "TW",
-        "city": "Taipei",
-        "country": "Taiwan",
-        "province": 'Natal',
-        "zip_code": '30084',
-        "address": 'National Taiwan University No. 1, Sec. 4, Roosevelt Rd. Da'an Dist., Taipei City 10617 R.O.C.',
-        "register_type": "line",
-        "優惠券": [{"名稱":"V6","金額":1000,"是否":true,"到期日":"2023-03-31 13:47:06","時間":"2023-03-20 13:47:17"}]
-         }
-    ]
-    "tid": "OA-xxxxxxxx",
-    "api_key": "xxxxxx-xxxxxxx-xxxxxx",
-    "ignore_empty_value": true,
-    "merge_key": "member_sn",
-    "tag_mode": "replace"
-}'
-```
-
-
-## data內欄位說明(在batch data request中指data array中的每一個json object)
-|    **選填欄位**     | **說明**                                                     | **備註**                                                     | **『使用者資料』節點當中的應用** |
-| :-----------------: | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------- |
-|        name         | **`"name": "Eason Lee"`**<br>姓名                            | - 若沒有給name這個Key, 則會以first_name + last_name 的值代替<br>- 可於editor中帶入個人化資訊 |                                  |
-|     first_name      | **`"first_name": "Eason"`**<br>名字                          | 可於editor中帶入個人化資訊                                   |                                  |
-|      last_name      | **`"last_name": "Lee"`**<br>姓氏                             | 可於editor中帶入個人化資訊                                   |                                  |
-|        email        | **`"email": "eason@demo.com"`**<br>信箱                      | 可於editor中帶入個人化資訊                                   | - 電子信箱<br>- 是否有Email地址  |
-|        phone        | **`"phone": "+886912345678"`**<br>手機                       | 可於editor中帶入個人化資訊                                   | - 電話<br>- 是否有電話號碼       |
-|    member_level     | **`"member_level": "1"`**<br>會員等級                        |                                                              | 會員等級                         |
-|         sex         | **`"sex": "male"`**<br>**`"sex": "female"`**<br>性別<br>男: male<br>女: female |                                                              | 性別                             |
-|      birthday       | **`"birthday": "1990-01-01"`**<br>生日                       |                                                              | 年齡                             |
-|    register_date    | **`"register_date": "2020-06-04T08:30:37.235482+08:00"`**<br>註冊日期 |                                                              | 註冊日期                         |
-|     facebook_id     | **`"facebook_id": "facebook_id"`**<br> facebook id           |                                                              |                                  |
-|      google_id      | **`"google_id": "google_id"`**<br> google id                 |                                                              |                                  |
-|       line_id       | **`"line_id": "line_id"`**<br> line id                       |                                                              | 是否有Line id                    |
-|   messenger_psid    | **`"messenger_psid": "messenger_psid"`**<br> messenger psid  |                                                              | 是否有Messenger PSID             |
-|      fcm_token      | **`"fcm_token": "fcm_token"`**<br>顧客在APP上的token (support Android & iOS) |                                                              | 是否有PN token                   |
-|     apns_token      | **`"apns_token": "apns_token"`**<br>顧客在iOS APP 上的token (only for iOS) |                                                              | 是否有PN token                   |
-|    is_subscriber    | **`"is_subscriber": true`**<br>是否訂閱 Email                |                                                              | 是否訂閱                         |
-|  is_subscriber_sms  | **`"is_subscriber_sms": true`**<br>是否訂閱 SMS              |                                                              | 是否訂閱 SMS                     |
-| is_subscriber_line  | **`"is_subscriber_line": true`**<br>是否訂閱 LINE            |                                                              | 是否訂閱 LINE                    |
-|  is_subscriber_pn   | **`"is_subscriber_pn": true`**<br>是否訂閱 推播通知          |                                                              | 是否訂閱 推播通知                |
-|      is_active      | **`"is_active": true`**<br>                                  |                                                              |                                  |
-| is_headless_account | **`"is_headless_account: false"`**                           | 無頭會員有可能被合併到有頭會員                               | 是否為無頭會員                   |
-|       crm_pk        | **`"crm_pk": "1"`**<br>                                      |                                                              |                                  |
-|        tags         | **`"tags": "tag_a,tag_b,tag_c"`**<br>標籤                    | 若有多個標籤則以`,`分隔                                      | 標籤                             |
-|      iso_code       | **`"iso_code": "TW"`**<br>國碼, 國碼遵循 <a href="https://zh.wikipedia.org/wiki/國家地區代碼">國家地區代碼</a> |                                                              | 國碼                             |
-|        sites        | **`"sites": "site_a,site_b,site_c"`**<br>網站                | 產品自動帶入也與此欄位有關聯                                 | 網站                             |
-|        city         | **`"city": "Taipei"`**<br>城市                               |                                                              | 城市                             |
-|       country       | **`"country": "Taiwan"`**<br>國家                            |                                                              | 國家                             |
-|      province       | **`"province": "Natal"`**<br>省/州                           |                                                              | 省/州                            |
-|      zip_code       | **`"zip_code": "30084"`**<br>郵遞區號                        |                                                              | 郵遞區號                         |
-|       address       | **`"address": "National Taiwan University No. 1, Sec. 4, Roosevelt Rd. Da'an Dist., Taipei City 10617 R.O.C."`**<br>地址 |                                                              | 地址                             |
-|    register_type    | **`"register_type": "line"`**<br>註冊管道                    |                                                              | 註冊管道                         |
-
-## 其他欄位說明
-|       **必填欄位**       | **說明**                                                     | **備註**                                                     | **『使用者資料』節點當中的應用** |
-| :----------------------: | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------- |
-|           tid            | **`"tid": "OA-xxxxxxxx"`**<br>組織 tid                       |                                                              |                                  |
-|         api_key          | **`"api_key": "xxxxxx-xxxxxxx-xxxxxx"`**<br>組織 api key     |                                                              |                                  |
-| **<br>選填欄位<br><br>** |                                                              |                                                              |                                  |
-|    ignore_empty_value    | **`"ignore_empty_value": true`**<br>由 `true` 或 `false` 判斷是否忽略空字串及空值 | - 當 `ignore_empty_value` 為 `true` 時，輸入資料為 `""` 或是空值時，舊資料不會被清空；輸入資料為 `"none"` 時資料被清空。<br> - 當 `ignore_empty_value` 為 `false` 時，輸入資料為 `""` 、空值、`"none"` 時資料被清空。<br> - 無法被清空的欄位依舊無法被清空，否則會出現錯誤。 |                                  |
-|        merge_key         | **`"merge_key": "line_id"`**                                 | 預設值為 `member_sn`，可接受之選項有<br>`line_id`, `email`, `phone`, `messenger_psid` |                                  |
-|         tag_mode         | **`"tag_mode": "append"`**                                   | - 預設值為 append，可接受之選項有<br>"append", "replace" <br> - 當 `tag_mode` 為 `append` 時，`data` 內`tag` 欄位輸入的標籤會以 append 方式加到會員身上，例如會員A原先有 `tag_a, tag_b` 標籤，若 data 內提供<br>`"tags": "tag_b,tag_c"`，則會員A會多出 `tag_c` 標籤。<br> - 當 `tag_mode` 為 `replace` 時，`data` 內 `tag` 欄位輸入的標籤會以 replace 方式取代會員身上原有標籤，例如會員A原先有 `tag_a, tag_b` 標籤，若 data 內提供<br>`"tags": "tag_c,tag_d"`，則會員A身上標籤會變成 `tag_c, tag_d` 標籤，原本的 `tag_a, tag_b` 兩個標籤會被移除。 |                                  |
