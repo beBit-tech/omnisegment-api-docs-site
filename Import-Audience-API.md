@@ -1,5 +1,7 @@
 # Import Audience API
 
+> 如需一次匯入多筆顧客資料，請參考 [Batch Import Audience API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Batch-Import-Audience-API)
+
 ```
 POST https://api.omnisegment.com/ma_audience/import-audience/
 ```
