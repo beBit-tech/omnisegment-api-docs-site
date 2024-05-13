@@ -16,7 +16,7 @@ POST https://api.omnisegment.com/api/v2/audiences/batch-import/
 |------|------|----------|-------------|
 | tid | string | &#10004; | 組織 tid |
 | api_key | string | &#10004; | 組織 api_key |
-| data | array | &#10004; | Array of [data object](#data-object) |
+| data | array | &#10004; | Array of [data object](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Import-Audience-API#data-object) |
 | ignore_empty_value | boolean | | - 當 ignore_empty_value 為 `true` 時，輸入資料為 `""` 或是 `null` 時，舊資料不會被清空；輸入資料為 `"none"` 時資料會被清空。<br>- 當 ignore_empty_value 為 `false` 時，輸入資料為 `""`、`null`、`"none"` 時資料會被清空。<br>無法被清空的欄位依舊無法被清空，否則會出現錯誤。 |
 | merge_key | string | | 預設值為 `member_sn`，可接受之選項有 `line_id`, `email`, `phone`, `messenger_psid` |
 | tag_mode | string | | 預設值為 `append`，可接受之選項有 `append`, `replace`<br><br>- 當 tag_mode 為 `append` 時，data 內 tag 欄位輸入的標籤會以 append 方式加到會員身上，例如會員A 原先有 `tag_a`, `tag_b` 標籤，若 data 內提供 ``"tags": "tag_b,tag_c"``，則會員A 會多出 `tag_c` 標籤。<br>- 當 tag_mode 為 `replace` 時，data 內 tag 欄位輸入的標籤會以 replace 方式取代會員身上原有標籤，例如會員A 原先有 `tag_a`, `tag_b` 標籤，若 data 內提供 ``"tags": "tag_c,tag_d"``，則會員A 身上標籤會變成 `tag_c`, `tag_d` 標籤，原本的 `tag_a`, `tag_b` 兩個標籤會被移除。|
