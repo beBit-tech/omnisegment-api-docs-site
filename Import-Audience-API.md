@@ -23,40 +23,40 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 
 ### data object
 
-| Name | Type | Description | 可於編輯器中帶入個人化資訊 | 「顧客資料」節點中的應用 |
-|------|------|-------------|-----------------------|------------------------|
-| name | string | 姓名<br><br>若沒有給 name 這個 key, 則會以 first_name + last_name 的值代替 | &#10004; |
-| first_name | string | 名字 | &#10004; |
-| last_name | string | 姓氏 | &#10004; |
-| email | string | 信箱 | &#10004; | - 電子信箱<br>- 是否有 Email 地址 |
-| phone | string | 手機 | &#10004; | - 電話<br>- 是否有電話號碼 |
-| member_sn | string | 電商會員編號，必填 | | |
-| member_level | string | 會員等級 | | - 會員等級 |
-| sex | string | 性別<br><br>男: `male`<br>女: `female` | | - 性別 |
-| birthday | string | 生日<br><br>格式: `YYYY-MM-DD`<br>範例: `2020-06-04` | | - 年齡 |
-| register_date | string | 註冊日期<br><br>格式: `YYYY-MM-DDTHH:mm:ss+z`<br>範例: `2020-06-04T08:30:37.235482+08:00` | | - 註冊日期 |
-| register_type | string | 註冊管道 | | - 註冊管道 |
-| facebook_id | string | | | |
-| google_id | string | | | |
-| line_id | string | | | - 是否有 LINE ID |
-| messenger_psid | string | | | - 是否有 Messenger PSID |
-| fcm_token | string | 顧客在 APP 上的 token<br>如果有多個，請帶入 `fcm_tokens` | | - 是否有 PN token |
-| fcm_tokens | object | [fcm_tokens object](#fcm_tokens-object) | | - 是否有 PN token |
-| is_subscriber | boolean | 是否訂閱 Email | | - 是否訂閱 |
-| is_subscriber_sms | boolean | 是否訂閱 SMS | | - 是否訂閱 SMS |
-| is_subscriber_line | boolean | 是否訂閱 LINE | | - 是否訂閱 LINE |
-| is_subscriber_pn | boolean | 是否訂閱推播通知 | | - 是否訂閱推播通知 |
-| is_active | boolean | 啟用狀態 | | |
-| is_headless_account | boolean | 是否為無電商會員編號之會員(簡稱`無頭會員`)<br><br>無頭會員有可能被合併到有頭會員 | | - 是否為無頭會員 |
-| crm_pk | string | | | |
-| tags | string | 需匯入的會員標籤<br><br>若有多個標籤則以 `,` 分隔 | | | - 標籤 |
-| iso_code | string | [國碼](https://zh.wikipedia.org/wiki/國家地區代碼) | | - 國碼 |
-| sites | string | 網站<br><br>產品自動帶入也與此欄位有關聯 | | - 網站 |
-| city | string | 城市 | | - 城市 |
-| country | string | 國家 | | - 國家 |
-| province | string | 省/州 | | - 省/州 |
-| zip_code | string | 郵遞區號 | | - 郵遞區號 |
-| address | string | 地址 | | - 地址 |
+| Name | Type | Description | Required |可於編輯器中帶入個人化資訊 | 「顧客資料」節點中的應用 |
+|------|------|-------------|----------|-----------------------|------------------------|
+| name | string | 姓名<br><br>若沒有給 name 這個 key, 則會以 first_name + last_name 的值代替 ||&#10004; |
+| first_name | string | 名字 || &#10004; |
+| last_name | string | 姓氏 || &#10004; |
+| email | string | 信箱 || &#10004; | - 電子信箱<br>- 是否有 Email 地址 |
+| phone | string | 手機 || &#10004; | - 電話<br>- 是否有電話號碼 |
+| member_sn | string | 電商會員編號| &#10004; | | |
+| member_level | string | 會員等級 || | - 會員等級 |
+| sex | string | 性別<br><br>男: `male`<br>女: `female` || | - 性別 |
+| birthday | string | 生日<br><br>格式: `YYYY-MM-DD`<br>範例: `2020-06-04` || | - 年齡 |
+| register_date | string | 註冊日期<br><br>格式: `YYYY-MM-DDTHH:mm:ss+z`<br>範例: `2020-06-04T08:30:37.235482+08:00` || | - 註冊日期 |
+| register_type | string | 註冊管道 || | - 註冊管道 |
+| facebook_id | string | || | |
+| google_id | string | || | |
+| line_id | string | || | - 是否有 LINE ID |
+| messenger_psid | string | || | - 是否有 Messenger PSID |
+| fcm_token | string | 顧客在 APP 上的 token<br>如果有多個，請帶入 `fcm_tokens` || | - 是否有 PN token |
+| fcm_tokens | object | [fcm_tokens object](#fcm_tokens-object) || | - 是否有 PN token |
+| is_subscriber | boolean | 是否訂閱 Email || | - 是否訂閱 |
+| is_subscriber_sms | boolean | 是否訂閱 SMS || | - 是否訂閱 SMS |
+| is_subscriber_line | boolean | 是否訂閱 LINE || | - 是否訂閱 LINE |
+| is_subscriber_pn | boolean | 是否訂閱推播通知 || | - 是否訂閱推播通知 |
+| is_active | boolean | 啟用狀態 || | |
+| is_headless_account | boolean | 是否為無電商會員編號之會員(簡稱`無頭會員`)<br><br>無頭會員有可能被合併到有頭會員 || | - 是否為無頭會員 |
+| crm_pk | string | || | |
+| tags | string | 需匯入的會員標籤<br><br>若有多個標籤則以 `,` 分隔 || | | - 標籤 |
+| iso_code | string | [國碼](https://zh.wikipedia.org/wiki/國家地區代碼) || | - 國碼 |
+| sites | string | 網站<br><br>產品自動帶入也與此欄位有關聯 || | - 網站 |
+| city | string | 城市 || | - 城市 |
+| country | string | 國家 || | - 國家 |
+| province | string | 省/州 || | - 省/州 |
+| zip_code | string | 郵遞區號 || | - 郵遞區號 |
+| address | string | 地址 || | - 地址 |
 
 #### fcm_tokens object
 
