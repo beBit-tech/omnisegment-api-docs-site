@@ -30,7 +30,7 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 | last_name | string | 姓氏 | &#10004; |
 | email | string | 信箱 | &#10004; | - 電子信箱<br>- 是否有 Email 地址 |
 | phone | string | 手機 | &#10004; | - 電話<br>- 是否有電話號碼 |
-| member_sn | string | 電商會員編號 | | |
+| member_sn | string | 電商會員編號，必填 | | |
 | member_level | string | 會員等級 | | - 會員等級 |
 | sex | string | 性別<br><br>男: `male`<br>女: `female` | | - 性別 |
 | birthday | string | 生日<br><br>格式: `YYYY-MM-DD`<br>範例: `2020-06-04` | | - 年齡 |
