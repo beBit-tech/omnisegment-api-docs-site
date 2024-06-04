@@ -20,17 +20,32 @@
 
 ## data 欄位說明
 
-|          欄位           | 說明                                     | 備註                                        |
-|:-----------------------:| ---------------------------------------- | ------------------------------------------- |
-|       voucher_id| 購物金編碼 | string，此為唯一值，必填                                   |
-|      member_sn| 會員編號| string，必填                   |
-|       voucher_type| 名稱|string
-|      amount| 金額/點數|  int，必填 |
-|    valid_from| 發放日期| string |
-|      valid_util| 到期日| string，必填|
-|      is_redeemed| 已使用| boolean，選填|
-|      category| 分類（Ex: giftvoucher, coupon......）| string，選填|
+| **Field** | **Description** | **Data Type** | **Required** | Note |
+|:---:| --- | --- | :---: | --- |
+| voucher_id| 購物金編碼 (Voucher ID) | string | &#10004; | Unique |
+| member_sn| 會員編號 (Member ID) | string | &#10004; | |
+| voucher_type| 名稱 (Voucher Type) | string | &#10004; | |
+| amount| 金額/點數 (Amount) | int | &#10004; | |
+| valid_from| 發放日 (Voucher start date) | string | &#10004; | See Note 1 |
+| valid_util| 到期日 (Voucher expiration date) | string | &#10004; | See Note 1 |
+| is_redeemed| 已使用 (Is redeemed or not) | boolean | :x: | |
+| category| 分類 (Category) | string | :x: | e.g., giftvoucher, coupon... |
 
+### Note 1: Date Format
+
+
+The valid_from and valid_until fields need to use the following format. Furthermore, if a date does not include a timezone, it will be stored with our system's timezone: TW: +08, JP: +09.
+
+| **Type** | **Valid** |
+| --- | --- |
+| 2024-05-01 | &#10004; |
+| 2024-05-01 12:00:00 | &#10004; |
+| 2024-05-01 12:00:00+08 | &#10004; |
+| 2024-05-01T12:00:00+08 | &#10004; |
+| 2024-05-0112:00:00 | :x: |
+| 2024-05-0112:00:00+08 | :x: |
+| 2024-05-01-12:00:00 | :x: |
+| 2024-05-01-12:00:00+08 | :x: |
 
 #### single data example:
 > Rate limit of single data request: 30 request/s.
