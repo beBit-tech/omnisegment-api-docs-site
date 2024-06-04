@@ -31,7 +31,7 @@
 | is_redeemed| 已使用 (Is redeemed or not) | boolean | :x: | |
 | category| 分類 (Category) | string | :x: | e.g., giftvoucher, coupon... |
 
-
+### Note 1: Data Sample
 
 #### single data example:
 > Rate limit of single data request: 30 request/s.
@@ -54,7 +54,6 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-gift-vouc
     "site": "AAAA"
 }'
 ```
-### Note 1: Data Sample
 
 #### batch data example:
 > The batch data maximum size is 100. And rate limit is 10 request/s.
