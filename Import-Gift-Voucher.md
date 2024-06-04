@@ -93,7 +93,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/import-gift-vouc
 ### Note 2: Date Format
 
 
-The valid_from and valid_until fields need to use the following format. Furthermore, if a date does not include a timezone, it will be stored with our system's timezone: TW: +08, JP: +09.
+The `valid_from` and `valid_until` fields need to use the following format. Furthermore, if a date does not include a timezone, it will be stored with our system's timezone: TW: +08, JP: +09.
 
 | **Type** | **Valid** |
 | --- | --- |
