@@ -1,5 +1,3 @@
-# audience Mapping API
-
 ## Description
 * Import the Audience Mapping table from different providers, such as CRM, offline sources, etc.
 
