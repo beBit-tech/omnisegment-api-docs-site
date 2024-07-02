@@ -20,6 +20,8 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | mapping_key | The key used to find corresponding audience in our system | "phone" | string | &#10004; | Can be one of: phone, email, line_id |
 | phone/email/line_id | The value corresponding to the mapping key | "+886987654321" | string | | Required if `mapping_key` is used; should match the `mapping_key` value (e.g., if `mapping_key` is "phone", provide "phone": "+886987654321") |
 
+* Note: If the `source_id` is not found in OS system, a headless audience will be created and associated with the `source_id`. Later, when `member_sn` and merged phone data is received, these audiences will be mapped accordingly.
+
 ## Response
 ```
 {
