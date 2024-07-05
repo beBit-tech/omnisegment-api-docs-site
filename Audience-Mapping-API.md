@@ -1,5 +1,5 @@
 ## Description
-* Import the Audience Mapping table from different providers, such as CRM, offline sources, etc.
+* Import the Audience Mapping table from different source, such as CRM, offline sources, etc.
 
 ## API URL
 * `https://api.omnisegment.com/api/v1/audiences/audiences-mapping/?tid=OA-xxxxxx`
