@@ -30,7 +30,7 @@
 | valid_util| 到期日 (Voucher expiration date) | string | &#10004; | See Note 2 |
 | is_redeemed| 已使用 (Is redeemed or not) | boolean | :x: | |
 | category| 分類 (Category) | string | :x: | e.g., giftvoucher, coupon... |
-| source_system| source_id 的來源系統 | string | △ 當上面給 source_id 時為必填 | e.g., "offline", "CRM"... |
+| source_system| source_id 的來源系統 | string | ▲ 當上面給 source_id 時為必填 | e.g., "offline", "CRM"... |
 
 ### Note 1: Data Sample
 
