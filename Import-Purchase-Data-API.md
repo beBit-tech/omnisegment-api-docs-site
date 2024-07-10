@@ -168,12 +168,12 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/purchase/batc
 
 | **必填欄位** | **說明** | **備註** | **『歷史資料追蹤』節點當中的應用** |
 | :------: | ------ | ------ | ------ | 
-| member_sn/source_id | **`"member_sn": "1"`**<br>會員編號 用來找 OS 系統裡對應的 Audience| 兩者其一必填，如果是打 source_id 並且有先透過 [Audience Mapping API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Audience-Mapping-API) 打資料進來，就會以 source_id 去找對應的 Audience |
-| source_system | **`"source_system": "offline"`**<br> source_id 的來源系統 | 當上面是給 source_id 時，此欄位為必填|
+| member_sn/source_id | **`"member_sn": "1"`**<br>會員編號 用來找 OS 系統裡對應的 Audience| 兩者其一必填，如果是打 source_id 並且有先透過 [Audience Mapping API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Audience-Mapping-API) 打資料進來，就會以 source_id 去找對應的 Audience，並且選填欄位 `source_system` 為必填 |
 | datetime | **`"datetime": "2022-12-08T09:51:23+0800"`**<br>訂單日期, 日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> | | 最後轉換時間 |
 | transaction_id | **`"transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1"`**<br>訂單ID |
 | transaction_revenue | **`"transaction_revenue": 5000`**<br>訂單總金額 | | - 最後一次消費金額<br>- 總金額<br>- 平均花費|
 | **<br>選填欄位<br><br>** | | |
+| source_system | **`"source_system": "offline"`**<br> source_id 的來源系統 | 當上面是給 source_id 時，此欄位為必填|
 | transaction_status | **`"transaction_status": "SUCCESS"`**<br>訂單狀態 | 不傳預設狀態為 "SUCCESS", 可接受之狀態選項有 "SUCCESS", "CANCEL", "REFUND", "FAIL", "SHIPPED", "PAID" | |
 | products | **`"products": "1,2"`**<br>此訂單內包含的商品ID，若訂單內有多筆商品則以`,`分隔。<br><br>此欄位的值也可以是一個 object，用來表示該商品在各個不同系統中的 id，例如：**`"products": {"default": "1,2", "CRM": "crm_id1,crm_id2", "ERP": "erp_id1,erp_id2"}`**<br>若傳入以上內容，OmniSegment 會以 `default` 內的 id 來對應，並且將 `CRM` 以及 `ERP` 內的 id 紀錄起來(順序必須跟 `default` 一致)。 | 若OmniSegment 沒有則會自動建立, 商品名稱預設為這邊的商品ID| 購買產品名稱 |
 | products_quantity | **`"products_quantity": "1,1"`**<br>此訂單內每個商品的數量，若訂單內有多筆商品則以`,`分隔，這邊會對應products 的順序。 | products 不可為空 |
