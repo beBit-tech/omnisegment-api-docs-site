@@ -18,18 +18,8 @@
 
 > If Organization dose not have multi sites, site field can be None or null.
 
-## data 欄位說明
+## [data 欄位說明](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Import-Gift-Voucher#data-%E6%AC%84%E4%BD%8D%E8%AA%AA%E6%98%8E)
 
-|          欄位           | 說明                                     | 備註                                        |
-|:-----------------------:| ---------------------------------------- | ------------------------------------------- |
-|       voucher_id| 購物金編碼 | string，此為唯一值，必填                                   |
-|      member_sn| 會員編號| string，必填                   |
-|       voucher_type| 名稱|string
-|      amount| 金額/點數|  int，必填 |
-|    valid_from| 發放日期| string |
-|      valid_util| 到期日| string，必填|
-|      is_redeemed| 已使用| boolean，選填|
-|      category| 分類（Ex: giftvoucher, coupon......）| string，選填|
 
 
 #### batch data example:
