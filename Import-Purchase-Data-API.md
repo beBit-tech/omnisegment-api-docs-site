@@ -168,7 +168,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/purchase/batc
 
 | **必填欄位** | **說明** | **備註** | **『歷史資料追蹤』節點當中的應用** |
 | :------: | ------ | ------ | ------ | 
-| member_sn | **`"member_sn": "1"`**<br>會員編號 |
+| member_sn/source_id | **`"member_sn": "1"`**<br>會員編號 用來找 OS 系統裡對應的 Audience| 兩者其一必填，如果是打 source_id 並且有先透過 [Audience Mapping API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Audience-Mapping-API) 打資料進來，就會以 source_id 去找對應的 Audience |
 | datetime | **`"datetime": "2022-12-08T09:51:23+0800"`**<br>訂單日期, 日期格式遵循 <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> | | 最後轉換時間 |
 | transaction_id | **`"transaction_id": "23740b4a-5872-4363-ad32-5532a89e4cb1"`**<br>訂單ID |
 | transaction_revenue | **`"transaction_revenue": 5000`**<br>訂單總金額 | | - 最後一次消費金額<br>- 總金額<br>- 平均花費|
