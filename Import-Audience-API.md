@@ -30,7 +30,8 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 | last_name | string | 姓氏 || &#10004; |
 | email | string | 信箱 || &#10004; | - 電子信箱<br>- 是否有 Email 地址 |
 | phone | string | 手機 || &#10004; | - 電話<br>- 是否有電話號碼 |
-| member_sn | string | 電商會員編號| &#10004; | | |
+| member_sn/source_id | string | member_sn: 電商會員編號, source_id: 其他來源 id．兩者其一必填，如果是打 source_id 並且有先透過 [Audience Mapping API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Audience-Mapping-API) 打資料進來，就會以 source_id 去找對應的 Audience，並且選填欄位 source_system 為必填 | &#10004; | | |
+| source_system | string | source_id 的來源系統 || | |
 | member_level | string | 會員等級 || | - 會員等級 |
 | sex | string | 性別<br><br>男: `male`<br>女: `female` || | - 性別 |
 | birthday | string | 生日<br><br>格式: `YYYY-MM-DD`<br>範例: `2020-06-04` || | - 年齡 |
