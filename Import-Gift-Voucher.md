@@ -23,7 +23,7 @@
 | **Field** | **Description** | **Data Type** | **Required** | Note |
 |:---:| --- | --- | :---: | --- |
 | voucher_id| 購物金編碼 (Voucher ID) | string | &#10004; | Unique |
-| member_sn/source_id | 會員編號 (Member ID) | string | &#10004; | 兩者其一必填，如果是打 source_id 並且有先透過 [Audience Mapping API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Audience-Mapping-API) 打資料進來，就會以 source_id 去找對應的 Audience，並且選填欄位 `source_system` 為必填 |
+| member_sn/source_id | 會員編號 (Member ID) | string | &#10004; | 兩者其一必填，如果是打 source_id 並且有先透過 [Audience Mapping API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Audience-Mapping-API) 打資料進來，就會以 source_id 去找對應的 Audience，並且選填欄位 `source_system` 為必填，兩者都給的時候會以 member_sn 為主 |
 | voucher_type| 名稱 (Voucher Type) | string | &#10004; | |
 | amount| 金額/點數 (Amount) | int | &#10004; | |
 | valid_from| 發放日 (Voucher start date) | string | &#10004; | See Note 2 |
