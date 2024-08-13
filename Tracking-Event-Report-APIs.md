@@ -119,7 +119,7 @@ curl --location --request GET 'https://api.omnisegment.com/api/v1/tracking-event
 | member_sn | 會員編號 | **`"member_sn": "zDf11234ASd" `** | string | |
 | event_time | 事件時間 | **`"event_time": "2022-08-12 23:23:45+00" `** | string | |
 | event_name | 事件名稱 | **`"event_name": "AddToCart" `** | string | |
-| user_engagement_duration | 停留時間(sec) | **`"user_engagement_duration": "1 day 12:00:00"`** | string | 若時間小於一天，則不會有**天**這個維度 |
+| user_engagement_duration | 停留時間(sec), 此欄位僅在 event_name 為 PageView 時才會有資料，以 audience 為 group 對 pageview 產生的時間進行升冪排序，計算該 pageview 跟下一個 pageview 的時間差 | **`"user_engagement_duration": "1 day 12:00:00"`** | string | 若時間小於一天，則不會有**天**這個維度 |
 | page_url | 瀏覽網域 | **`"page_url": "https://www.google.com"`** | string | |
 | device | 裝置 | **`"device": "PC"`** | string | |
 | session_id | 工作階段ID | **`"session_id": 5`** | integer | |
