@@ -85,6 +85,7 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
   ```
   
 - Multiple Field Type (JSON)
+
   若該自定義欄位的 `欄位格式` **為** `多個欄位`, 則以下方方式放入：
 
   If the `field_type` of the custom field **is** `json`, then input the key-value pairs as shown below:
