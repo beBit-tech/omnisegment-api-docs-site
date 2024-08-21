@@ -25,9 +25,9 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 
 | Name | Type | Description | Required |可於編輯器中帶入個人化資訊 | 「顧客資料」節點中的應用 |
 |------|------|-------------|----------|-----------------------|------------------------|
-| name | string | 姓名<br><br>若沒有給 name 這個 key, 則會以 first_name + last_name 的值代替 ||&#10004; |
-| first_name | string | 名字 || &#10004; |
-| last_name | string | 姓氏 || &#10004; |
+| name | string | 姓名<br><br>若沒有給 name 這個 key, 則會以 first_name + last_name 的值代替 ||&#10004; ||
+| first_name | string | 名字 || &#10004; ||
+| last_name | string | 姓氏 || &#10004; ||
 | email | string | 信箱 || &#10004; | - 電子信箱<br>- 是否有 Email 地址 |
 | phone | string | 手機 || &#10004; | - 電話<br>- 是否有電話號碼 |
 | member_sn/source_id | string | member_sn: 電商會員編號, source_id: 其他來源 id．如果是打 source_id 並且有先透過 [Audience Mapping API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Audience-Mapping-API) 打資料進來，就會以 source_id 去找對應的 Audience，並且選填欄位 source_system 為必填 | &#10004; | | |
@@ -50,7 +50,7 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 | is_active | boolean | 啟用狀態 || | |
 | is_headless_account | boolean | 是否為無電商會員編號之會員(簡稱`無頭會員`)<br><br>無頭會員有可能被合併到有頭會員 || | - 是否為無頭會員 |
 | crm_pk | string | || | |
-| tags | string | 需匯入的會員標籤<br><br>若有多個標籤則以 `,` 分隔 || | | - 標籤 |
+| tags | string | 需匯入的會員標籤<br><br>若有多個標籤則以 `,` 分隔 || | |
 | iso_code | string | [國碼](https://zh.wikipedia.org/wiki/國家地區代碼) || | - 國碼 |
 | sites | string | 網站<br><br>產品自動帶入也與此欄位有關聯 || | - 網站 |
 | city | string | 城市 || | - 城市 |
@@ -58,6 +58,7 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 | province | string | 省/州 || | - 省/州 |
 | zip_code | string | 郵遞區號 || | - 郵遞區號 |
 | address | string | 地址 || | - 地址 |
+| 自定義欄位(CustomField) |  | [CustomField object](#CustomField object) || |  |
 
 #### fcm_tokens object
 
@@ -66,6 +67,43 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 | token | string | 裝置 ID | &#10004; |
 | active | boolean | 啟用狀態，預設為 `true` | |
 | type | string | 裝置類型<br><br>iOS: `ios`<br>Android: `android` | |
+
+#### CustomField object
+
+- Single Field Type
+
+  若該自定義欄位的 `欄位格式` **非** `多個欄位`, 如`文字`, `數字`, `布林`, `日期`, `日期與時間`，則和一般會員欄位的放入方式相同。
+
+  If the `field_type` of the custom field **is not** `json`, such as `text`, `number`, `boolean`, `date`, or `datetime`, the input method is the same as for other fields in the Audience object.
+
+  ```json
+  // A field where field_type is datetime
+  "last_login_date": "2020-06-04T08:30:37.235482+08:00"
+  
+  // A field where field_type is text
+  "nickname": "Nick"
+  ```
+  
+- Multiple Field Type (JSON)
+  若該自定義欄位的 `欄位格式` **為** `多個欄位`, 則以下方方式放入：
+
+  If the `field_type` of the custom field **is** `json`, then input the key-value pairs as shown below:
+
+  ```json
+  // `bonus` is the field_name and it contains sub_fields `bonus_point` and `bonus_expire_date`
+  "bonus": [
+              {
+                  "bonus_point": "678", // A sub_field where field_type is number
+                  "bonus_expire_date": "2025-06-04T08:30:37.235482+08:00" // A sub_field where field_type is datetime
+              },
+              // You can insert multiple items if needed
+              {
+                  "bonus_point": "123", 
+                  "bonus_expire_date": "2025-06-04T08:30:37.235482+08:00"
+              }
+          ]
+  ```
+
 
 ## Response
 
