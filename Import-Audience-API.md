@@ -58,7 +58,7 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 | province | string | 省/州 || | - 省/州 |
 | zip_code | string | 郵遞區號 || | - 郵遞區號 |
 | address | string | 地址 || | - 地址 |
-| 自定義欄位(CustomField) |  | [CustomField object](#CustomField object) || |  |
+| 自定義欄位(CustomField) |  | [CustomField object](#CustomField-object) || |  |
 
 #### fcm_tokens object
 
