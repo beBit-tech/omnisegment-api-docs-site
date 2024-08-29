@@ -17,6 +17,13 @@ POST https://api.omnisegment.com/api/import-purchase-data/
 | tid | string | &#10004; | 組織 tid，需請 beBit 團隊協助提供 |
 | api_key | string | &#10004; | 組織 api_key，需請 beBit 團隊協助提供 |
 | data | object | &#10004; | [data object](#data-object) |
+| identifier_field | string | | 會員mapping的欄位(***1**) |
+
+***1** 指定用於查找會員的字段名稱。此欄位決定了API將根據哪一個字段來查找和關聯會員信息。若Request未帶入`identifier_field`則將透過`member_sn`進行查找及關連。`identifier_field`可用選項為：
+ - `line_id`
+ - `phone`
+ - `email`
+ - `messenger_psid`
 
 ### data object
 
