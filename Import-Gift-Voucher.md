@@ -15,6 +15,13 @@
 | tid | 組織識別碼| **`"tid": "OA-xxxxxxx"`** | string | &#10004; | |
 | api_key | 組織 api 金鑰 | **`"api_key": "xxxxx-xxxxx-xxxxx"`** | string | &#10004; | |
 | site | multi sites 組織個別網站名稱 | **`"site": "Test Site"`** | string | | |
+| identifier_field | string | | 會員mapping的欄位(***1**) |
+
+***1** 指定用於查找會員的字段名稱。此欄位決定了API將根據哪一個字段來查找和關聯會員信息。若Request未帶入`identifier_field`則將透過`member_sn`進行查找及關連。`identifier_field`可用選項為：
+ - `line_id`
+ - `phone`
+ - `email`
+ - `messenger_psid`
 
 > If Organization dose not have multi sites, site field can be None or null.
 
