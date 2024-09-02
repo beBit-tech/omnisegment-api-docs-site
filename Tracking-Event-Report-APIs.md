@@ -19,7 +19,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | start_date | 開始日期 | **`"start_date": "2022-09-01"`** | string | &#10004; | |
 | end_date | 結束日期 | **`"end_date": "2022-09-30"`** | string | &#10004; | |
 | include_anonymous_user | 是否涵蓋匿名資料 | **`"include_anonymous_user": "true"`** | boolean | | |
-
+| include_event_raw_data | 是否涵蓋原始資料 | **`"include_event_raw_data": "true"`** | boolean | | |
 ### Note
  - 報表的撈取區間不得超過 31 天
 
@@ -124,3 +124,4 @@ curl --location --request GET 'https://api.omnisegment.com/api/v1/tracking-event
 | device | 裝置 | **`"device": "PC"`** | string | |
 | session_id | 工作階段ID | **`"session_id": 5`** | integer | |
 | cid | Client ID | **`"cid": "12345"`** | string | |
+| event_raw_data | 事件原始資料 | **`{"id": "xxx", "cid": "xxx", "tid": "tid", "aid": null, "av": null, "an": null, "cu": null, "dl": "https://www.xxx/pages?utm_campaign=1223&omniclid=xxx", "dt": "\\u53ef\\u52d5", "ds": null, "ea": null, "el": null, "ec": null, "ev": null, "t": "pageview", "tr": null, "ti": null, "tt": null, "ts": null, "tcc": null, "uid": null, "fcm_tk": null, "pr_id": null, "pr_nm": null, "pr_pr": null, "pr_ca": null, "pr_br": null, "pr_qt": null, "pr_va": null, "pr_sku": null}`** | JSON string |optional |
