@@ -12,7 +12,7 @@
 X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
-## Query Parameter Fields
+## Request Body Fields
 | **Parameter** | **Description** | **Sample** | **Data Type** | **Required** | Note |
 | :------: | ------ | ------ | ------ | ------ | ------ |
 | report_name | Report 名稱 | **`"report_name": "九月報告"`** | string | &#10004; | |
