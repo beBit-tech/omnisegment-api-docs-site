@@ -58,6 +58,8 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 | province | string | 省/州 || | - 省/州 |
 | zip_code | string | 郵遞區號 || | - 郵遞區號 |
 | address | string | 地址 || | - 地址 |
+| email_channels | list object | [email_channels object](#email_channels-object)<br><br>如果該組織沒有頻道則不會更新訂閱狀態 |
+| line_channels | list object | [line_channels object](#line_channels-object)<br><br>如果該組織沒有頻道則不會更新訂閱狀態 |
 | 自定義欄位(CustomField) | object | [CustomField object](#CustomField-object) || | `CustomField` is not available by default. Please contact us to have this feature set up.|
 
 #### fcm_tokens object
@@ -67,6 +69,20 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 | token | string | 裝置 ID | &#10004; |
 | active | boolean | 啟用狀態，預設為 `true` | |
 | type | string | 裝置類型<br><br>iOS: `ios`<br>Android: `android` | |
+
+#### email_channels object
+
+| Name                | Type.   | Description | Required |
+|---------------------|---------|-------------|----------|
+| name                | string. | 頻道名稱     | &#10004; |
+| subscription_status | boolean | 訂閱狀態     | &#10004; |
+
+#### line_channels object
+
+| Name                | Type.   | Description | Required |
+|---------------------|---------|-------------|----------|
+| name                | string. | 頻道名稱     | &#10004; |
+| subscription_status | boolean | 訂閱狀態     | &#10004; |
 
 #### CustomField object
 
@@ -181,7 +197,19 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
         "country": "Taiwan",
         "province": "Natal",
         "zip_code": "30084",
-        "address": "17F., No. 109, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan (R.O.C.)"
+        "address": "17F., No. 109, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan (R.O.C.)",
+        "email_channels": [
+            {
+                "name": "email",
+                "subscription_status": true | false
+            }
+        ],
+        "line_channels": [
+            {
+                "name": "line",
+                "subscription_status": true | false
+            }
+        ]
     },
     "tid": "OA-xxxxxx",
     "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
