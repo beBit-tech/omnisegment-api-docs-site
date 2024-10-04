@@ -94,7 +94,19 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/audiences/bat
             "country": "Taiwan",
             "province": "Natal",
             "zip_code": "30084",
-            "address": "17F., No. 109, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan (R.O.C.)"
+            "address": "17F., No. 109, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan (R.O.C.)",
+            "email_channels": [
+                {
+                    "name": "email",
+                    "subscription_status": false
+                }
+            ],
+            "line_channels": [
+                {
+                    "name": "line",
+                    "subscription_status": false
+                }
+            ]
         },
         {
             "member_sn": "2",
@@ -132,7 +144,19 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/audiences/bat
             "country": "Taiwan",
             "province": "Natal",
             "zip_code": "30084",
-            "address": "17F., No. 109, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan (R.O.C.)"
+            "address": "17F., No. 109, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan (R.O.C.)",
+            "email_channels": [
+                {
+                    "name": "email",
+                    "subscription_status": false
+                }
+            ],
+            "line_channels": [
+                {
+                    "name": "line",
+                    "subscription_status": false
+                }
+            ]
          }
     ],
     "tid": "OA-xxxxxx",
