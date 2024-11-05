@@ -28,7 +28,7 @@ print('Decrypted:', decrypted)
 ```
 
 ## Javascript
-```
+```javascript
 const crypto = require('crypto');
 
 function encrypt(key, text) {
@@ -49,7 +49,7 @@ console.log('Encrypted:', encrypted);
 ```
 
 ## Go
-```
+```go
 package main
 
 import (
@@ -90,7 +90,7 @@ func main() {
 ```
 
 ## Java
-```
+```java
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -118,6 +118,92 @@ public class AES256Cipher {
         String key = "my_secret_key";
         String encrypted = encrypt(key, "Hello, World!");
         System.out.println("Encrypted: " + encrypted);
+    }
+}
+```
+
+## C#
+```C#
+using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+
+public class AES256Cipher
+{
+    private readonly byte[] key;
+
+    public AES256Cipher(string key)
+    {
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            this.key = sha256.ComputeHash(Encoding.UTF8.GetBytes(key));
+        }
+    }
+
+    public string Encrypt(string plainText)
+    {
+        using (Aes aes = Aes.Create())
+        {
+            aes.Key = key;
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+            aes.GenerateIV();
+
+            using (var encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
+            using (var ms = new MemoryStream())
+            {
+                ms.Write(aes.IV, 0, aes.IV.Length); // Prepend IV to the encrypted data
+                using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+                {
+                    byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
+                    cs.Write(plainBytes, 0, plainBytes.Length);
+                    cs.FlushFinalBlock();
+                }
+
+                return Convert.ToBase64String(ms.ToArray());
+            }
+        }
+    }
+
+    public string Decrypt(string cipherText)
+    {
+        byte[] cipherBytes = Convert.FromBase64String(cipherText);
+
+        using (Aes aes = Aes.Create())
+        {
+            aes.Key = key;
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+
+            // Extract IV from the beginning of the cipherBytes array
+            byte[] iv = new byte[aes.BlockSize / 8];
+            Array.Copy(cipherBytes, 0, iv, 0, iv.Length);
+            aes.IV = iv;
+
+            using (var decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
+            using (var ms = new MemoryStream(cipherBytes, iv.Length, cipherBytes.Length - iv.Length))
+            using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+            using (var sr = new StreamReader(cs))
+            {
+                return sr.ReadToEnd();
+            }
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        string key = "my_secret_key";
+        AES256Cipher cipher = new AES256Cipher(key);
+
+        string encrypted = cipher.Encrypt("Hello, World!");
+        Console.WriteLine("Encrypted: " + encrypted);
+
+        string decrypted = cipher.Decrypt(encrypted);
+        Console.WriteLine("Decrypted: " + decrypted);
     }
 }
 ```
