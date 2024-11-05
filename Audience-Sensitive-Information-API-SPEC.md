@@ -116,3 +116,4 @@ curl --location --request POST '<your api endpoint>' \
 > Optional
 > 請提供 32 位元的 key
 > 目前只有預期 email 跟 phone 有被加密（解密）的需求
+> [example](https://github.com/beBit-tech/omnisegment-api-docs/wiki/AES-256-Code-Example)
