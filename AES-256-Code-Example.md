@@ -1,4 +1,4 @@
-# Here is [Audience Sensitive Information API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Audience-Sensitive-Information-API-SPEC) identified field encryption/decryption code example
+# Here is an example of encryption and decryption code for [Audience Sensitive Information API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Audience-Sensitive-Information-API-SPEC) identified field.
 
 ## Python
 ```python
