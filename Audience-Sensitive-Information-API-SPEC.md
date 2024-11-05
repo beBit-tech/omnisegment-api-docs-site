@@ -112,8 +112,7 @@ curl --location --request POST '<your api endpoint>' \
 ### Is Nat
 > Does your server require whitelist configuration?
 
-### 加密方式：AES-256
+### 加密方式：[AES-256](https://github.com/beBit-tech/omnisegment-api-docs/wiki/AES-256-Code-Example)
 > Optional
 > 請提供 32 位元的 key
 > 目前只有預期 email 跟 phone 有被加密（解密）的需求
-> [example](https://github.com/beBit-tech/omnisegment-api-docs/wiki/AES-256-Code-Example)
