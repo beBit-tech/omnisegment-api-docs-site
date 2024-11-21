@@ -1,5 +1,5 @@
 ## Description
-* Retrieve e-invoice data by each type.
+* Retrieve e-invoice data by each action.
 
 ## API URL
 * `https://api.omnisegment.com/api/v1/invoices/einvoice/`
@@ -34,7 +34,15 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 {
     "SUCCESS": true,
-    "PAYLOAD": null
+    "PAYLOAD": {
+        "code":"<訊息回應碼>",
+        "msg":"<系統回應訊息>",
+        "invNum":"<發票號碼>",
+        "invDate":"<發票開立日期 yyyyMMdd>",
+        "sellerName":"<賣方名稱>",
+        "sellerBan":"<賣方營業人統編(文字)>" ,
+        "invoiceTime":"<發票開立時間(HH:mm:ss)>" ,
+    }
 }
 ```
 
@@ -64,7 +72,33 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 {
     "SUCCESS": true,
-    "PAYLOAD": null
+    "PAYLOAD": {
+	"code":"<訊息回應碼>",
+	"msg":"<系統回應訊息>",
+	"invDate":"<發票開立日期 yyyyMMdd>",
+	"invNum":"<發票號碼>",
+	"sellerName":"<賣方名稱>",
+	"sellerBan":"<賣方營業人統編(文字)>" ,
+	"invoiceTime":"<發票開立時間(HH:mm:ss)>" ,
+	"amount":"<總金額>" ,
+	"details": [
+	    {
+		"rowNum":"<第 1 筆明細編號>",
+		"description":"<品名 1>",
+		"quantity":"<數量 1>",
+		"unitPrice":"<單價 1>",
+			"amount":"<小計 1>"
+	    },
+	    {
+	        "rowNum":"<第 2 筆明細編號>",
+	        "description":"<品名 2>",
+	        "quantity":"<數量 2>",
+	        "unitPrice":"<單價 2>",
+	        "amount":"<小計 2>"
+	    },
+	    // ...更多明細資料
+	]
+    }
 }
 ```
 
@@ -95,8 +129,56 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 {
     "SUCCESS": true,
-    "PAYLOAD": null
+    "PAYLOAD": {
+        "v": "<版本號碼>",
+        "code": "<訊息回應碼>",
+        "msg": "<系統回應訊息>",
+        "details": [
+            {
+                "rowNum": "<第一筆發票>",
+                "invNum": "<發票號碼 1>",
+                "cardNo": "<手機條碼/卡片(載具)隱碼>",
+                "sellerName": "<發票 1 賣方名稱>",
+                "amount": "<發票 1 總金額>",
+                "sellerBan": "<發票 1 賣方營業人統編(文字)>",
+                "invoiceTime": "<發票 1 發票開立時間(HH:mm:ss)>",
+                "invDate": {
+                    "year": "<發票 1 開立年>",
+                    "month": "<發票 1 開立月>",
+                    "date": "<發票 1 開立日>",
+                    "day": "<發票 1 開立星期>",
+                    "hours": "<發票 1 開立時>",
+                    "minutes": "<發票 1 開立分>",
+                    "seconds": "<發票 1 開立秒>",
+                    "time": "<發票 1 開立時間戳記>",
+                    "timezoneOffset": "<發票 1 開立時區>"
+                }
+            },
+            {
+                "rowNum": "<第二筆發票>",
+                "invNum": "<發票號碼 2>",
+                "cardNo": "<手機條碼/卡片(載具)隱碼>",
+                "sellerName": "<發票 2 賣方名稱>",
+                "amount": "<發票 2 總金額>",
+                "sellerBan": "<發票 2 賣方營業人統編(文字)>",
+                "invoiceTime": "<發票 2 發票開立時間(HH:mm:ss)>",
+                "invDate": {
+                    "year": "<發票 2 開立年>",
+                    "month": "<發票 2 開立月>",
+                    "date": "<發票 2 開立日>",
+                    "day": "<發票 2 開立星期>",
+                    "hours": "<發票 2 開立時>",
+                    "minutes": "<發票 2 開立分>",
+                    "seconds": "<發票 2 開立秒>",
+                    "time": "<發票 2 開立時間戳記>",
+                    "timezoneOffset": "<發票 2 開立時區>"
+                }
+            }
+            // ...更多發票資料
+        ]
+    }
 }
+
 ```
 
 ---
@@ -127,19 +209,32 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 {
     "SUCCESS": true,
-    "PAYLOAD": null
+    "PAYLOAD": {
+        "code": "<訊息回應碼>",
+        "msg": "<系統回應訊息>",
+        "invDate": "<發票開立日期>",
+        "sellerName": "<賣方名稱>",
+        "amount": "<總金額>",
+        "sellerBan": "<發票 1 賣方營業人統編(文字)>",
+        "invoiceTime": "<發票 1 發票開立時間(HH:mm:ss)>",
+        "details": [
+            {
+                "rowNum": "<第一筆明細編號>",
+                "description": "<品名 1>",
+                "quantity": "<數量 1>",
+                "unitPrice": "<單價 1>",
+                "amount": "<小計 1>"
+            },
+            {
+                "rowNum": "<第二筆明細編號>",
+                "description": "<品名 2>",
+                "quantity": "<數量 2>",
+                "unitPrice": "<單價 2>",
+                "amount": "<小計 2>"
+            }
+            // ...更多明細資料
+        ]
+    }
 }
-```
 
-## Example
-
-```
-curl --location --request POST 'https://api.omnisegment.com/api/v1/audiences/audiences-mapping/?tid=OA-xxxxxx'
---header 'X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
---data-raw '{
-    "source_id": "12345",
-    "source_system": "CRM",
-    "mapping_key": "phone",
-    "phone": "+886987654321"
-}'
 ```
