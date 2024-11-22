@@ -35,13 +35,13 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 {
     "SUCCESS": true,
     "PAYLOAD": {
-        "code":"<訊息回應碼>",
-        "msg":"<系統回應訊息>",
-        "invNum":"<發票號碼>",
-        "invDate":"<發票開立日期 yyyyMMdd>",
-        "sellerName":"<賣方名稱>",
-        "sellerBan":"<賣方營業人統編(文字)>" ,
-        "invoiceTime":"<發票開立時間(HH:mm:ss)>" ,
+        "code": "<訊息回應碼>",
+        "msg": "<系統回應訊息>",
+        "invNum": "<發票號碼>",
+        "invDate": "<發票開立日期 yyyyMMdd>",
+        "sellerName": "<賣方名稱>",
+        "sellerBan": "<賣方營業人統編(文字)>",
+        "invoiceTime": "<發票開立時間(HH:mm:ss)>"
     }
 }
 ```
@@ -73,31 +73,31 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 {
     "SUCCESS": true,
     "PAYLOAD": {
-	"code":"<訊息回應碼>",
-	"msg":"<系統回應訊息>",
-	"invDate":"<發票開立日期 yyyyMMdd>",
-	"invNum":"<發票號碼>",
-	"sellerName":"<賣方名稱>",
-	"sellerBan":"<賣方營業人統編(文字)>" ,
-	"invoiceTime":"<發票開立時間(HH:mm:ss)>" ,
-	"amount":"<總金額>" ,
-	"details": [
-	    {
-		"rowNum":"<第 1 筆明細編號>",
-		"description":"<品名 1>",
-		"quantity":"<數量 1>",
-		"unitPrice":"<單價 1>",
-			"amount":"<小計 1>"
-	    },
-	    {
-	        "rowNum":"<第 2 筆明細編號>",
-	        "description":"<品名 2>",
-	        "quantity":"<數量 2>",
-	        "unitPrice":"<單價 2>",
-	        "amount":"<小計 2>"
-	    },
-	    // ...更多明細資料
-	]
+        "code": "<訊息回應碼>",
+        "msg": "<系統回應訊息>",
+        "invDate": "<發票開立日期 yyyyMMdd>",
+        "invNum": "<發票號碼>",
+        "sellerName": "<賣方名稱>",
+        "sellerBan": "<賣方營業人統編(文字)>",
+        "invoiceTime": "<發票開立時間(HH:mm:ss)>",
+        "amount": "<總金額>",
+        "details": [
+            {
+                "rowNum": "<第 1 筆明細編號>",
+                "description": "<品名 1>",
+                "quantity": "<數量 1>",
+                "unitPrice": "<單價 1>",
+                "amount": "<小計 1>"
+            },
+            {
+                "rowNum": "<第 2 筆明細編號>",
+                "description": "<品名 2>",
+                "quantity": "<數量 2>",
+                "unitPrice": "<單價 2>",
+                "amount": "<小計 2>"
+            }
+            // ...更多明細資料
+        ]
     }
 }
 ```
