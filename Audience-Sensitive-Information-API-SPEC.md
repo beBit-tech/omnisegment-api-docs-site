@@ -21,7 +21,7 @@ X-OmniSegment-ASI-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | member_sn | member_sn list | **`"member_sn": ["sn1", "sn2", ...]`** | list | &#10004; | |
 | fields | Ｗe want to obtain the keys from the response. | **`"fields": ["email", "phone", ...]`** | list | &#10004; | |
 
-* Note: Depending on the channel campaign, there are different values in fields. For example, an EMAIL channel campaign contains `["email", "is_subscriber_email"]`, while an SMS channel campaign contains ["phone", "is_subscriber_sms"]. The SMART node contains both, such as ["email", "is_subscriber_email", "phone", "is_subscriber_sms"], and so on.
+* Note: Depending on the channel campaign, there are different values in `fields`. For example, an EMAIL channel campaign contains `["email", "is_subscriber_email"]`, while an SMS channel campaign contains ["phone", "is_subscriber_sms"]. The SMART node contains both, such as ["email", "is_subscriber_email", "phone", "is_subscriber_sms"], and so on.
 
 ### Example
 ```
