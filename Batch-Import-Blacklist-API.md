@@ -72,7 +72,7 @@ Returns the following HTTP status code and an error response:
     "INTP_VALUE": {}
 }
 
-# data exceed size limit(100)
+# data exceed size limit
 {
     "SUCCESS": false,
     "ERR_MSG": "Input Error: size of batch import exceeds 100",
