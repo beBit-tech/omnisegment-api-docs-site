@@ -1,5 +1,7 @@
 # Interaction Report APIs
 * API endpoints for report's data
+* The retrieval period must not exceed 31 days.
+* The date filter will be applied to both "Sent Date" and "Click/Open Behavior": the "Sent Date" and "Click or Open Behavior" must occur within the selected date range. Therefore, if an email was sent on 2024/10/1 but clicked on 2024/12/15, that data will not be included in the report, as its sent date does not meet the filtering criteria.
 
 ------------------
 # Create Report
