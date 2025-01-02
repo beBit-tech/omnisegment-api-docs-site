@@ -24,7 +24,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | line_uid | The user's LINE identity ID | "U123457789" | string | &#10004; | |
 | campaign_id | Campaign ID | "123" | string | &#10004; | |
 | version | 版本號碼 | "0.5" | string | &#10004; | 請參考財政部電子發票應用 API |
-| action | 查詢發票表頭 | "invoice_header" | string | &#10004; | 帶入範例值就好 |
+| action | 查詢發票表頭 | "qryInvHeader" | string | &#10004; | 帶入範例值就好 |
 | type | 發票查詢時使用的號碼別 | "Barcode" | string | &#10004; | 請參考財政部電子發票應用 API |
 | invNum | 發票號碼 | "AB12345678" | string | &#10004; | 請參考財政部電子發票應用 API |
 | invDate | 發票日期 | "2024/10/01" | string | &#10004; | 請參考財政部電子發票應用 API |
@@ -60,7 +60,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | line_uid | The user's LINE identity ID | "U123457789" | string | &#10004; | |
 | campaign_id | Campaign ID | "123" | string | &#10004; | |
 | version | 版本號碼 | "0.5" | string | &#10004; | 請參考財政部電子發票應用 API |
-| action | 查詢發票明細 | "invoice_detail" | string | &#10004; | 帶入範例值就好 |
+| action | 查詢發票明細 | "qryInvDetail" | string | &#10004; | 帶入範例值就好 |
 | type | 發票查詢時使用的號碼別 | "Barcode" | string | &#10004; | 請參考財政部電子發票應用 API |
 | invNum | 發票號碼 | "AB12345678" | string | &#10004; | 請參考財政部電子發票應用 API |
 | generation |  |  | string | &#10004; | 請參考財政部電子發票應用 API |
@@ -118,7 +118,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | line_uid | The user's LINE identity ID | "U123457789" | string | &#10004; | |
 | campaign_id | Campaign ID | "123" | string | &#10004; | |
 | version | 版本號碼 | "0.5" | string | &#10004; | 請參考財政部電子發票應用 API |
-| action | 載具發票表頭查詢 | "carrier_invoice_check" | string | &#10004; | 帶入範例值就好 |
+| action | 載具發票表頭查詢 | "carrierInvChk" | string | &#10004; | 帶入範例值就好 |
 | cardType | 卡別 | "3J0002" | string | &#10004; | 請參考財政部電子發票應用 API |
 | cardNo | 手機條碼/卡片(載具)隱碼 | "/AB56P5Q" | string | &#10004; | 請參考財政部電子發票應用 API |
 | expTimeStamp | 有效存續時間戳記 | "2147483647" | string | &#10004; | 請參考財政部電子發票應用 API |
@@ -198,7 +198,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | line_uid | The user's LINE identity ID | "U123457789" | string | &#10004; | |
 | campaign_id | Campaign ID | "123" | string | &#10004; | |
 | version | 版本號碼 | "0.5" | string | &#10004; | 請參考財政部電子發票應用 API |
-| action | 載具發票明細查詢 | "carrier_invoice_detail" | string | &#10004; | 帶入範例值就好 |
+| action | 載具發票明細查詢 | "carrierInvDetail" | string | &#10004; | 帶入範例值就好 |
 | cardType | 卡別 | "3J0002" | string | &#10004; | 請參考財政部電子發票應用 API |
 | cardNo | 手機條碼/卡片(載具)隱碼 | "/AB56P5Q" | string | &#10004; | 請參考財政部電子發票應用 API |
 | expTimeStamp | 有效存續時間戳記 | "2147483647" | string | &#10004; | 請參考財政部電子發票應用 API |
