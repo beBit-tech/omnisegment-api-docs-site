@@ -28,7 +28,7 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | type | 發票查詢時使用的號碼別 | "Barcode" | string | &#10004; | 請參考財政部電子發票應用 API |
 | invNum | 發票號碼 | "AB12345678" | string | &#10004; | 請參考財政部電子發票應用 API |
 | invDate | 發票日期 | "2024/10/01" | string | &#10004; | 請參考財政部電子發票應用 API |
-| generation |  | V2 | string | &#10004; | 請參考財政部電子發票應用 API（帶入範例值就好） |
+| generation |  | "V2" | string | &#10004; | 請參考財政部電子發票應用 API（帶入範例值就好） |
 
 * Note: 
 
