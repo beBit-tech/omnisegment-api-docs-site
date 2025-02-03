@@ -32,7 +32,22 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 * Note: 
 
-## Response
+## Request example:
+```curl
+curl --location 'https://api.omnisegment.com/api/v1/invoices/einvoice/' \
+--header 'X-OmniSegment-Api-Key: xxxxxxx' \
+--header 'Content-Type: application/json' \
+--data '{
+    "version": "0.5",
+    "type": "QRCode",
+    "invNum": "EY99999999",
+    "action": "qryInvHeader",
+    "generation": "V2",
+    "invDate": "2024/10/05"
+}'
+```
+
+## Response example:
 ```
 {
     "SUCCESS": true,
@@ -72,7 +87,24 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 * Note: 
 
-## Response
+## Request example:
+```curl
+curl --location 'https://api.omnisegment.com/api/v1/invoices/einvoice/' \
+--header 'X-OmniSegment-Api-Key: xxxxxxx' \
+--header 'Content-Type: application/json' \
+--data '{
+    "version": "0.6",
+    "type": "QRCode",
+    "invNum": "EYXXXXXXX",
+    "action": "qryInvDetail",
+    "generation": "V2",
+    "invDate": "2024/10/05",
+    "sellerID": "27485196",
+    "randomNumber": "0800"
+}'
+```
+
+## Response example:
 ```
 {
     "SUCCESS": true,
@@ -129,6 +161,25 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | cardEncrypt | 手機條碼驗證碼/卡片(載具)驗證碼 |  | string | &#10004; | 請參考財政部電子發票應用 API |
 
 * Note: 
+
+## Request example:
+```curl
+curl --location 'https://api.omnisegment.com/api/v1/invoices/einvoice/' \
+--header 'X-OmniSegment-Api-Key: xxxxxxx' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "version": "0.5",
+    "cardType": "3J0002",
+    "cardNo": "/UTXXXX",
+    "action": "carrierInvChk",
+    "expTimeStamp": "1733914483",
+    "timeStamp": "1733914483",
+    "startDate": "2024/10/04",
+    "endDate": "2024/10/10",
+    "onlyWinningInv": "N",
+    "cardEncrypt": "XXXXXXXX"
+}'
+```
 
 ## Response
 ```
@@ -210,6 +261,24 @@ X-OmniSegment-Api-Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 | cardEncrypt | 手機條碼驗證碼/卡片(載具)驗證碼 |  | string | &#10004; | 請參考財政部電子發票應用 API |
 
 * Note: 
+
+## Request example:
+```curl
+curl --location 'https://api.omnisegment.com/api/v1/invoices/einvoice/' \
+--header 'X-OmniSegment-Api-Key: xxxxxxx' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "version": "0.5",
+    "cardType": "3J0002",
+    "cardNo": "/UTXXXXX",
+    "action": "carrierInvDetail",
+    "expTimeStamp": "1733914483",
+    "timeStamp": "1733914483",
+    "invNum": "GVXXXXXXXXX",
+    "invDate": "2024/12/04",
+    "cardEncrypt": "XXXXXXXX"
+}'
+```
 
 ## Response
 ```
