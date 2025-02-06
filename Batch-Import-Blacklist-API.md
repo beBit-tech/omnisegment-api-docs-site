@@ -1,6 +1,6 @@
 # Batch Import Blacklist API
 
-> Maximum number of audience in a batch request should not be larger than 50.
+> Maximum number of audience in a batch request should not be larger than 100.
 
 ```
 POST https://api.omnisegment.com/api/v2/audiences/batch-import-blacklist/
