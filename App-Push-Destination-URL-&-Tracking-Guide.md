@@ -37,8 +37,9 @@ For FCM (Firebase Cloud Messaging), these custom keys are added to the "data" ob
 > Ref：
 https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json 
 
+### FCM Payload Examples
 
-FCM Payload Example (Android):
+Standard Payload Example (Android):
 ```json
 {
   "registration_ids": ["1", "2", "3", ...],
@@ -52,7 +53,7 @@ FCM Payload Example (Android):
 }
 ```
 
-FCM Payload Example (iOS):
+Standard Payload Example (iOS):
 ```json
 {
   "registration_ids": ["1", "2", "3", ...],
@@ -64,6 +65,40 @@ FCM Payload Example (iOS):
   "notification": {
     "title": "TITLE",
     "body": "BODY",
+  }
+}
+```
+
+### FCM Payload Example with Image
+To include an image in the push notification, add an image key to the payload. Note that FCM supports the image property both in the data and notification objects (especially for iOS).
+
+Example for Android:
+```json
+{
+  "registration_ids": ["1", "2", "3", ...],
+  "data": {
+    "title": "TITLE",
+    "body": "BODY",
+    "action": "popup",
+    "docid": "123",
+    "image": "https://example.com/path/to/image.jpg"
+  }
+}
+```
+
+Example for iOS:
+```json
+{
+  "registration_ids": ["1", "2", "3", ...],
+  "data": {
+    "action": "popup",
+    "docid": "123",
+    "image": "https://example.com/path/to/image.jpg"
+  },
+  "notification": {
+    "title": "TITLE",
+    "body": "BODY",
+    "image": "https://example.com/path/to/image.jpg"
   }
 }
 ```
