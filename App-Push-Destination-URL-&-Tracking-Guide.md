@@ -22,7 +22,9 @@ Example: Add the following keys into the settings page:
 > The name is an alias used within OmniSegment and does not affect the actual content of the push notification.
 
 
-<img width="892" alt="截圖 2024-02-17 下午5 43 49" src="https://github.com/beBit-tech/omnisegment-api-docs/assets/32828379/391208ea-cee6-443c-a435-31c7b55eb213">
+<img width="809" alt="截圖 2025-02-08 下午3 00 34" src="https://github.com/user-attachments/assets/956e7417-15cb-45c3-858c-ed432d6f5861" />
+
+
 
 ### Step.2 Content Specification
 
