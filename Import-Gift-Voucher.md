@@ -38,6 +38,7 @@
 | is_redeemed| 已使用 (Is redeemed or not) | boolean | :x: | |
 | category| 分類 (Category) | string | :x: | e.g., giftvoucher, coupon... |
 | source_system| source_id 的來源系統 | string | ▲ 當上面給 source_id 時為必填 | e.g., "offline", "CRM"... |
+| custom_fields| 資料類型為「購物金」的自定義欄位 | object | | 範例 `{"voucher_custom_text": "text", "voucher_custom_number": 1, "voucher_custom_date": "2077-01-01", "voucher_custom_datetime": "2077-01-01T00:00:00+08:00"}` <br/><br/> 請注意，點金券自定義欄位的「文字格式」最多為 128 字元。|
 
 ### Note 1: Data Sample
 
