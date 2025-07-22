@@ -60,7 +60,7 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 | address | string | 地址 || | - 地址 |
 | email_channels | list object | [email_channels object](#email_channels-object)<br><br>如果該組織沒有頻道則不會更新訂閱狀態 |
 | line_channels | list object | [line_channels object](#line_channels-object)<br><br>如果該組織沒有頻道則不會更新訂閱狀態 |
-| 自定義欄位(CustomField) | object | [CustomField object](#CustomField-object) || | `CustomField` is not available by default. Please contact us to have this feature set up.|
+| 自定義欄位(CustomField) | object | [CustomField object](#CustomField-object) ||&#10004; | `CustomField` is not available by default. Please contact us to have this feature set up. <br/><br/>請注意，顧客自定義欄位的「文字格式」最多為 1025 字元。|
 
 #### fcm_tokens object
 
@@ -92,7 +92,7 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 
   If the `field_type` of the custom field **is not** `json`, such as `text`, `number`, `boolean`, `date`, or `datetime`, the input method is the same as for other fields in the Audience object.
 
-  ```json
+  ```jsonc
   // A field where field_type is datetime
   "last_login_date": "2020-06-04T08:30:37.235482+08:00"
   
@@ -106,19 +106,19 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 
   If the `field_type` of the custom field **is** `json`, then input the key-value pairs as shown below:
 
-  ```json
-  // `bonus` is the field_name and it contains sub_fields `bonus_point` and `bonus_expire_date`
-  "bonus": [
-              {
-                  "bonus_point": "678", // A sub_field where field_type is number
-                  "bonus_expire_date": "2025-06-04T08:30:37.235482+08:00" // A sub_field where field_type is datetime
-              },
-              // You can insert multiple items if needed
-              {
-                  "bonus_point": "123", 
-                  "bonus_expire_date": "2025-06-04T08:30:37.235482+08:00"
-              }
-          ]
+  ```jsonc
+    // `bonus` is the field_name and it contains sub_fields `bonus_point` and `bonus_expire_date`
+    "bonus": [
+        {
+            "bonus_point": "678", // A sub_field where field_type is number
+            "bonus_expire_date": "2025-06-04T08:30:37.235482+08:00" // A sub_field where field_type is datetime
+        },
+        // You can insert multiple items if needed
+        {
+            "bonus_point": "123", 
+            "bonus_expire_date": "2025-06-04T08:30:37.235482+08:00"
+        }
+    ]
   ```
 
 
