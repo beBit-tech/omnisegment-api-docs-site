@@ -61,6 +61,12 @@ POST https://api.omnisegment.com/ma_audience/import-audience/
 | email_channels | list object | [email_channels object](#email_channels-object)<br><br>如果該組織沒有頻道則不會更新訂閱狀態 |
 | line_channels | list object | [line_channels object](#line_channels-object)<br><br>如果該組織沒有頻道則不會更新訂閱狀態 |
 | 自定義欄位(CustomField) | object | [CustomField object](#CustomField-object) ||&#10004; | `CustomField` is not available by default. Please contact us to have this feature set up. <br/><br/>請注意，顧客自定義欄位的「文字格式」最多為 1025 字元。|
+| membership_renewal_diff | str | 會員續會差額 (最多支援 2 位小數） || | |
+| membership_upgrade_diff | str | 會員升級差額（最多支援 2 位小數） || | |
+| membership_upgrade_oneday_diff | str | 會員升級當日差額（最多支援 2 位小數） || | |
+| membership_expire_at | str | 會員等級到期日 || | |
+| point_balance | str | 點數餘額（最多支援 2 位小數） || | |
+| credit_balance | str | 購物金餘額（最多支援 2 位小數） || | |
 
 #### fcm_tokens object
 
