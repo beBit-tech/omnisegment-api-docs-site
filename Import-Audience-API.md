@@ -215,7 +215,13 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
                 "name": "line",
                 "subscription_status": true | false
             }
-        ]
+        ],
+        "membership_renewal_diff": "1234.12",
+        "membership_upgrade_diff": "1234.00",
+        "membership_upgrade_oneday_diff": null,
+        "membership_expire_at": "None",
+        "point_balance": "1234",
+        "credit_balance": "1284"
     },
     "tid": "OA-xxxxxx",
     "api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
