@@ -218,7 +218,7 @@ curl --location --request POST 'https://api.omnisegment.com/ma_audience/import-a
         ],
         "membership_renewal_diff": "1234.12",
         "membership_upgrade_diff": "1234.00",
-        "membership_upgrade_oneday_diff": "1234,
+        "membership_upgrade_oneday_diff": "1234",
         "membership_expire_at": "2025-07-23T08:30:37+08:00",
         "point_balance": "1234",
         "credit_balance": "1284"
