@@ -164,8 +164,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v2/audiences/bat
                     "subscription_status": false
                 }
             ],
-            "membership_renewal_diff": "12345",
-            "membership_upgrade_diff": "12345",
+            "membership_renewal_diff": "12345.12",
+            "membership_upgrade_diff": "12345.00",
             "membership_upgrade_oneday_diff": "12345",
             "membership_expire_at": "2025-07-23T08:30:00+08:00",
             "point_balance": "123",
