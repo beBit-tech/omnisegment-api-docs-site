@@ -3,7 +3,7 @@
 
 ## Description
  - Import Audience Gift Voucher Data Endpoint
-
+ - To import the point balance and credit balance, please use the Audience API.
 ## API Method
 * `POST`
 
