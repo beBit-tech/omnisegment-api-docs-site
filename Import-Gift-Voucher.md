@@ -3,7 +3,6 @@
 
 ## Description
  - Import Audience Gift Voucher Data Endpoint
- - To import the point balance and credit balance, please use the Audience API.
 ## API Method
 * `POST`
 
@@ -39,6 +38,10 @@
 | category| 分類 (Category) | string | :x: | e.g., giftvoucher, coupon... |
 | source_system| source_id 的來源系統 | string | ▲ 當上面給 source_id 時為必填 | e.g., "offline", "CRM"... |
 | custom_fields| 資料類型為「點金券」的自定義欄位 | object | | 範例 `{"voucher_custom_text": "text", "voucher_custom_number": 1, "voucher_custom_date": "2077-01-01", "voucher_custom_datetime": "2077-01-01T00:00:00+08:00"}` <br/><br/> 請注意，點金券自定義欄位的「文字格式」最多為 128 字元。|
+
+若欲更新「點數餘額」或「購物金餘額」，請使用 [Import Audience API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Import-Audience-API)。
+
+To update "Points Balance" or "Credit Balance", please use the [Import Audience API](https://github.com/beBit-tech/omnisegment-api-docs/wiki/Import-Audience-API).
 
 ### Note 1: Data Sample
 
