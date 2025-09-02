@@ -29,7 +29,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/products/impo
                 "name": "300x300",
                 "link": "https://test.com/media/widGh1bWIiLCI2MDB4NjAwIl1d-300x300.png?sha=0e0ad71b5e5ccaf7"
             }
-        ]
+        ],
+        "customfield_ignore_empty_value": false
     },
     "tid": "OA-xxxxxxxx",
     "api_key": "xxxxxx-xxxxxxx-xxxxxx",
@@ -63,7 +64,8 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/products/impo
                 "name": "300x300",
                 "link": "https://test.com/media/widGh1bWIiLCI2MDB4NjAwIl1d-300x300.png?sha=0e0ad71b5e5ccaf7"
             }
-        ]
+        ],
+        "customfield_ignore_empty_value": false
     },
     "tid": "OA-xxxxxxxx",
     "api_key": "xxxxxx-xxxxxxx-xxxxxx",
@@ -93,12 +95,9 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/products/impo
 | sale_price_effective_date | 商品特價開始和結束的日期、時間和時區。                       | 如果未新增此欄位，所有 sale_price 的商品都會維持特價促銷狀態，直到移除商品的促銷價格為止。 格式為 YYYY-MM-DDT23:59:59+00:00/YYYY-MM-DDT23:59:59+00:00。 e.g. 2020-04-30T09:30:00+08:00/2020-05-31T09:30:00+08:00 |
 | product_type              | 商品的**標籤**及**類別**。                                   | 一個商品貼多個標籤用 `>` 分隔。e.g. "tagA>tagB>tagC"<br />一個標籤若有層級關係可用 `/` 分隔，一個標籤最多可分三層。e.g. "tag/tagA>tag/tagB>tag/tagC" |
 | 自定義欄位名稱            | 組織需另外開啟**自定義欄位**功能，需依照當初設定的資料型別輸入，支援的資料型別有：datetime（日期時間）, date(日期), string(文字), 數值（Decimal)。<br />`"自定義欄位名稱":"自定義欄位值"` | 1. 若有給key沒有value會跳過這筆自定義欄位。<br />2. 若資料型別不符合，會跳出錯誤訊息<br />3. 若有多筆資料，當中不合法的資料不會匯入，其餘仍會進入系統當中。<br />e.g. 系統已設定一文字自定義欄位「口味」，<br />可在body的data當中放入：<br />`"口味"："巧克力"` <br/><br/> 請注意，商品自定義欄位的「文字格式」最多為 256 字元。 |
-
-
-
-<div class="markdown-heading" style="box-sizing: border-box; position: relative; color: rgb(240, 246, 252); font-family: -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(13, 17, 23); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><br class="Apple-interchange-newline"> |
-| item_group_id            | 商品群組 id |  |
+| item_group_id            | 商品群組 id |
 | additional_image_link | 商品額外圖像的網址。圖像必須為 JPEG 或 PNG 格式，至少 500 x 500 像素，最大 8 MB。 | [格式說明](#additional_image_link-格式)。 |
+| customfield_ignore_empty_value | 自定義欄位資料更新是否允許空值，預設為不允許（True）|
 
 #### additional_image_link 格式
 
