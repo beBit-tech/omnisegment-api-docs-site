@@ -28,7 +28,7 @@ GET https://api.omnisegment.com/api/v1/orders
 |------|------|----------|
 | next | boolean | 是否有下一頁 |
 | previous | boolean | 是否有上一頁 |
-| page_count | int | 總頁數 |
+| page_count | int | 總頁數（一頁1000筆資料) |
 | data | object | 訂單資料 |
 
 ### 訂單資料
