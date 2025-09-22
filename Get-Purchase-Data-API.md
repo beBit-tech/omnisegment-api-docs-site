@@ -15,8 +15,8 @@ GET https://api.omnisegment.com/api/v1/orders
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | tid | string | &#10004; | 組織 tid，需請 beBit 團隊協助提供 |
-| datetime_max | string | &#10004; | eg: 2025-12-01 00:00 |
-| datetime_min | string | &#10004; | eg: 2025-12-01 00:00 |
+| datetime_max | string | &#10004; | 訂單時間區間 eg: 2025-12-01 00:00 |
+| datetime_min | string | &#10004; | 訂單時間區間 eg: 2025-12-01 00:00 |
 | transaction_ids | string | | 可帶多個，邏輯為 OR (用 , 區隔) 上限30筆 |
 | member_sns | string | | 可帶多個，邏輯為 OR (用 , 區隔) 上限30筆 |
 | product_ids | string | | 可帶多個，邏輯為 OR (用 , 區隔) 上限30筆 |
