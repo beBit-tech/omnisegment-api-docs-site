@@ -27,8 +27,8 @@ POST https://api.omnisegment.com/api/v2/purchase/batch-import/
  - `messenger_psid`
 
 ***2** `is_anonymous` 告訴 API 處理的訂單是否為匿名訂單：
-- `True` : import 所建立的訂單不會包含任何顧客的資訊
-- `False` (預設值) : 將訂單視為帶有顧客資訊來處理
+- `True`:匯入的訂單不會包含任何顧客的資訊
+- `False`(預設值):將準備匯入的訂單視為帶有顧客資訊來處理
 
 ***3** 當前的匿名訂單匯入，尚不支援混合訂單 (待匯入的一批訂單中，同時包含匿名訂單與會員訂單) 匯入
 
