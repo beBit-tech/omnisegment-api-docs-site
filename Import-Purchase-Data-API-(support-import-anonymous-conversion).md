@@ -35,7 +35,7 @@ POST https://api.omnisegment.com/api/import-purchase-data/
  - 允許匯入的訂單不帶有任何顧客的資訊
 
 ***4** `is_anonymous` 告訴 API 處理的訂單是否為匿名訂單：
-- `True` : import 所建立的訂單不會包含任何顧客的資訊
+- `True` : 匯入的訂單不會包含任何顧客的資訊
 - `False` (預設值) : 將訂單視為帶有顧客資訊來處理
 
 ### data object
