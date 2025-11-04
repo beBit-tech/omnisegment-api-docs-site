@@ -1,7 +1,7 @@
 # Batch Import Purchase Data API
 
 > Maximum number of purchase data in a batch request should not be larger than 50.
-
+> Support Anonymous Conversion
 ```
 POST https://api.omnisegment.com/api/v2/purchase/batch-import/
 ```
