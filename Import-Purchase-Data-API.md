@@ -17,7 +17,7 @@ POST https://api.omnisegment.com/api/import-purchase-data/
 | tid | string | &#10004; | 組織 tid，需請 beBit 團隊協助提供 |
 | api_key | string | &#10004; | 組織 api_key，需請 beBit 團隊協助提供 |
 | data | object | &#10004; | [data object](#data-object) |
-| is_anonymous | boolean | | 是否為匿名訂單:<br>`true` : 訂單不帶有任何顧客資訊<br>`false` (預設值) : 訂單必須帶有顧客資訊|
+| is_anonymous | boolean | | 是否為匿名訂單：<br>`true` : 訂單不帶有任何顧客資訊<br>`false` (預設值) : 訂單必須帶有顧客資訊|
 | identifier_field | string | | 會員 mapping 的欄位(***1**) |
 | debug_mode | string/integer | | 偵錯模式(***2**) |
 
