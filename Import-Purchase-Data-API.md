@@ -17,7 +17,7 @@ POST https://api.omnisegment.com/api/import-purchase-data/
 | tid | string | &#10004; | 組織 tid，需請 beBit 團隊協助提供 |
 | api_key | string | &#10004; | 組織 api_key，需請 beBit 團隊協助提供 |
 | data | object | &#10004; | [data object](#data-object) |
-| is_anonymous | boolean | | 是否為匿名訂單(此欄位為支援會員訂單與匿名訂單同時匯入的場景, 只有當 is_anonymous=False 時才有作用)：<br> - `true` : 訂單不帶有任何顧客資訊<br> - `false` (預設值) : 訂單必須帶有顧客資訊|
+| is_anonymous | boolean | | 是否為匿名訂單：<br> - `true` : 訂單不帶有任何顧客資訊<br> - `false` (預設值) : 訂單必須帶有顧客資訊|
 | identifier_field | string | | 用於查找會員的字段名稱。此欄位決定了 API 將根據哪一個字段來查找和關聯會員信息。若 Request 未帶入 `identifier_field` 則將透過 `member_sn` 進行查找及關連。 `identifier_field` 可用選項為：<br> - `line_id`<br> - `phone`<br>  - `email`<br> - `messenger_psid`|
 | debug_mode | string/integer | | 偵錯模式：<br> - `0`（預設值）：資料處理會在背景執行，即使有錯誤也不會立即回報<br> - `1`：資料處理會立即執行，任何錯誤都會回報給客戶端 |
 
@@ -43,7 +43,7 @@ POST https://api.omnisegment.com/api/import-purchase-data/
 | source | string | 來源名稱<br><br>範例: `Facebook` | | - 最後來源 |
 | device | string | 來源裝置<br><br>可接受之選項有：`PC`, `ANDROID`, `IPHONE`, `IPAD`, `MOBILEWEB` | | |
 | user_agent | string | 使用者代理，這邊可以清楚知道使用者是透過什麼工具來產生這筆訂單（電腦系統、瀏覽器、瀏覽器版本等）<br><br>範例: `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36`| | |
-| is_anonymous | boolean | 是否為匿名訂單<br><br>範例: `True/False` | | |
+| is_anonymous | boolean | 是否為匿名訂單(此欄位為支援會員訂單與匿名訂單同時匯入的場景, 只有當 is_anonymous=False 時才有作用)<br><br>範例: `True/False` | | |
 | 自定義欄位 | objects | 組織需另外開啟自定義欄位功能，需依照當初設定的資料型別輸入，支援的資料型別有：datetime（日期時間）, date(日期), string(文字), 數值（Decimal)。 `{"purchase_custom_text": "text", "purchase_custom_number": 1, "purchase_custom_date": "2077-01-01", "purchase_custom_datetime": "2077-01-01T00:00:00+08:00"}` <br/><br/> 請注意，訂單自定義欄位的「文字格式」最多為 256 字元。| | |
 
 
