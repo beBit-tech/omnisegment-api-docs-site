@@ -17,7 +17,7 @@ POST https://api.omnisegment.com/api/import-purchase-data/
 | tid | string | &#10004; | 組織 tid，需請 beBit 團隊協助提供 |
 | api_key | string | &#10004; | 組織 api_key，需請 beBit 團隊協助提供 |
 | data | object | &#10004; | [data object](#data-object) |
-| is_anonymous | boolean | | 是否為匿名訂單：<br> - `true` : 訂單不帶有任何顧客資訊<br> - `false` (預設值) : 訂單必須帶有顧客資訊|
+| is_anonymous | boolean | | 是否為匿名訂單(此欄位為支援會員訂單與匿名訂單同時匯入的場景, 只有當 is_anonymous=False 時才有作用)：<br> - `true` : 訂單不帶有任何顧客資訊<br> - `false` (預設值) : 訂單必須帶有顧客資訊|
 | identifier_field | string | | 用於查找會員的字段名稱。此欄位決定了 API 將根據哪一個字段來查找和關聯會員信息。若 Request 未帶入 `identifier_field` 則將透過 `member_sn` 進行查找及關連。 `identifier_field` 可用選項為：<br> - `line_id`<br> - `phone`<br>  - `email`<br> - `messenger_psid`|
 | debug_mode | string/integer | | 偵錯模式：<br> - `0`（預設值）：資料處理會在背景執行，即使有錯誤也不會立即回報<br> - `1`：資料處理會立即執行，任何錯誤都會回報給客戶端 |
 
