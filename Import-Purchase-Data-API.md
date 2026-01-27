@@ -43,6 +43,7 @@ POST https://api.omnisegment.com/api/import-purchase-data/
 | source | string | 來源名稱<br><br>範例: `Facebook` | | - 最後來源 |
 | device | string | 來源裝置<br><br>可接受之選項有：`PC`, `ANDROID`, `IPHONE`, `IPAD`, `MOBILEWEB` | | |
 | user_agent | string | 使用者代理，這邊可以清楚知道使用者是透過什麼工具來產生這筆訂單（電腦系統、瀏覽器、瀏覽器版本等）<br><br>範例: `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36`| | |
+| is_anonymous | boolean | 是否為匿名訂單<br><br>範例: `True/False` | | |
 | 自定義欄位 | objects | 組織需另外開啟自定義欄位功能，需依照當初設定的資料型別輸入，支援的資料型別有：datetime（日期時間）, date(日期), string(文字), 數值（Decimal)。 `{"purchase_custom_text": "text", "purchase_custom_number": 1, "purchase_custom_date": "2077-01-01", "purchase_custom_datetime": "2077-01-01T00:00:00+08:00"}` <br/><br/> 請注意，訂單自定義欄位的「文字格式」最多為 256 字元。| | |
 
 
