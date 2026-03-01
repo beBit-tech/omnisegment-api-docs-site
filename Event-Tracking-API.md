@@ -444,6 +444,7 @@ curl --location --request POST 'https://api.omnisegment.com/api/v1/beacon/track-
 ***
 
 ### Custom Events
+⚠️ **備註：於 `20260302 (日本 20260309)` 後設定的自定義事件，若有設定帶入參數，無論設定一個參數或多個參數，均需要使用 json 格式**
 | 必填欄位 | 範例 |
 | ---- | -------- |
 |   client_id   |    "EA7583CD-A667-48BC-B806-42ECB2B48606"      | 
