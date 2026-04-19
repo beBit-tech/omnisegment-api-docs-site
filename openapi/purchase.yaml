@@ -1,0 +1,507 @@
+openapi: 3.0.3
+info:
+  title: OmniSegment — Purchase Data API
+  description: |
+    Import purchase / transaction data for audience members.
+
+    **Authentication**: `api_key` field in request body + `tid`.
+
+    **Rate limit**: 10 requests/second.
+  version: "1.0.0"
+
+servers:
+  - url: https://api.omnisegment.com
+
+tags:
+  - name: Purchase
+    description: Import purchase and transaction records
+
+components:
+  schemas:
+    ShippingAddress:
+      type: object
+      required: [address1]
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+          nullable: true
+        city:
+          type: string
+        company:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        latitude:
+          type: string
+          nullable: true
+        longitude:
+          type: string
+          nullable: true
+        province:
+          type: string
+        province_code:
+          type: string
+        zip:
+          type: string
+
+    VoucherObject:
+      type: object
+      required: [voucher_name]
+      properties:
+        voucher_name:
+          type: string
+
+    PurchaseData:
+      type: object
+      required: [transaction_id, transaction_revenue, datetime]
+      description: A single purchase / transaction record
+      properties:
+        member_sn:
+          type: string
+          description: Member serial number. Use source_id if mapping via Audience Mapping API.
+        source_id:
+          type: string
+        source_system:
+          type: string
+          description: Required when using source_id instead of member_sn
+        datetime:
+          type: string
+          format: date-time
+          example: "2024-07-15T09:51:23+0800"
+          description: Order creation date (ISO 8601)
+        transaction_id:
+          type: string
+          description: Unique order / transaction ID
+        transaction_revenue:
+          type: number
+          description: Total order amount
+        transaction_status:
+          type: string
+          enum: [SUCCESS, CANCEL, REFUND, FAIL, SHIPPED, PAID]
+          default: SUCCESS
+        quantities:
+          type: integer
+          description: Total number of items in the order
+        products:
+          description: |
+            Product IDs (comma-separated string) or mapping object.
+
+            String example: `"P001,P002"`
+
+            Mapping object example: `{"default": "P001,P002", "CRM": "CRM-P001,CRM-P002"}`
+          oneOf:
+            - type: string
+              example: "P001,P002"
+            - type: object
+              additionalProperties:
+                type: string
+              example:
+                default: "P001,P002"
+                CRM: "CRM-P001,CRM-P002"
+        products_name:
+          type: string
+          description: Comma-separated product names (matched in order with products)
+        products_quantity:
+          type: string
+          description: Comma-separated quantities per product
+          example: "1,2"
+        physical_store_name:
+          type: string
+          description: Offline store name
+        shipping_address:
+          $ref: '#/components/schemas/ShippingAddress'
+        voucher:
+          type: array
+          items:
+            $ref: '#/components/schemas/VoucherObject'
+        coupon:
+          type: string
+          example: "coupon-ABC"
+        source:
+          type: string
+          example: "Facebook"
+        device:
+          type: string
+          enum: [PC, ANDROID, IPHONE, IPAD, MOBILEWEB]
+        user_agent:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        SUCCESS:
+          type: boolean
+          example: false
+        ERR_MSG:
+          type: string
+        ERR_MSG_KEY:
+          type: string
+          nullable: true
+        EXTRA_INFO:
+          type: string
+          nullable: true
+        INTP_KEY:
+          type: object
+        INTP_VALUE:
+          type: object
+
+paths:
+  /api/import-purchase-data/:
+    post:
+      tags: [Purchase]
+      summary: Import Purchase Data (single)
+      operationId: importPurchaseData
+      description: |
+        Import a single purchase / transaction record.
+
+        For bulk imports (up to 50 records), use **POST /api/v2/purchase/batch-import/**.
+
+        ## identifier_field
+        Determines which field to use when looking up the member. Defaults to `member_sn`.
+
+        | identifier_field | Required field in data |
+        |---|---|
+        | (none / default) | `member_sn` |
+        | `email` | `email` |
+        | `phone` | `phone` |
+        | `line_id` | `line_id` |
+        | `messenger_psid` | `messenger_psid` |
+
+        ## debug_mode
+        - `0` (default): background processing — errors are not surfaced immediately
+        - `1`: synchronous processing — any error is returned to the client right away (useful during integration testing)
+
+        ## transaction_status values
+        | Value | Meaning |
+        |---|---|
+        | `SUCCESS` | Completed order |
+        | `CANCEL` | Cancelled order |
+        | `REFUND` | Refunded order |
+        | `FAIL` | Failed order |
+        | `SHIPPED` | Order shipped |
+        | `PAID` | Order paid |
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tid, api_key, data]
+              properties:
+                tid:
+                  type: string
+                  example: "OA-xxxxxx"
+                api_key:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000000"
+                data:
+                  $ref: '#/components/schemas/PurchaseData'
+                is_anonymous:
+                  type: boolean
+                  default: false
+                  description: |
+                    `true`: order has no customer info (no member lookup performed).
+                    `false` (default): order must contain customer identification.
+                identifier_field:
+                  type: string
+                  enum: [line_id, phone, email, messenger_psid]
+                  description: Field used to look up the member (defaults to member_sn)
+                debug_mode:
+                  type: integer
+                  enum: [0, 1]
+                  default: 0
+            examples:
+              StandardPurchase:
+                summary: "Standard purchase linked to member_sn (default)"
+                description: |
+                  The most common usage. Links the order to a known member via `member_sn`.
+                  Includes shipping address, vouchers, and device info.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  is_anonymous: false
+                  data:
+                    member_sn: "1"
+                    datetime: "2020-01-01T00:00:00+0800"
+                    transaction_id: "23740b4a-5872-4363-ad32-5532a89e4cb1"
+                    transaction_revenue: 5000.0
+                    transaction_status: "SUCCESS"
+                    quantities: 2
+                    products: "P001,P002"
+                    products_name: "Product1,Product2"
+                    products_quantity: "1,1"
+                    physical_store_name: "Fake Store"
+                    shipping_address:
+                      address1: "123 Shipping Street"
+                      city: "Shippington"
+                      country: "United States"
+                      country_code: "US"
+                      province: "Kentucky"
+                      province_code: "KY"
+                      zip: "40003"
+                    voucher:
+                      - voucher_name: "birthday_gift"
+                    source: "Facebook"
+                    device: "MOBILEWEB"
+                    user_agent: "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0)"
+
+              AnonymousOrder:
+                summary: "Anonymous order (no customer info)"
+                description: |
+                  Set `is_anonymous: true` when the order has no associated customer.
+                  The `member_sn` field is not required in this case.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  is_anonymous: true
+                  data:
+                    datetime: "2020-01-01T00:00:00+0800"
+                    transaction_id: "anon-order-001"
+                    transaction_revenue: 1200.0
+                    transaction_status: "SUCCESS"
+                    products: "P003"
+                    products_quantity: "1"
+
+              ByEmail:
+                summary: "Look up member by email (identifier_field: email)"
+                description: |
+                  Use `identifier_field: email` when you don't have the `member_sn` but
+                  you know the customer's email address.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  identifier_field: "email"
+                  data:
+                    email: "eason@example.com"
+                    datetime: "2020-01-01T00:00:00+0800"
+                    transaction_id: "email-order-001"
+                    transaction_revenue: 3000.0
+                    transaction_status: "SUCCESS"
+                    products: "P001"
+
+              ByPhone:
+                summary: "Look up member by phone (identifier_field: phone)"
+                description: |
+                  Use `identifier_field: phone` to link the order by phone number.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  identifier_field: "phone"
+                  data:
+                    phone: "+886912345678"
+                    datetime: "2020-06-01T10:00:00+0800"
+                    transaction_id: "phone-order-001"
+                    transaction_revenue: 800.0
+                    transaction_status: "SUCCESS"
+                    products: "P005"
+
+              WithDebugMode:
+                summary: "Debug mode: synchronous error response"
+                description: |
+                  Set `debug_mode: 1` during integration development. Errors are returned
+                  immediately in the response instead of being silently queued.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  debug_mode: 1
+                  data:
+                    member_sn: "1"
+                    datetime: "2020-01-01T00:00:00+0800"
+                    transaction_id: "debug-order-001"
+                    transaction_revenue: 100.0
+                    transaction_status: "SUCCESS"
+
+              WithProductMapping:
+                summary: "Products with cross-system ID mapping"
+                description: |
+                  Use a products object to record both your internal product ID and an
+                  external system ID (e.g., CRM) for the same product.
+                  This allows looking up the product by either ID in the future.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  data:
+                    member_sn: "1"
+                    datetime: "2020-01-01T00:00:00+0800"
+                    transaction_id: "map-order-001"
+                    transaction_revenue: 2500.0
+                    transaction_status: "SUCCESS"
+                    products:
+                      default: "P001,P002"
+                      CRM: "CRM-P001,CRM-P002"
+
+              CancelOrRefund:
+                summary: "Cancel / Refund an order"
+                description: |
+                  Import a cancelled or refunded order by setting `transaction_status`
+                  to `CANCEL` or `REFUND`. This updates the member's purchase history accordingly.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  data:
+                    member_sn: "1"
+                    datetime: "2020-01-15T00:00:00+0800"
+                    transaction_id: "23740b4a-5872-4363-ad32-5532a89e4cb1"
+                    transaction_revenue: 5000.0
+                    transaction_status: "REFUND"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing Input Error: Request must include api_key, tid and data_content."
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid api_key or tid"
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid api_key or tid"
+
+  /api/v2/purchase/batch-import/:
+    post:
+      tags: [Purchase]
+      summary: Batch Import Purchase Data (up to 50 records)
+      operationId: batchImportPurchaseData
+      description: |
+        Import up to **50** purchase / transaction records in a single request.
+
+        Each item in `data` follows the same schema as the single Import Purchase Data endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tid, api_key, data]
+              properties:
+                tid:
+                  type: string
+                  example: "OA-xxxxxx"
+                api_key:
+                  type: string
+                  format: uuid
+                data:
+                  type: array
+                  maxItems: 50
+                  items:
+                    $ref: '#/components/schemas/PurchaseData'
+                is_anonymous:
+                  type: boolean
+                  default: false
+                identifier_field:
+                  type: string
+                  enum: [line_id, phone, email, messenger_psid]
+            examples:
+              BatchByMemberSN:
+                summary: "Multiple orders for different members"
+                description: |
+                  Import multiple orders in a single request. Each order is linked to a member via `member_sn`.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  data:
+                    - member_sn: "1"
+                      datetime: "2020-01-01T00:00:00+0800"
+                      transaction_id: "TXN-001"
+                      transaction_revenue: 5000.0
+                      transaction_status: "SUCCESS"
+                      quantities: 2
+                      products: "P001,P002"
+                      products_quantity: "1,1"
+                    - member_sn: "2"
+                      datetime: "2020-01-02T10:00:00+0800"
+                      transaction_id: "TXN-002"
+                      transaction_revenue: 1200.0
+                      transaction_status: "SUCCESS"
+                      products: "P003"
+                    - member_sn: "3"
+                      datetime: "2020-01-02T14:00:00+0800"
+                      transaction_id: "TXN-003"
+                      transaction_revenue: 3800.0
+                      transaction_status: "SHIPPED"
+                      products: "P004,P005"
+
+              BatchByEmail:
+                summary: "Multiple orders looked up by email"
+                description: |
+                  Use `identifier_field: email` for all orders in this batch request.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  identifier_field: "email"
+                  data:
+                    - email: "alice@example.com"
+                      datetime: "2020-03-01T09:00:00+0800"
+                      transaction_id: "EMAIL-TXN-001"
+                      transaction_revenue: 2000.0
+                      transaction_status: "SUCCESS"
+                      products: "P010"
+                    - email: "bob@example.com"
+                      datetime: "2020-03-01T11:30:00+0800"
+                      transaction_id: "EMAIL-TXN-002"
+                      transaction_revenue: 750.0
+                      transaction_status: "SUCCESS"
+                      products: "P011"
+
+              BatchAnonymous:
+                summary: "Multiple anonymous orders"
+                description: |
+                  Import orders with no customer info using `is_anonymous: true`.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  is_anonymous: true
+                  data:
+                    - datetime: "2020-04-01T10:00:00+0800"
+                      transaction_id: "ANON-001"
+                      transaction_revenue: 500.0
+                      transaction_status: "SUCCESS"
+                    - datetime: "2020-04-01T10:30:00+0800"
+                      transaction_id: "ANON-002"
+                      transaction_revenue: 1800.0
+                      transaction_status: "SUCCESS"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid api_key or tid"

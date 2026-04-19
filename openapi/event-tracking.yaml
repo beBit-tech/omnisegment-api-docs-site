@@ -1,0 +1,478 @@
+openapi: 3.0.3
+info:
+  title: OmniSegment — Event Tracking API
+  description: |
+    Track user behavior events (beacon). Use this API to send behavioral data such as product views,
+    cart actions, purchases, registrations, and custom events.
+
+    **Authentication**: `X-OmniSegment-Api-Key` header (UUID).
+
+    **Rate limit**: 10 requests/second.
+
+    **Product limit**: Up to 30 product objects per request.
+
+    ## Event Types
+
+    | # | Event | hit_type | event_action | event_category |
+    |---|---|---|---|---|
+    | 1 | Product Impressions | `pageview` | — | — |
+    | 2 | Product Clicks | `event` | `ClickProduct` | `Ecommerce` |
+    | 3 | Product Detail Impressions | `pageview` | — | — |
+    | 4 | Add to Cart | `event` | `AddToCart` | `Ecommerce` |
+    | 4 | Remove from Cart | `event` | `RemoveFromCart` | `Ecommerce` |
+    | 5 | Checkout | `event` | `Checkout` | `Ecommerce` |
+    | 6 | Purchase | `event` | `Purchase` | `Ecommerce` |
+    | 6 | Refund | `event` | `Refund` | `Ecommerce` |
+    | 7 | Complete Registration | `event` | `CompleteRegistration` | `CompleteRegistration` |
+    | 8 | Search | `event` | `Search` | `Search` |
+    | 9 | Custom Event | `event` | Custom name | any |
+
+    ## Device ID
+
+    - **iOS**: IDFA preferred; if unavailable, use IDFV with `-IDFV` suffix
+    - **Android**: AAID preferred; if unavailable, use SSAID with `-SSAID` suffix
+  version: "1.0.0"
+
+servers:
+  - url: https://api.omnisegment.com
+
+security:
+  - ApiKeyHeader: []
+
+tags:
+  - name: Event Tracking
+    description: Track user behavior via the beacon endpoint
+
+components:
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-OmniSegment-Api-Key
+
+  schemas:
+    TrackingProduct:
+      type: object
+      required: [id, name]
+      description: A product object within an event payload
+      properties:
+        id:
+          type: string
+          description: Product ID — must match the ID in your ProductFeed
+        name:
+          type: string
+        price:
+          type: integer
+        category:
+          type: string
+        brand:
+          type: string
+          description: Multiple brands separated by comma
+        quantity:
+          type: string
+          description: Number of this product in the cart/order
+        variant:
+          type: string
+          description: 'JSON string, e.g. {"color": "blue", "size": "M"}'
+        sku:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        SUCCESS:
+          type: boolean
+          example: false
+        ERR_MSG:
+          type: string
+
+paths:
+  /api/v1/beacon/track-event/:
+    post:
+      tags: [Event Tracking]
+      summary: Track Event
+      operationId: trackEvent
+      description: |
+        Send a behavioral event to OmniSegment.
+
+        - Use `hit_type: pageview` for page view events (no `event_action` needed)
+        - Use `hit_type: event` for interaction events (include `event_action` + `event_category`)
+        - Always include `uid` (member serial number) after a user logs in
+
+        See the **Examples** dropdown for all 9 supported event types.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [client_id, tid, hit_type]
+              properties:
+                client_id:
+                  type: string
+                  description: Device ID (IDFA/IDFV for iOS, AAID/SSAID for Android, or a web client ID)
+                  example: "1235621.1252357334"
+                tid:
+                  type: string
+                  description: Organization ID in OmniSegment
+                  example: "OA-xxxxxxxx"
+                hit_type:
+                  type: string
+                  enum: [pageview, event]
+                uid:
+                  type: string
+                  description: Member serial number — include after user logs in
+                app_id:
+                  type: string
+                  example: "com.company.app"
+                app_version:
+                  type: string
+                  example: "1.3.2"
+                app_name:
+                  type: string
+                currency_code:
+                  type: string
+                  example: "TWD"
+                document_location:
+                  type: string
+                  description: Full URL of the page where the event fired
+                  example: "https://example.com/products/123"
+                document_title:
+                  type: string
+                data_source:
+                  type: string
+                  enum: [web, app]
+                event_action:
+                  type: string
+                  description: |
+                    Predefined values: `AddToCart`, `Checkout`, `Refund`, `ClickProduct`,
+                    `CompleteRegistration`, `ViewContent`, `Purchase`, `RemoveFromCart`,
+                    `Search`, `AddToWishlist`, `FormFillOut`.
+                    Use a custom string for Custom Events.
+                event_category:
+                  type: string
+                  description: |
+                    Predefined values: `ClickFooter`, `ViewContent`, `Ecommerce`,
+                    `CompleteRegistration`, `Sort`, `Filter`, `ClickMenu`, `Search`, `FormFillOut`.
+                event_label:
+                  type: string
+                  description: |
+                    JSON string used for Search and CompleteRegistration events.
+                    Search example: `{"search_string": "keyword"}`
+                    Registration example: `{"email": "...", "city": "...", "regType": "google"}`
+                event_value:
+                  type: string
+                  description: |
+                    Custom Event value. Plain string or JSON string.
+                    Note: events configured after 2026-03-02 require JSON format.
+                products:
+                  type: array
+                  maxItems: 30
+                  items:
+                    $ref: '#/components/schemas/TrackingProduct'
+                transaction_revenue:
+                  type: integer
+                  description: Total order amount — required for Purchase and Refund events
+                transaction_id:
+                  type: string
+                  description: Order ID — required for Purchase and Refund events
+                transaction_tax:
+                  type: integer
+                transaction_shipping:
+                  type: integer
+                transaction_couponcode:
+                  type: string
+
+            examples:
+              "1_ProductImpressions":
+                summary: "1. Product Impressions — viewing a product list"
+                description: |
+                  Track when a user views a product listing page (home, category, search results).
+                  Use `hit_type: pageview`. Products require at minimum `id` and `name`.
+                value:
+                  client_id: "1235621.1252357334"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "web"
+                  hit_type: "pageview"
+                  currency_code: "TWD"
+                  document_location: "https://example.com/category/shoes"
+                  document_title: "Shoes Collection"
+                  products:
+                    - id: "DCAN8J-A90097H2N"
+                      name: "Logitech M221 Silent Mouse"
+                      brand: "Logitech"
+                      price: 800
+                      variant: '{"color": "blue"}'
+                      sku: "SM21-SH-M02-RD-S-001"
+                    - id: "DCAN8J-A90097Q9R"
+                      name: "Logitech K65M Keyboard"
+                      brand: "Logitech"
+                      price: 2800
+                      variant: '{"color": "black"}'
+                      sku: "SM21-SH-M02-RD-S-002"
+
+              "2_ProductClicks":
+                summary: "2. Product Clicks — user clicks a product"
+                description: |
+                  Track when a user clicks a product from a listing to view its detail page.
+                  Use `event_action: ClickProduct`, `event_category: Ecommerce`, `hit_type: event`.
+                value:
+                  client_id: "EA7583CD-A667-48BC-B806-42ECB2B48606"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "app"
+                  hit_type: "event"
+                  event_action: "ClickProduct"
+                  event_category: "Ecommerce"
+                  currency_code: "TWD"
+                  app_id: "com.company.app"
+                  app_version: "1.3.2"
+                  app_name: "MyApp"
+                  products:
+                    - id: "DCAN8J-A90097H2N"
+                      name: "Logitech M221 Silent Mouse"
+                      brand: "Logitech"
+                      price: 800
+                      variant: '{"color": "blue"}'
+
+              "3_ProductDetailImpressions":
+                summary: "3. Product Detail Impressions — viewing a product detail page"
+                description: |
+                  Track when a user views the product detail page.
+                  Similar to Product Impressions but triggered on the individual product page.
+                  Use `hit_type: pageview`.
+                value:
+                  client_id: "1235621.1252357334"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "web"
+                  hit_type: "pageview"
+                  currency_code: "TWD"
+                  document_location: "https://example.com/products/DCAN8J-A90097H2N"
+                  document_title: "Logitech M221 Silent Mouse"
+                  products:
+                    - id: "DCAN8J-A90097H2N"
+                      name: "Logitech M221 Silent Mouse"
+                      brand: "Logitech"
+                      price: 800
+                      variant: '{"color": "blue"}'
+                      sku: "SM21-SH-M02-RD-S-001"
+
+              "4a_AddToCart":
+                summary: "4a. Add to Cart"
+                description: |
+                  Track when a user adds a product to the shopping cart.
+                  Use `event_action: AddToCart`, `event_category: Ecommerce`, `hit_type: event`.
+                value:
+                  client_id: "EA7583CD-A667-48BC-B806-42ECB2B48606"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "app"
+                  hit_type: "event"
+                  event_action: "AddToCart"
+                  event_category: "Ecommerce"
+                  currency_code: "TWD"
+                  app_id: "com.company.app"
+                  app_version: "1.3.2"
+                  app_name: "MyApp"
+                  products:
+                    - id: "DCAN8J-A90097H2N"
+                      name: "Logitech M221 Silent Mouse"
+                      brand: "Logitech"
+                      price: 800
+                      quantity: "1"
+                      variant: '{"color": "blue"}'
+                      sku: "SM21-SH-M02-RD-S-001"
+
+              "4b_RemoveFromCart":
+                summary: "4b. Remove from Cart"
+                description: |
+                  Track when a user removes a product from the shopping cart.
+                  Use `event_action: RemoveFromCart`.
+                value:
+                  client_id: "EA7583CD-A667-48BC-B806-42ECB2B48606"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "app"
+                  hit_type: "event"
+                  event_action: "RemoveFromCart"
+                  event_category: "Ecommerce"
+                  products:
+                    - id: "DCAN8J-A90097H2N"
+                      name: "Logitech M221 Silent Mouse"
+                      quantity: "1"
+
+              "5_Checkout":
+                summary: "5. Checkout — user begins checkout"
+                description: |
+                  Track when the user reaches the checkout page or initiates the checkout flow.
+                  Use `event_action: Checkout`, `event_category: Ecommerce`, `hit_type: event`.
+                value:
+                  client_id: "EA7583CD-A667-48BC-B806-42ECB2B48606"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "app"
+                  hit_type: "event"
+                  event_action: "Checkout"
+                  event_category: "Ecommerce"
+                  currency_code: "TWD"
+                  app_id: "com.company.app"
+                  app_version: "1.3.2"
+                  app_name: "MyApp"
+                  products:
+                    - id: "DCAN8J-A90097H2N"
+                      name: "Logitech M221 Silent Mouse"
+                      brand: "Logitech"
+                      price: 800
+                      quantity: "1"
+                    - id: "DCAN8J-A90097HK2"
+                      name: "Logitech K65M Keyboard"
+                      brand: "Logitech"
+                      price: 1800
+                      quantity: "1"
+
+              "6a_Purchase":
+                summary: "6a. Purchase — user completes an order"
+                description: |
+                  Track when the user successfully completes a purchase.
+                  `transaction_id` and `transaction_revenue` are required.
+                  Products must include `id`, `name`, and `quantity`.
+                value:
+                  client_id: "EA7583CD-A667-48BC-B806-42ECB2B48606"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "app"
+                  hit_type: "event"
+                  event_action: "Purchase"
+                  event_category: "Ecommerce"
+                  transaction_id: "#8701873727"
+                  transaction_revenue: 3400
+                  currency_code: "TWD"
+                  app_id: "com.company.app"
+                  app_version: "1.3.2"
+                  app_name: "MyApp"
+                  products:
+                    - id: "DCAN8J-A90097H2N"
+                      name: "Logitech M221 Silent Mouse"
+                      quantity: "2"
+                      brand: "Logitech"
+                      price: 800
+                      variant: '{"color": "blue"}'
+                    - id: "DCAN8J-A90097HK2"
+                      name: "Logitech K65M Keyboard"
+                      quantity: "1"
+                      brand: "Logitech"
+                      price: 1800
+
+              "6b_Refund":
+                summary: "6b. Refund — user refunds an order"
+                description: |
+                  Track when an order is refunded.
+                  Use `event_action: Refund` with the same `transaction_id` and `transaction_revenue`.
+                value:
+                  client_id: "EA7583CD-A667-48BC-B806-42ECB2B48606"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "app"
+                  hit_type: "event"
+                  event_action: "Refund"
+                  event_category: "Ecommerce"
+                  transaction_id: "#8701873727"
+                  transaction_revenue: 3400
+                  products:
+                    - id: "DCAN8J-A90097H2N"
+                      name: "Logitech M221 Silent Mouse"
+                      quantity: "2"
+
+              "7_CompleteRegistration":
+                summary: "7. Complete Registration — user finishes account signup"
+                description: |
+                  Track when a user completes registration.
+                  Use `event_label` (JSON string) to include registration details like email and city.
+                value:
+                  client_id: "EA7583CD-A667-48BC-B806-42ECB2B48606"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "app"
+                  hit_type: "event"
+                  event_action: "CompleteRegistration"
+                  event_category: "CompleteRegistration"
+                  app_id: "com.company.app"
+                  app_version: "1.3.2"
+                  app_name: "MyApp"
+                  event_label: '{"email": "user@example.com", "city": "Taipei", "birthdayYear": "1996", "regType": "google"}'
+
+              "8_Search":
+                summary: "8. Submit a Search — user performs a search"
+                description: |
+                  Track when a user submits a search query.
+                  Include the search term in `event_label` as a JSON string: `{"search_string": "..."}`.
+                value:
+                  client_id: "EA7583CD-A667-48BC-B806-42ECB2B48606"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "web"
+                  hit_type: "event"
+                  event_action: "Search"
+                  event_category: "Search"
+                  document_location: "https://example.com/search?q=wireless+mouse"
+                  document_title: "Search Results"
+                  event_label: '{"search_string": "wireless mouse"}'
+
+              "9a_CustomEvent_String":
+                summary: "9a. Custom Event — string value"
+                description: |
+                  For custom events where the value is a plain string.
+                  Use any event_action name registered in your OmniSegment configuration.
+                value:
+                  client_id: "EA7583CD-A667-48BC-B806-42ECB2B48606"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "web"
+                  hit_type: "event"
+                  event_action: "Subscribe"
+                  event_value: "GameMicroservicePlan"
+                  document_location: "https://example.com/subscription"
+                  document_title: "Subscribe Channel"
+
+              "9b_CustomEvent_JSON":
+                summary: "9b. Custom Event — JSON value (required for events after 2026-03-02)"
+                description: |
+                  For custom events configured after 2026-03-02, `event_value` must be a
+                  JSON-formatted string even when there is only one parameter.
+                value:
+                  client_id: "EA7583CD-A667-48BC-B806-42ECB2B48606"
+                  uid: "139540"
+                  tid: "OA-xxxxxxxx"
+                  data_source: "web"
+                  hit_type: "event"
+                  event_action: "FormFillOut"
+                  event_value: '{"code": "T12094", "number": 19.38, "time": "2024-03-07T09:24:21.361878+00:00", "description": "newsletter signup"}'
+
+      responses:
+        "200":
+          description: Event received successfully
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        "400":
+          description: Bad Request — missing required fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing required fields: client_id, tid, hit_type"
+        "403":
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid X-OmniSegment-Api-Key"

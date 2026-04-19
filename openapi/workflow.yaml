@@ -1,0 +1,95 @@
+openapi: 3.0.3
+info:
+  title: OmniSegment — Workflow API
+  description: |
+    Trigger marketing workflow automations for a list of audience members.
+
+    **Authentication**: `api_key` field in request body + `tid`.
+  version: "1.0.0"
+
+servers:
+  - url: https://api.omnisegment.com
+
+tags:
+  - name: Workflow
+    description: Trigger workflow automation nodes
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        SUCCESS:
+          type: boolean
+          example: false
+        ERR_MSG:
+          type: string
+
+paths:
+  /api/v1/workflow/trigger/:
+    post:
+      tags: [Workflow]
+      summary: Trigger Workflow
+      operationId: triggerWorkflow
+      description: |
+        Trigger a specific workflow node for one or more audience members.
+
+        Obtain the `node_id` from the OmniSegment platform workflow configuration.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tid, api_key, node_id, member_sn_list]
+              properties:
+                tid:
+                  type: string
+                  description: Organization tenant ID
+                  example: "OA-xxxxxx"
+                api_key:
+                  type: string
+                  format: uuid
+                  description: Organization API key
+                  example: "00000000-0000-0000-0000-000000000000"
+                node_id:
+                  type: integer
+                  description: Target workflow node ID
+                  example: 128
+                member_sn_list:
+                  type: array
+                  items:
+                    type: string
+                  description: Member serial numbers to trigger the workflow for
+                  example: ["123", "12345"]
+            example:
+              tid: "OA-c19eb6"
+              api_key: "2471880c-515c-47a5-a5ba-09c6235ff9ba"
+              node_id: 128
+              member_sn_list: ["123", "12345"]
+      responses:
+        "200":
+          description: Workflow triggered successfully
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        "400":
+          description: Bad Request — missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing Input Error: These values are required: tid, api_key, node_id, member_sn_list"
+        "403":
+          description: Forbidden — invalid API key or tid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid api_key or tid"

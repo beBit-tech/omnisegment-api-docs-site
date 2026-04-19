@@ -1,0 +1,540 @@
+openapi: 3.0.3
+info:
+  title: OmniSegment — Audience API
+  description: |
+    Import and manage audience (customer) data.
+
+    **Authentication**: `api_key` field in request body + `tid`.
+
+    **Rate limit**: 10 requests/second.
+
+    **Response format**:
+    - Success: `{ "SUCCESS": true, "PAYLOAD": <data> }`
+    - Error: `{ "SUCCESS": false, "ERR_MSG": "<message>" }`
+  version: "1.0.0"
+
+servers:
+  - url: https://api.omnisegment.com
+
+tags:
+  - name: Audience
+    description: Import and update audience records
+
+components:
+  schemas:
+    FcmTokenObject:
+      type: object
+      required: [token]
+      properties:
+        token:
+          type: string
+        active:
+          type: boolean
+          default: true
+        type:
+          type: string
+          enum: [ios, android]
+
+    ChannelSubscription:
+      type: object
+      required: [name, subscription_status]
+      properties:
+        name:
+          type: string
+        subscription_status:
+          type: boolean
+
+    AudienceData:
+      type: object
+      description: Audience (customer) profile data
+      properties:
+        member_sn:
+          type: string
+          description: E-commerce member serial number
+        source_id:
+          type: string
+          description: External source ID (use with source_system)
+        source_system:
+          type: string
+          description: Required when using source_id
+        name:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          example: "+886912345678"
+        member_level:
+          type: string
+        sex:
+          type: string
+          enum: [male, female]
+        birthday:
+          type: string
+          format: date
+          example: "1990-01-01"
+        register_date:
+          type: string
+          format: date-time
+          example: "2020-06-04T08:30:37.235482+08:00"
+        register_type:
+          type: string
+        facebook_id:
+          type: string
+        google_id:
+          type: string
+        line_id:
+          type: string
+        messenger_psid:
+          type: string
+        fcm_token:
+          type: string
+          description: Single FCM token; use fcm_tokens for multiple
+        fcm_tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/FcmTokenObject'
+        is_subscriber:
+          type: boolean
+        is_subscriber_sms:
+          type: boolean
+        is_subscriber_line:
+          type: boolean
+        is_subscriber_pn:
+          type: boolean
+        is_active:
+          type: boolean
+        is_headless_account:
+          type: boolean
+        crm_pk:
+          type: string
+        tags:
+          type: string
+          description: "Comma-separated tags, e.g. 'tag_a,tag_b'"
+        iso_code:
+          type: string
+          example: "TW"
+        sites:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        province:
+          type: string
+        zip_code:
+          type: string
+        address:
+          type: string
+        email_channels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelSubscription'
+        line_channels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelSubscription'
+        membership_renewal_diff:
+          type: string
+        membership_upgrade_diff:
+          type: string
+        membership_upgrade_oneday_diff:
+          type: string
+        membership_expire_at:
+          type: string
+          format: date-time
+          example: "2025-07-23T08:30:37+08:00"
+        point_balance:
+          type: string
+        credit_balance:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        SUCCESS:
+          type: boolean
+          example: false
+        ERR_MSG:
+          type: string
+        ERR_TYPE_KEY:
+          type: string
+          nullable: true
+        ERR_MSG_KEY:
+          type: string
+          nullable: true
+        EXTRA_INFO:
+          type: string
+          nullable: true
+        INTP_KEY:
+          type: object
+        INTP_VALUE:
+          type: object
+
+paths:
+  /ma_audience/import-audience/:
+    post:
+      tags: [Audience]
+      summary: Import Audience (single)
+      operationId: importAudience
+      description: |
+        Import or update a single audience record.
+
+        For bulk imports (up to 50 records), use **POST /api/v2/audiences/batch-import/**.
+
+        ## merge_key
+        Determines which field to use when looking up existing records. Defaults to `member_sn`.
+
+        | merge_key | Required field in data |
+        |---|---|
+        | `member_sn` (default) | `member_sn` |
+        | `email` | `email` |
+        | `phone` | `phone` |
+        | `line_id` | `line_id` |
+        | `messenger_psid` | `messenger_psid` |
+        | `source_id` | `source_id` + `source_system` |
+
+        ## tag_mode
+        - `append` (default): new tags are **added** to existing tags
+        - `replace`: existing tags are **replaced entirely** with the new set
+
+        ## ignore_empty_value
+        - `true`: empty string / null input does **not** clear existing data; send `"none"` to explicitly clear
+        - `false` (default): empty, null, or `"none"` all clear the field
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tid, api_key, data]
+              properties:
+                tid:
+                  type: string
+                  example: "OA-xxxxxx"
+                api_key:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000000"
+                data:
+                  $ref: '#/components/schemas/AudienceData'
+                ignore_empty_value:
+                  type: boolean
+                merge_key:
+                  type: string
+                  default: member_sn
+                  enum: [member_sn, line_id, email, phone, messenger_psid, source_id]
+                tag_mode:
+                  type: string
+                  default: append
+                  enum: [append, replace]
+            examples:
+              ByMemberSN_AppendTags:
+                summary: "Default: match by member_sn, append tags"
+                description: |
+                  The most common usage. Match the audience by `member_sn` and add new tags
+                  without removing existing ones (`tag_mode: append`).
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  merge_key: "member_sn"
+                  ignore_empty_value: true
+                  tag_mode: "append"
+                  data:
+                    member_sn: "1"
+                    name: "Eason Lee"
+                    first_name: "Eason"
+                    last_name: "Lee"
+                    email: "eason@example.com"
+                    phone: "+886912345678"
+                    member_level: "1"
+                    sex: "female"
+                    birthday: "1990-01-01"
+                    register_date: "2020-06-04T08:30:37.235482+08:00"
+                    register_type: "line"
+                    line_id: "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    is_subscriber: true
+                    is_subscriber_line: true
+                    is_subscriber_sms: true
+                    is_subscriber_pn: true
+                    tags: "tag_a,tag_b,tag_c"
+                    iso_code: "TW"
+                    city: "Taipei"
+                    country: "Taiwan"
+                    point_balance: "1234"
+                    membership_expire_at: "2025-07-23T08:30:37+08:00"
+                    email_channels:
+                      - name: "email"
+                        subscription_status: true
+                    line_channels:
+                      - name: "line"
+                        subscription_status: true
+
+              ByMemberSN_ReplaceTags:
+                summary: "Replace tags: overwrite all existing tags"
+                description: |
+                  Use `tag_mode: replace` to completely overwrite the member's current tags.
+                  If the member previously had `tag_a, tag_b` and you send `tag_c, tag_d`,
+                  the result will be only `tag_c, tag_d`.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  merge_key: "member_sn"
+                  tag_mode: "replace"
+                  data:
+                    member_sn: "1"
+                    tags: "vip,gold_member"
+
+              ByEmail:
+                summary: "Match by email address"
+                description: |
+                  Use `merge_key: email` to look up the member by email instead of member_sn.
+                  Useful when member_sn is not available.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  merge_key: "email"
+                  data:
+                    email: "eason@example.com"
+                    member_level: "gold"
+                    point_balance: "500"
+
+              ByPhone:
+                summary: "Match by phone number"
+                description: |
+                  Use `merge_key: phone` to look up the member by phone number.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  merge_key: "phone"
+                  data:
+                    phone: "+886912345678"
+                    member_level: "silver"
+                    tags: "sms_subscriber"
+
+              ByLineId:
+                summary: "Match by LINE ID"
+                description: |
+                  Use `merge_key: line_id` to look up a member via their LINE account.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  merge_key: "line_id"
+                  data:
+                    line_id: "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    is_subscriber_line: true
+                    tags: "line_user"
+
+              BySourceId:
+                summary: "Match by external source_id (CRM / other system)"
+                description: |
+                  Use `merge_key: source_id` when the audience was previously mapped via the
+                  Audience Mapping API. `source_system` is required alongside `source_id`.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  merge_key: "source_id"
+                  data:
+                    source_id: "CRM-12345"
+                    source_system: "CRM"
+                    member_level: "platinum"
+
+              WithFcmTokens:
+                summary: "Import with push notification tokens (FCM)"
+                description: |
+                  Include multiple FCM tokens for push notification targeting.
+                  Use `fcm_tokens` (array) instead of the single `fcm_token` field.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  merge_key: "member_sn"
+                  data:
+                    member_sn: "1"
+                    fcm_tokens:
+                      - token: "fcm_token_ios_device_123"
+                        active: true
+                        type: "ios"
+                      - token: "fcm_token_android_device_456"
+                        active: true
+                        type: "android"
+                    is_subscriber_pn: true
+
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  status: "OK"
+                  error_msg: ""
+        "400":
+          description: Bad Request — missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing Input Error: These values are required in post data : api_key, tid, data"
+        "403":
+          description: Forbidden — invalid API key or tid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid api_key or tid"
+
+  /api/v2/audiences/batch-import/:
+    post:
+      tags: [Audience]
+      summary: Batch Import Audience (up to 50 records)
+      operationId: batchImportAudience
+      description: |
+        Import or update up to **50** audience records in a single request.
+
+        The `data` field is an array where each item follows the same schema as the
+        single Import Audience endpoint.
+
+        **custom_fields_identifier_field** allows targeting specific sub-items within
+        JSON-type custom fields (multi-field type) for in-place updates.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tid, api_key, data]
+              properties:
+                tid:
+                  type: string
+                  example: "OA-xxxxxx"
+                api_key:
+                  type: string
+                  format: uuid
+                data:
+                  type: array
+                  maxItems: 50
+                  items:
+                    $ref: '#/components/schemas/AudienceData'
+                ignore_empty_value:
+                  type: boolean
+                merge_key:
+                  type: string
+                  default: member_sn
+                  enum: [member_sn, line_id, email, phone, messenger_psid]
+                tag_mode:
+                  type: string
+                  default: append
+                  enum: [append, replace]
+                custom_fields_identifier_field:
+                  type: object
+                  description: Identifier key for JSON-type custom fields update
+                  additionalProperties:
+                    type: string
+                  example:
+                    bonus: "bonus_point"
+            examples:
+              BatchByMemberSN_AppendTags:
+                summary: "Multiple members, match by member_sn, append tags"
+                description: |
+                  Batch import up to 50 members in one request. Tags are appended (not replaced).
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  merge_key: "member_sn"
+                  tag_mode: "append"
+                  ignore_empty_value: true
+                  data:
+                    - member_sn: "1"
+                      name: "Eason Lee"
+                      email: "eason@example.com"
+                      phone: "+886912345678"
+                      member_level: "1"
+                      sex: "female"
+                      tags: "tag_a,tag_b,tag_c"
+                      is_subscriber: true
+                    - member_sn: "2"
+                      name: "Lebron James"
+                      email: "lebron@example.com"
+                      phone: "+886912345677"
+                      member_level: "2"
+                      sex: "male"
+                      tags: "tag_a,tag_b"
+
+              BatchByMemberSN_ReplaceTags:
+                summary: "Multiple members, replace tags"
+                description: |
+                  Same as above but with `tag_mode: replace` — each member's tags will be
+                  overwritten with the new set provided.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  merge_key: "member_sn"
+                  tag_mode: "replace"
+                  data:
+                    - member_sn: "1"
+                      tags: "vip,gold_member"
+                    - member_sn: "2"
+                      tags: "regular"
+
+              BatchByEmail:
+                summary: "Multiple members, match by email"
+                description: Batch update using email as the lookup key.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  merge_key: "email"
+                  data:
+                    - email: "alice@example.com"
+                      member_level: "gold"
+                    - email: "bob@example.com"
+                      member_level: "silver"
+
+              BatchWithCustomJsonField:
+                summary: "Update JSON-type custom field with identifier"
+                description: |
+                  Use `custom_fields_identifier_field` to update specific sub-items inside a
+                  JSON-type custom field. Here `bonus_point` identifies which `bonus` entry to update.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  merge_key: "member_sn"
+                  custom_fields_identifier_field:
+                    bonus: "bonus_point"
+                  data:
+                    - member_sn: "1"
+                      bonus:
+                        - bonus_point: "678"
+                          bonus_expire_date: "2025-06-04T08:30:37.235482+08:00"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid api_key or tid"

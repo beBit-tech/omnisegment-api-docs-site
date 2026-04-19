@@ -1,0 +1,164 @@
+openapi: 3.0.3
+info:
+  title: OmniSegment — Audience Mapping API
+  description: |
+    Map external system IDs (CRM, offline POS, etc.) to OmniSegment audience records.
+
+    Use this API **before** importing data with `source_id` so that OmniSegment can resolve
+    the external ID to the correct audience profile.
+
+    **How it works**:
+    1. Send a mapping record with your `source_id`, `source_system`, and a known identifier
+       (`member_sn`, `phone`, `email`, or `line_id`)
+    2. OmniSegment links the `source_id` to the matching audience
+    3. If no match is found, a **headless audience** is created and associated with the `source_id`
+    4. Once a `member_sn` with matching contact data arrives, the headless audience is merged
+
+    **Authentication**: `X-OmniSegment-Api-Key` header + `tid` query parameter.
+  version: "1.0.0"
+
+servers:
+  - url: https://api.omnisegment.com
+
+security:
+  - ApiKeyHeader: []
+
+tags:
+  - name: Mapping
+    description: Map external system audience IDs to OmniSegment profiles
+
+components:
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-OmniSegment-Api-Key
+
+  parameters:
+    TidQuery:
+      name: tid
+      in: query
+      required: true
+      schema:
+        type: string
+        example: "OA-xxxxxx"
+      description: Organization tenant ID
+
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        SUCCESS:
+          type: boolean
+          example: false
+        ERR_MSG:
+          type: string
+
+paths:
+  /api/v1/audiences/audiences-mapping/:
+    post:
+      tags: [Mapping]
+      summary: Create Audience Mapping
+      operationId: createAudienceMapping
+      description: |
+        Link an external system's unique ID (`source_id`) to an OmniSegment audience record.
+
+        Provide the `mapping_key` to specify which field to use for matching, then include
+        the value for that field (e.g., if `mapping_key = "phone"`, include `"phone": "+886..."` in the body).
+
+        **mapping_key options**:
+        - `member_sn` — match by e-commerce member serial number
+        - `phone` — match by phone number
+        - `email` — match by email address
+        - `line_id` — match by LINE ID
+      parameters:
+        - $ref: '#/components/parameters/TidQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [source_id, source_system, mapping_key]
+              properties:
+                source_id:
+                  type: string
+                  description: Unique identifier in the external system
+                  example: "12345"
+                source_system:
+                  type: string
+                  description: External system category (e.g., CRM, POS, offline)
+                  example: "CRM"
+                mapping_key:
+                  type: string
+                  enum: [member_sn, phone, email, line_id]
+                  description: Field to use when looking up the OmniSegment audience
+                member_sn:
+                  type: string
+                  description: Required when mapping_key is "member_sn"
+                phone:
+                  type: string
+                  description: Required when mapping_key is "phone"
+                  example: "+886987654321"
+                email:
+                  type: string
+                  format: email
+                  description: Required when mapping_key is "email"
+                line_id:
+                  type: string
+                  description: Required when mapping_key is "line_id"
+            examples:
+              ByPhone:
+                summary: Map by phone number
+                value:
+                  source_id: "12345"
+                  source_system: "CRM"
+                  mapping_key: "phone"
+                  phone: "+886987654321"
+              ByEmail:
+                summary: Map by email
+                value:
+                  source_id: "CRM-67890"
+                  source_system: "POS"
+                  mapping_key: "email"
+                  email: "customer@example.com"
+              ByMemberSn:
+                summary: Map by member serial number
+                value:
+                  source_id: "EXT-001"
+                  source_system: "LegacySystem"
+                  mapping_key: "member_sn"
+                  member_sn: "M001234"
+              ByLineId:
+                summary: Map by LINE ID
+                value:
+                  source_id: "CRM-LINE-001"
+                  source_system: "CRM"
+                  mapping_key: "line_id"
+                  line_id: "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      responses:
+        "200":
+          description: Mapping created or headless audience created successfully
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        "400":
+          description: Bad Request — missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing Input Error: source_id, source_system and mapping_key are required"
+        "403":
+          description: Forbidden — invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid X-OmniSegment-Api-Key"

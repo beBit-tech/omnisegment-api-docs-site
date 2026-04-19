@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OmniSegment API Docs</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column; height: 100vh; }
+
+      #header {
+        background: #1b1b1b;
+        color: #fff;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+        z-index: 100;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      }
+      #header h1 { font-size: 17px; font-weight: 600; white-space: nowrap; }
+
+      #spec-selector { display: flex; align-items: center; gap: 8px; }
+      #spec-selector label { font-size: 13px; color: #bbb; white-space: nowrap; }
+      #spec-select {
+        background: #2e2e2e;
+        color: #fff;
+        border: 1px solid #555;
+        border-radius: 4px;
+        padding: 5px 10px;
+        font-size: 13px;
+        cursor: pointer;
+        min-width: 240px;
+      }
+      #spec-select:focus { outline: none; border-color: #7ec8e3; }
+
+      #header-actions { margin-left: auto; display: flex; gap: 14px; align-items: center; }
+      #header-actions a {
+        color: #7ec8e3;
+        text-decoration: none;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+      #header-actions a:hover { text-decoration: underline; }
+
+      rapi-doc {
+        flex: 1;
+        width: 100%;
+        min-height: 0;
+      }
+    </style>
+    <script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>OmniSegment API</h1>
+
+      <div id="spec-selector">
+        <label for="spec-select">Spec:</label>
+        <select id="spec-select" onchange="loadSpec(this.value)">
+          <option value="openapi.yaml">All APIs</option>
+          <option value="openapi/audience.yaml">Audience — Import Audience</option>
+          <option value="openapi/purchase.yaml">Purchase — Import Purchase Data</option>
+          <option value="openapi/products.yaml">Products — Catalog &amp; Vouchers</option>
+          <option value="openapi/event-tracking.yaml">Event Tracking — Beacon</option>
+          <option value="openapi/reporting.yaml">Reporting — Interaction &amp; Tracking Reports</option>
+          <option value="openapi/workflow.yaml">Workflow — Trigger Automation</option>
+          <option value="openapi/recommendation.yaml">Recommendation — AI Product Recs</option>
+          <option value="openapi/mapping.yaml">Mapping — Audience Identity Mapping</option>
+        </select>
+      </div>
+
+      <div id="header-actions">
+        <a id="download-link" href="openapi.yaml" download>Download spec</a>
+      </div>
+    </div>
+
+    <rapi-doc
+      id="thedoc"
+      spec-url="openapi.yaml"
+      render-style="read"
+      theme="light"
+      show-header="false"
+      allow-try="true"
+      allow-spec-url-load="false"
+      allow-spec-file-load="false"
+      primary-color="#1b6ac9"
+      nav-bg-color="#f5f5f5"
+      nav-text-color="#333333"
+      nav-hover-bg-color="#e8e8e8"
+      nav-hover-text-color="#1b6ac9"
+      nav-accent-color="#1b6ac9"
+      font-size="default"
+      show-info="true"
+      show-components="false"
+      default-schema-tab="example"
+      schema-description-expanded="true"
+      fill-request-fields-with-example="true"
+    ></rapi-doc>
+
+    <script>
+      function loadSpec(url) {
+        document.getElementById('download-link').href = url;
+        document.getElementById('download-link').download = url.split('/').pop();
+
+        const el = document.getElementById('thedoc');
+        if (typeof el.loadSpec === 'function') {
+          el.loadSpec(url);
+        } else {
+          // fallback: replace the element entirely to force a fresh load
+          const clone = el.cloneNode(false);
+          clone.setAttribute('spec-url', url);
+          el.parentNode.replaceChild(clone, el);
+          clone.id = 'thedoc';
+        }
+      }
+    </script>
+  </body>
+</html>

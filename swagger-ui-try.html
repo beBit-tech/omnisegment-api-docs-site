@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OmniSegment API — Try it out</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.14/swagger-ui.css" />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column; height: 100vh; }
+
+      #header {
+        background: #1b1b1b;
+        color: #fff;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+        z-index: 100;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      }
+      #header h1 { font-size: 17px; font-weight: 600; white-space: nowrap; }
+
+      #spec-selector { display: flex; align-items: center; gap: 8px; }
+      #spec-selector label { font-size: 13px; color: #bbb; white-space: nowrap; }
+      #spec-select {
+        background: #2e2e2e;
+        color: #fff;
+        border: 1px solid #555;
+        border-radius: 4px;
+        padding: 5px 10px;
+        font-size: 13px;
+        cursor: pointer;
+        min-width: 240px;
+      }
+      #spec-select:focus { outline: none; border-color: #7ec8e3; }
+
+      #header-actions { margin-left: auto; display: flex; gap: 14px; align-items: center; }
+      #header-actions a {
+        color: #7ec8e3;
+        text-decoration: none;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+      #header-actions a:hover { text-decoration: underline; }
+      #docs-link {
+        background: #3a3a3a;
+        border: 1px solid #555;
+        border-radius: 4px;
+        padding: 4px 10px;
+        color: #ccc !important;
+        font-size: 12px;
+      }
+      #docs-link:hover { background: #4a4a4a; text-decoration: none !important; }
+
+      #swagger-ui-container { flex: 1; overflow-y: auto; }
+
+      /* Tighten up Swagger UI */
+      .swagger-ui .topbar { display: none; }
+      .swagger-ui .info { margin: 20px 0 10px; }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <h1>OmniSegment API — Try it out</h1>
+
+      <div id="spec-selector">
+        <label for="spec-select">Spec:</label>
+        <select id="spec-select" onchange="loadSpec(this.value)">
+          <option value="openapi/audience.yaml">Audience — Import Audience</option>
+          <option value="openapi/purchase.yaml">Purchase — Import Purchase Data</option>
+          <option value="openapi/products.yaml">Products — Catalog &amp; Vouchers</option>
+          <option value="openapi/event-tracking.yaml">Event Tracking — Beacon</option>
+          <option value="openapi/reporting.yaml">Reporting — Interaction &amp; Tracking Reports</option>
+          <option value="openapi/workflow.yaml">Workflow — Trigger Automation</option>
+          <option value="openapi/recommendation.yaml">Recommendation — AI Product Recs</option>
+          <option value="openapi/mapping.yaml">Mapping — Audience Identity Mapping</option>
+        </select>
+      </div>
+
+      <div id="header-actions">
+        <a href="index.html">← Back to docs</a>
+        <a id="docs-link" href="index.html">View docs (ReDoc)</a>
+      </div>
+    </div>
+
+    <div id="swagger-ui-container">
+      <div id="swagger-ui"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.14/swagger-ui-bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.14/swagger-ui-standalone-preset.js"></script>
+    <script>
+      let ui;
+
+      function loadSpec(url) {
+        if (ui) {
+          ui = SwaggerUIBundle({
+            url: url,
+            dom_id: '#swagger-ui',
+            presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+            layout: 'StandaloneLayout',
+            deepLinking: true,
+            tryItOutEnabled: true,
+            displayRequestDuration: true,
+            filter: true,
+          });
+        } else {
+          ui = SwaggerUIBundle({
+            url: url,
+            dom_id: '#swagger-ui',
+            presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+            layout: 'StandaloneLayout',
+            deepLinking: true,
+            tryItOutEnabled: true,
+            displayRequestDuration: true,
+            filter: true,
+          });
+        }
+      }
+
+      loadSpec('openapi/audience.yaml');
+    </script>
+  </body>
+</html>

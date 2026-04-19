@@ -1,0 +1,3246 @@
+openapi: 3.0.3
+info:
+  title: OmniSegment API
+  description: Complete API reference for OmniSegment.
+  version: 1.0.0
+servers:
+- url: https://api.omnisegment.com
+tags:
+- name: Audience
+  description: Import and update audience records
+- name: Purchase
+  description: Import purchase and transaction records
+- name: Product Catalog
+  description: Import product catalog data
+- name: Product Events
+  description: Import event registrations and product guarantee data
+- name: Gift Vouchers
+  description: Import gift voucher data (single or batch)
+- name: Event Tracking
+  description: Track user behavior via the beacon endpoint
+- name: Interaction Report
+  description: Email / LINE / SMS delivery and engagement reports
+- name: Tracking Event Report
+  description: Beacon / tracking event reports
+- name: Interactive Audiences Report
+  description: Reports of audiences who interacted within a date range
+- name: Workflow
+  description: Trigger workflow automation nodes
+- name: Recommendation
+  description: AI-powered product recommendations
+- name: Mapping
+  description: Map external system audience IDs to OmniSegment profiles
+paths:
+  /ma_audience/import-audience/:
+    post:
+      tags:
+      - Audience
+      summary: Import Audience (single)
+      operationId: importAudience
+      description: 'Import or update a single audience record.
+
+
+        For bulk imports (up to 50 records), use **POST /api/v2/audiences/batch-import/**.
+
+
+        ## merge_key
+
+        Determines which field to use when looking up existing records. Defaults to
+        `member_sn`.
+
+
+        | merge_key | Required field in data |
+
+        |---|---|
+
+        | `member_sn` (default) | `member_sn` |
+
+        | `email` | `email` |
+
+        | `phone` | `phone` |
+
+        | `line_id` | `line_id` |
+
+        | `messenger_psid` | `messenger_psid` |
+
+        | `source_id` | `source_id` + `source_system` |
+
+
+        ## tag_mode
+
+        - `append` (default): new tags are **added** to existing tags
+
+        - `replace`: existing tags are **replaced entirely** with the new set
+
+
+        ## ignore_empty_value
+
+        - `true`: empty string / null input does **not** clear existing data; send
+        `"none"` to explicitly clear
+
+        - `false` (default): empty, null, or `"none"` all clear the field
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tid
+              - api_key
+              - data
+              properties:
+                tid:
+                  type: string
+                  example: OA-xxxxxx
+                api_key:
+                  type: string
+                  format: uuid
+                  example: 00000000-0000-0000-0000-000000000000
+                data:
+                  $ref: '#/components/schemas/AudienceData'
+                ignore_empty_value:
+                  type: boolean
+                merge_key:
+                  type: string
+                  default: member_sn
+                  enum:
+                  - member_sn
+                  - line_id
+                  - email
+                  - phone
+                  - messenger_psid
+                  - source_id
+                tag_mode:
+                  type: string
+                  default: append
+                  enum:
+                  - append
+                  - replace
+            examples:
+              ByMemberSN_AppendTags:
+                summary: 'Default: match by member_sn, append tags'
+                description: 'The most common usage. Match the audience by `member_sn`
+                  and add new tags
+
+                  without removing existing ones (`tag_mode: append`).
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  merge_key: member_sn
+                  ignore_empty_value: true
+                  tag_mode: append
+                  data:
+                    member_sn: '1'
+                    name: Eason Lee
+                    first_name: Eason
+                    last_name: Lee
+                    email: eason@example.com
+                    phone: '+886912345678'
+                    member_level: '1'
+                    sex: female
+                    birthday: '1990-01-01'
+                    register_date: '2020-06-04T08:30:37.235482+08:00'
+                    register_type: line
+                    line_id: Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    is_subscriber: true
+                    is_subscriber_line: true
+                    is_subscriber_sms: true
+                    is_subscriber_pn: true
+                    tags: tag_a,tag_b,tag_c
+                    iso_code: TW
+                    city: Taipei
+                    country: Taiwan
+                    point_balance: '1234'
+                    membership_expire_at: '2025-07-23T08:30:37+08:00'
+                    email_channels:
+                    - name: email
+                      subscription_status: true
+                    line_channels:
+                    - name: line
+                      subscription_status: true
+              ByMemberSN_ReplaceTags:
+                summary: 'Replace tags: overwrite all existing tags'
+                description: 'Use `tag_mode: replace` to completely overwrite the
+                  member''s current tags.
+
+                  If the member previously had `tag_a, tag_b` and you send `tag_c,
+                  tag_d`,
+
+                  the result will be only `tag_c, tag_d`.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  merge_key: member_sn
+                  tag_mode: replace
+                  data:
+                    member_sn: '1'
+                    tags: vip,gold_member
+              ByEmail:
+                summary: Match by email address
+                description: 'Use `merge_key: email` to look up the member by email
+                  instead of member_sn.
+
+                  Useful when member_sn is not available.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  merge_key: email
+                  data:
+                    email: eason@example.com
+                    member_level: gold
+                    point_balance: '500'
+              ByPhone:
+                summary: Match by phone number
+                description: 'Use `merge_key: phone` to look up the member by phone
+                  number.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  merge_key: phone
+                  data:
+                    phone: '+886912345678'
+                    member_level: silver
+                    tags: sms_subscriber
+              ByLineId:
+                summary: Match by LINE ID
+                description: 'Use `merge_key: line_id` to look up a member via their
+                  LINE account.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  merge_key: line_id
+                  data:
+                    line_id: Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    is_subscriber_line: true
+                    tags: line_user
+              BySourceId:
+                summary: Match by external source_id (CRM / other system)
+                description: 'Use `merge_key: source_id` when the audience was previously
+                  mapped via the
+
+                  Audience Mapping API. `source_system` is required alongside `source_id`.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  merge_key: source_id
+                  data:
+                    source_id: CRM-12345
+                    source_system: CRM
+                    member_level: platinum
+              WithFcmTokens:
+                summary: Import with push notification tokens (FCM)
+                description: 'Include multiple FCM tokens for push notification targeting.
+
+                  Use `fcm_tokens` (array) instead of the single `fcm_token` field.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  merge_key: member_sn
+                  data:
+                    member_sn: '1'
+                    fcm_tokens:
+                    - token: fcm_token_ios_device_123
+                      active: true
+                      type: ios
+                    - token: fcm_token_android_device_456
+                      active: true
+                      type: android
+                    is_subscriber_pn: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  status: OK
+                  error_msg: ''
+        '400':
+          description: Bad Request — missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing Input Error: These values are required in post data
+                  : api_key, tid, data'
+        '403':
+          description: Forbidden — invalid API key or tid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid api_key or tid'
+  /api/v2/audiences/batch-import/:
+    post:
+      tags:
+      - Audience
+      summary: Batch Import Audience (up to 50 records)
+      operationId: batchImportAudience
+      description: 'Import or update up to **50** audience records in a single request.
+
+
+        The `data` field is an array where each item follows the same schema as the
+
+        single Import Audience endpoint.
+
+
+        **custom_fields_identifier_field** allows targeting specific sub-items within
+
+        JSON-type custom fields (multi-field type) for in-place updates.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tid
+              - api_key
+              - data
+              properties:
+                tid:
+                  type: string
+                  example: OA-xxxxxx
+                api_key:
+                  type: string
+                  format: uuid
+                data:
+                  type: array
+                  maxItems: 50
+                  items:
+                    $ref: '#/components/schemas/AudienceData'
+                ignore_empty_value:
+                  type: boolean
+                merge_key:
+                  type: string
+                  default: member_sn
+                  enum:
+                  - member_sn
+                  - line_id
+                  - email
+                  - phone
+                  - messenger_psid
+                tag_mode:
+                  type: string
+                  default: append
+                  enum:
+                  - append
+                  - replace
+                custom_fields_identifier_field:
+                  type: object
+                  description: Identifier key for JSON-type custom fields update
+                  additionalProperties:
+                    type: string
+                  example:
+                    bonus: bonus_point
+            examples:
+              BatchByMemberSN_AppendTags:
+                summary: Multiple members, match by member_sn, append tags
+                description: 'Batch import up to 50 members in one request. Tags are
+                  appended (not replaced).
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  merge_key: member_sn
+                  tag_mode: append
+                  ignore_empty_value: true
+                  data:
+                  - member_sn: '1'
+                    name: Eason Lee
+                    email: eason@example.com
+                    phone: '+886912345678'
+                    member_level: '1'
+                    sex: female
+                    tags: tag_a,tag_b,tag_c
+                    is_subscriber: true
+                  - member_sn: '2'
+                    name: Lebron James
+                    email: lebron@example.com
+                    phone: '+886912345677'
+                    member_level: '2'
+                    sex: male
+                    tags: tag_a,tag_b
+              BatchByMemberSN_ReplaceTags:
+                summary: Multiple members, replace tags
+                description: 'Same as above but with `tag_mode: replace` — each member''s
+                  tags will be
+
+                  overwritten with the new set provided.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  merge_key: member_sn
+                  tag_mode: replace
+                  data:
+                  - member_sn: '1'
+                    tags: vip,gold_member
+                  - member_sn: '2'
+                    tags: regular
+              BatchByEmail:
+                summary: Multiple members, match by email
+                description: Batch update using email as the lookup key.
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  merge_key: email
+                  data:
+                  - email: alice@example.com
+                    member_level: gold
+                  - email: bob@example.com
+                    member_level: silver
+              BatchWithCustomJsonField:
+                summary: Update JSON-type custom field with identifier
+                description: 'Use `custom_fields_identifier_field` to update specific
+                  sub-items inside a
+
+                  JSON-type custom field. Here `bonus_point` identifies which `bonus`
+                  entry to update.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  merge_key: member_sn
+                  custom_fields_identifier_field:
+                    bonus: bonus_point
+                  data:
+                  - member_sn: '1'
+                    bonus:
+                    - bonus_point: '678'
+                      bonus_expire_date: '2025-06-04T08:30:37.235482+08:00'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid api_key or tid'
+  /api/import-purchase-data/:
+    post:
+      tags:
+      - Purchase
+      summary: Import Purchase Data (single)
+      operationId: importPurchaseData
+      description: 'Import a single purchase / transaction record.
+
+
+        For bulk imports (up to 50 records), use **POST /api/v2/purchase/batch-import/**.
+
+
+        ## identifier_field
+
+        Determines which field to use when looking up the member. Defaults to `member_sn`.
+
+
+        | identifier_field | Required field in data |
+
+        |---|---|
+
+        | (none / default) | `member_sn` |
+
+        | `email` | `email` |
+
+        | `phone` | `phone` |
+
+        | `line_id` | `line_id` |
+
+        | `messenger_psid` | `messenger_psid` |
+
+
+        ## debug_mode
+
+        - `0` (default): background processing — errors are not surfaced immediately
+
+        - `1`: synchronous processing — any error is returned to the client right
+        away (useful during integration testing)
+
+
+        ## transaction_status values
+
+        | Value | Meaning |
+
+        |---|---|
+
+        | `SUCCESS` | Completed order |
+
+        | `CANCEL` | Cancelled order |
+
+        | `REFUND` | Refunded order |
+
+        | `FAIL` | Failed order |
+
+        | `SHIPPED` | Order shipped |
+
+        | `PAID` | Order paid |
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tid
+              - api_key
+              - data
+              properties:
+                tid:
+                  type: string
+                  example: OA-xxxxxx
+                api_key:
+                  type: string
+                  format: uuid
+                  example: 00000000-0000-0000-0000-000000000000
+                data:
+                  $ref: '#/components/schemas/PurchaseData'
+                is_anonymous:
+                  type: boolean
+                  default: false
+                  description: '`true`: order has no customer info (no member lookup
+                    performed).
+
+                    `false` (default): order must contain customer identification.
+
+                    '
+                identifier_field:
+                  type: string
+                  enum:
+                  - line_id
+                  - phone
+                  - email
+                  - messenger_psid
+                  description: Field used to look up the member (defaults to member_sn)
+                debug_mode:
+                  type: integer
+                  enum:
+                  - 0
+                  - 1
+                  default: 0
+            examples:
+              StandardPurchase:
+                summary: Standard purchase linked to member_sn (default)
+                description: 'The most common usage. Links the order to a known member
+                  via `member_sn`.
+
+                  Includes shipping address, vouchers, and device info.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  is_anonymous: false
+                  data:
+                    member_sn: '1'
+                    datetime: 2020-01-01T00:00:00+0800
+                    transaction_id: 23740b4a-5872-4363-ad32-5532a89e4cb1
+                    transaction_revenue: 5000.0
+                    transaction_status: SUCCESS
+                    quantities: 2
+                    products: P001,P002
+                    products_name: Product1,Product2
+                    products_quantity: 1,1
+                    physical_store_name: Fake Store
+                    shipping_address:
+                      address1: 123 Shipping Street
+                      city: Shippington
+                      country: United States
+                      country_code: US
+                      province: Kentucky
+                      province_code: KY
+                      zip: '40003'
+                    voucher:
+                    - voucher_name: birthday_gift
+                    source: Facebook
+                    device: MOBILEWEB
+                    user_agent: Mozilla/5.0 (iPhone; CPU iPhone OS 12_0)
+              AnonymousOrder:
+                summary: Anonymous order (no customer info)
+                description: 'Set `is_anonymous: true` when the order has no associated
+                  customer.
+
+                  The `member_sn` field is not required in this case.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  is_anonymous: true
+                  data:
+                    datetime: 2020-01-01T00:00:00+0800
+                    transaction_id: anon-order-001
+                    transaction_revenue: 1200.0
+                    transaction_status: SUCCESS
+                    products: P003
+                    products_quantity: '1'
+              ByEmail:
+                summary: 'Look up member by email (identifier_field: email)'
+                description: 'Use `identifier_field: email` when you don''t have the
+                  `member_sn` but
+
+                  you know the customer''s email address.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  identifier_field: email
+                  data:
+                    email: eason@example.com
+                    datetime: 2020-01-01T00:00:00+0800
+                    transaction_id: email-order-001
+                    transaction_revenue: 3000.0
+                    transaction_status: SUCCESS
+                    products: P001
+              ByPhone:
+                summary: 'Look up member by phone (identifier_field: phone)'
+                description: 'Use `identifier_field: phone` to link the order by phone
+                  number.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  identifier_field: phone
+                  data:
+                    phone: '+886912345678'
+                    datetime: 2020-06-01T10:00:00+0800
+                    transaction_id: phone-order-001
+                    transaction_revenue: 800.0
+                    transaction_status: SUCCESS
+                    products: P005
+              WithDebugMode:
+                summary: 'Debug mode: synchronous error response'
+                description: 'Set `debug_mode: 1` during integration development.
+                  Errors are returned
+
+                  immediately in the response instead of being silently queued.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  debug_mode: 1
+                  data:
+                    member_sn: '1'
+                    datetime: 2020-01-01T00:00:00+0800
+                    transaction_id: debug-order-001
+                    transaction_revenue: 100.0
+                    transaction_status: SUCCESS
+              WithProductMapping:
+                summary: Products with cross-system ID mapping
+                description: 'Use a products object to record both your internal product
+                  ID and an
+
+                  external system ID (e.g., CRM) for the same product.
+
+                  This allows looking up the product by either ID in the future.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  data:
+                    member_sn: '1'
+                    datetime: 2020-01-01T00:00:00+0800
+                    transaction_id: map-order-001
+                    transaction_revenue: 2500.0
+                    transaction_status: SUCCESS
+                    products:
+                      default: P001,P002
+                      CRM: CRM-P001,CRM-P002
+              CancelOrRefund:
+                summary: Cancel / Refund an order
+                description: 'Import a cancelled or refunded order by setting `transaction_status`
+
+                  to `CANCEL` or `REFUND`. This updates the member''s purchase history
+                  accordingly.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  data:
+                    member_sn: '1'
+                    datetime: 2020-01-15T00:00:00+0800
+                    transaction_id: 23740b4a-5872-4363-ad32-5532a89e4cb1
+                    transaction_revenue: 5000.0
+                    transaction_status: REFUND
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing Input Error: Request must include api_key, tid and
+                  data_content.'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid api_key or tid'
+  /api/v2/purchase/batch-import/:
+    post:
+      tags:
+      - Purchase
+      summary: Batch Import Purchase Data (up to 50 records)
+      operationId: batchImportPurchaseData
+      description: 'Import up to **50** purchase / transaction records in a single
+        request.
+
+
+        Each item in `data` follows the same schema as the single Import Purchase
+        Data endpoint.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tid
+              - api_key
+              - data
+              properties:
+                tid:
+                  type: string
+                  example: OA-xxxxxx
+                api_key:
+                  type: string
+                  format: uuid
+                data:
+                  type: array
+                  maxItems: 50
+                  items:
+                    $ref: '#/components/schemas/PurchaseData'
+                is_anonymous:
+                  type: boolean
+                  default: false
+                identifier_field:
+                  type: string
+                  enum:
+                  - line_id
+                  - phone
+                  - email
+                  - messenger_psid
+            examples:
+              BatchByMemberSN:
+                summary: Multiple orders for different members
+                description: 'Import multiple orders in a single request. Each order
+                  is linked to a member via `member_sn`.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  data:
+                  - member_sn: '1'
+                    datetime: 2020-01-01T00:00:00+0800
+                    transaction_id: TXN-001
+                    transaction_revenue: 5000.0
+                    transaction_status: SUCCESS
+                    quantities: 2
+                    products: P001,P002
+                    products_quantity: 1,1
+                  - member_sn: '2'
+                    datetime: 2020-01-02T10:00:00+0800
+                    transaction_id: TXN-002
+                    transaction_revenue: 1200.0
+                    transaction_status: SUCCESS
+                    products: P003
+                  - member_sn: '3'
+                    datetime: 2020-01-02T14:00:00+0800
+                    transaction_id: TXN-003
+                    transaction_revenue: 3800.0
+                    transaction_status: SHIPPED
+                    products: P004,P005
+              BatchByEmail:
+                summary: Multiple orders looked up by email
+                description: 'Use `identifier_field: email` for all orders in this
+                  batch request.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  identifier_field: email
+                  data:
+                  - email: alice@example.com
+                    datetime: 2020-03-01T09:00:00+0800
+                    transaction_id: EMAIL-TXN-001
+                    transaction_revenue: 2000.0
+                    transaction_status: SUCCESS
+                    products: P010
+                  - email: bob@example.com
+                    datetime: 2020-03-01T11:30:00+0800
+                    transaction_id: EMAIL-TXN-002
+                    transaction_revenue: 750.0
+                    transaction_status: SUCCESS
+                    products: P011
+              BatchAnonymous:
+                summary: Multiple anonymous orders
+                description: 'Import orders with no customer info using `is_anonymous:
+                  true`.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  is_anonymous: true
+                  data:
+                  - datetime: 2020-04-01T10:00:00+0800
+                    transaction_id: ANON-001
+                    transaction_revenue: 500.0
+                    transaction_status: SUCCESS
+                  - datetime: 2020-04-01T10:30:00+0800
+                    transaction_id: ANON-002
+                    transaction_revenue: 1800.0
+                    transaction_status: SUCCESS
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid api_key or tid'
+  /api/v1/products/import/:
+    post:
+      tags:
+      - Product Catalog
+      summary: Import Product
+      operationId: importProduct
+      description: "Import product catalog data.\n\n## Product ID formats\n- **String**\
+        \ (single system): `\"id\": \"P001\"` — straightforward product ID\n- **Object**\
+        \ (multi-system): `\"id\": {\"default\": \"P001\", \"CRM\": \"CRM-P001\"}`\
+        \ — links the same\n  product across multiple external systems so it can be\
+        \ found by any system's ID in the future\n\n## Required fields in `data`\n\
+        `id`, `title`, `link`, `availability`, `image_link`, `price`\n"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tid
+              - api_key
+              - data
+              properties:
+                tid:
+                  type: string
+                  example: OA-xxxxxx
+                api_key:
+                  type: string
+                  format: uuid
+                  example: 00000000-0000-0000-0000-000000000000
+                site:
+                  type: string
+                  description: Site identifier for multi-site organizations
+                data:
+                  type: object
+                  description: Product data object
+                  properties:
+                    id:
+                      type: string
+                      description: 'Product ID. Two formats supported:
+
+                        - **Single system** (string): `"P001"`
+
+                        - **Multi-system** (JSON object string): `{"default":"P001","CRM":"CRM-P001"}`
+                        — links the same product across multiple systems
+
+                        '
+                      example: P001
+                    title:
+                      type: string
+                      description: Product name
+                      example: Classic White T-Shirt
+                    link:
+                      type: string
+                      format: uri
+                      description: Product page URL
+                      example: https://example.com/products/white-tshirt
+                    availability:
+                      type: string
+                      enum:
+                      - in stock
+                      - out of stock
+                      - preorder
+                      example: in stock
+                    image_link:
+                      type: string
+                      format: uri
+                      example: https://cdn.example.com/tshirt.png
+                    price:
+                      type: string
+                      description: Price as string
+                      example: '999'
+                    brand:
+                      type: string
+                      example: MyBrand
+                    sale_price:
+                      type: string
+                      example: '799'
+                    sale_price_effective_date:
+                      type: string
+                      example: 2024-01-01T00:00:00+00:00/2024-12-31T23:59:59+00:00
+                    product_type:
+                      type: string
+                      example: Apparel > Shirts
+                    item_group_id:
+                      type: string
+                      example: TSHIRT-001
+                    additional_image_link:
+                      type: string
+                      format: uri
+                      example: https://cdn.example.com/tshirt-back.png
+            examples:
+              SingleSystemId:
+                summary: Single product ID (one system)
+                description: 'Standard product import using a plain string ID.
+
+                  This is the most common format when you have one product identifier
+                  system.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  site: MAIN
+                  data:
+                    id: P001
+                    title: Classic White T-Shirt
+                    link: https://example.com/products/white-tshirt
+                    availability: in stock
+                    image_link: https://cdn.example.com/tshirt.png
+                    price: '999'
+                    brand: MyBrand
+                    sale_price: '799'
+                    product_type: Apparel > Shirts
+              MultiSystemIds:
+                summary: Multi-system product IDs (cross-system mapping)
+                description: 'Use an object for `id` when the same product exists
+                  across multiple systems (e.g., your
+
+                  website, CRM, and ERP all have different IDs for the same product).
+
+                  After import, the product can be found using any of these IDs.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  data:
+                    id:
+                      default: P001
+                      CRM: CRM-SHIRT-001
+                      ERP: ERP-10045
+                    title: Classic White T-Shirt
+                    link: https://example.com/products/white-tshirt
+                    availability: in stock
+                    image_link: https://cdn.example.com/tshirt.png
+                    price: '999'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  status: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing Input Error: These values are required in post data
+                  : api_key, tid, data'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid api_key or tid'
+  /api/v1/products/import-event-registration-data/:
+    post:
+      tags:
+      - Product Events
+      summary: Import Event Registration Data
+      operationId: importEventRegistrationData
+      description: 'Import product event registration data (e.g., workshop signups,
+        product launch events).
+
+
+        ## Required fields in `data`
+
+        `event_id`, `member_sn`, `event_name`, `registration_datetime`
+
+
+        ## Product ID in `products`
+
+        The `products` field accepts an object where each key is a system name and
+        the value is an
+
+        array of IDs:
+
+        ```json
+
+        { "default": ["item_group_id1"], "sku": ["sku_id1"] }
+
+        ```
+
+
+        ## Date constraints
+
+        `event_end_datetime` must be after `event_start_datetime`.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tid
+              - api_key
+              - data
+              properties:
+                tid:
+                  type: string
+                  example: OA-xxxxxx
+                api_key:
+                  type: string
+                  format: uuid
+                data:
+                  type: object
+                  required:
+                  - event_id
+                  - member_sn
+                  - event_name
+                  - registration_datetime
+                  properties:
+                    event_id:
+                      type: string
+                      example: EVT-001
+                    member_sn:
+                      type: string
+                      example: M-12345
+                    event_name:
+                      type: string
+                      example: Summer Sale Workshop
+                    registration_datetime:
+                      type: string
+                      format: date-time
+                      example: '2022-08-17T12:00:00+08:00'
+                    products:
+                      type: object
+                      additionalProperties:
+                        type: array
+                        items:
+                          type: string
+                      example:
+                        default:
+                        - item_group_id1
+                        sku:
+                        - sku_id1
+                    purchase_datetime:
+                      type: string
+                      format: date-time
+                      example: '2022-08-17T12:00:00+08:00'
+                    event_start_datetime:
+                      type: string
+                      format: date-time
+                      example: '2022-08-17T12:00:00+08:00'
+                    event_end_datetime:
+                      type: string
+                      format: date-time
+                      example: '2022-09-17T12:00:00+08:00'
+                    is_available:
+                      type: boolean
+                      example: true
+                    purchase_source:
+                      type: string
+                      example: supermarket
+                    purchase_city:
+                      type: string
+                      example: Taipei
+                    delivery_address:
+                      type: string
+                      example: 123 Main St, Taipei
+            examples:
+              BasicEventRegistration:
+                summary: Basic event registration (required fields only)
+                description: 'Minimal registration record with only the required fields.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  data:
+                    event_id: EVT-001
+                    member_sn: M-12345
+                    event_name: Summer Sale Workshop
+                    registration_datetime: '2022-08-17T12:00:00+08:00'
+              FullEventRegistration:
+                summary: Full event registration with products and dates
+                description: 'Complete registration record including product mappings,
+                  event dates,
+
+                  purchase source, and availability status.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  data:
+                    event_id: qqq123
+                    member_sn: www123
+                    event_name: buy1get1
+                    products:
+                      default:
+                      - item_group_id1
+                      - item_group_id2
+                      sku:
+                      - sku_id1
+                      - sku_id2
+                    registration_datetime: '2022-08-17T12:00:00+08:00'
+                    purchase_datetime: '2022-08-17T12:00:00+08:00'
+                    purchase_source: supermarket
+                    purchase_city: Taipei
+                    is_available: true
+                    event_start_datetime: '2022-08-17T12:00:00+08:00'
+                    event_end_datetime: '2022-09-17T12:00:00+08:00'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing Input Error: These values are required in post data
+                  : api_key, tid, data'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid api_key or tid'
+  /api/v1/products/import-product-guarantee-data/:
+    post:
+      tags:
+      - Product Events
+      summary: Import Product Guarantee Data
+      operationId: importProductGuaranteeData
+      description: 'Import product warranty / guarantee registration data.
+
+
+        The `data` object fields are **organization-specific** — contact beBit Tech
+        for the
+
+        exact field specification for your organization. Common fields shown in the
+        example below.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tid
+              - api_key
+              - data
+              properties:
+                tid:
+                  type: string
+                  example: OA-xxxxxx
+                api_key:
+                  type: string
+                  format: uuid
+                  example: 00000000-0000-0000-0000-000000000000
+                data:
+                  type: object
+                  description: Organization-specific guarantee data fields
+                  additionalProperties: true
+            example:
+              tid: OA-xxxxxx
+              api_key: 00000000-0000-0000-0000-000000000000
+              data:
+                member_sn: M-12345
+                product_id: P001
+                serial_number: SN-ABCDE-12345
+                purchase_date: '2024-03-01'
+                warranty_expire_date: '2026-03-01'
+                store_name: Main Store Taipei
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing Input Error: These values are required in post data
+                  : api_key, tid, data'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid api_key or tid'
+  /api/import-gift-voucher/:
+    post:
+      tags:
+      - Gift Vouchers
+      summary: Import Gift Voucher (single or batch)
+      operationId: importGiftVoucher
+      description: 'Import gift voucher data. The `data` field accepts either:
+
+        - A **single object** for one voucher (rate limit: 30 req/s)
+
+        - An **array of objects** for batch import up to 100 vouchers (rate limit:
+        10 req/s)
+
+
+        ## Member lookup
+
+        By default uses `member_sn` to find the member. Use `identifier_field` to
+        change this,
+
+        or use `source_id` + `source_system` for externally mapped members.
+
+
+        ## Date formats accepted
+
+        `2024-05-01`, `2024-05-01 12:00:00`, `2024-05-01 12:00:00+08`, `2024-05-01T12:00:00+08`
+
+
+        ## Required fields in each voucher
+
+        `voucher_id`, `member_sn` (or `source_id`), `voucher_type`, `amount`, `valid_from`,
+        `valid_util`
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tid
+              - api_key
+              - data
+              properties:
+                tid:
+                  type: string
+                api_key:
+                  type: string
+                  format: uuid
+                identifier_field:
+                  type: string
+                  enum:
+                  - line_id
+                  - phone
+                  - email
+                  - messenger_psid
+                  description: Field to look up member (defaults to member_sn)
+                data:
+                  description: Single voucher object or array of up to 100 vouchers
+                  oneOf:
+                  - type: object
+                    required:
+                    - voucher_id
+                    - voucher_type
+                    - amount
+                    - valid_from
+                    - valid_util
+                    properties:
+                      voucher_id:
+                        type: string
+                        example: VCH-111
+                      member_sn:
+                        type: string
+                        example: AAAAAA
+                      source_id:
+                        type: string
+                        example: CRM-12345
+                      source_system:
+                        type: string
+                        example: CRM
+                      voucher_type:
+                        type: string
+                        example: birthday_gift
+                      amount:
+                        type: number
+                        example: 999
+                      valid_from:
+                        type: string
+                        example: '2024-03-03'
+                      valid_util:
+                        type: string
+                        example: '2025-03-03'
+                      is_redeemed:
+                        type: boolean
+                        example: false
+                      category:
+                        type: string
+                        example: coupon
+                      site:
+                        type: string
+                        example: MAIN
+                  - type: array
+                    maxItems: 100
+                    items:
+                      type: object
+                      required:
+                      - voucher_id
+                      - voucher_type
+                      - amount
+                      - valid_from
+                      - valid_util
+                      properties:
+                        voucher_id:
+                          type: string
+                        member_sn:
+                          type: string
+                        source_id:
+                          type: string
+                        source_system:
+                          type: string
+                        email:
+                          type: string
+                        voucher_type:
+                          type: string
+                        amount:
+                          type: number
+                        valid_from:
+                          type: string
+                        valid_util:
+                          type: string
+                        is_redeemed:
+                          type: boolean
+                        category:
+                          type: string
+                        site:
+                          type: string
+            examples:
+              SingleVoucher:
+                summary: Single gift voucher
+                description: 'Import one gift voucher for a specific member.
+
+                  `category` can be `coupon`, `giftvoucher`, or a custom value.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  data:
+                    voucher_id: VCH-111
+                    member_sn: AAAAAA
+                    voucher_type: birthday_gift
+                    amount: 999
+                    valid_from: '2024-03-03'
+                    valid_util: '2025-03-03'
+                    is_redeemed: false
+                    category: coupon
+              SingleVoucherByEmail:
+                summary: Single voucher — look up member by email
+                description: 'Use `identifier_field: email` when you have the member''s
+                  email but not their member_sn.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  identifier_field: email
+                  data:
+                    voucher_id: VCH-222
+                    email: alice@example.com
+                    voucher_type: welcome
+                    amount: 200
+                    valid_from: '2024-01-01'
+                    valid_util: '2024-12-31'
+                    category: giftvoucher
+              SingleVoucherBySourceId:
+                summary: Single voucher — look up member by external source_id
+                description: 'Use `source_id` + `source_system` when the member was
+                  mapped via the
+
+                  Audience Mapping API.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  data:
+                    voucher_id: VCH-333
+                    source_id: CRM-12345
+                    source_system: CRM
+                    voucher_type: loyalty_reward
+                    amount: 500
+                    valid_from: '2024-06-01'
+                    valid_util: '2025-06-01'
+              BatchVouchers:
+                summary: Batch gift vouchers (up to 100)
+                description: 'Import multiple vouchers in one request by providing
+                  `data` as an array.
+
+                  Rate limit for batch mode is 10 requests/second.
+
+                  '
+                value:
+                  tid: OA-xxxxxx
+                  api_key: 00000000-0000-0000-0000-000000000000
+                  data:
+                  - voucher_id: VCH-111
+                    member_sn: AAAAAA
+                    voucher_type: birthday_gift
+                    amount: 999
+                    valid_from: '2024-03-03'
+                    valid_util: '2025-03-03'
+                    is_redeemed: false
+                    category: coupon
+                  - voucher_id: VCH-222
+                    member_sn: BBBBBB
+                    voucher_type: welcome
+                    amount: 100
+                    valid_from: '2024-02-01'
+                    valid_util: '2025-02-01'
+                    category: giftvoucher
+                  - voucher_id: VCH-333
+                    member_sn: CCCCCC
+                    voucher_type: loyalty_reward
+                    amount: 500
+                    valid_from: '2024-06-01'
+                    valid_util: '2025-06-01'
+                    is_redeemed: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing Input Error: These values are required in post data
+                  : api_key, tid, data'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid api_key or tid'
+  /api/v1/beacon/track-event/:
+    post:
+      tags:
+      - Event Tracking
+      summary: Track Event
+      operationId: trackEvent
+      description: 'Send a behavioral event to OmniSegment.
+
+
+        - Use `hit_type: pageview` for page view events (no `event_action` needed)
+
+        - Use `hit_type: event` for interaction events (include `event_action` + `event_category`)
+
+        - Always include `uid` (member serial number) after a user logs in
+
+
+        See the **Examples** dropdown for all 9 supported event types.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - client_id
+              - tid
+              - hit_type
+              properties:
+                client_id:
+                  type: string
+                  description: Device ID (IDFA/IDFV for iOS, AAID/SSAID for Android,
+                    or a web client ID)
+                  example: '1235621.1252357334'
+                tid:
+                  type: string
+                  description: Organization ID in OmniSegment
+                  example: OA-xxxxxxxx
+                hit_type:
+                  type: string
+                  enum:
+                  - pageview
+                  - event
+                uid:
+                  type: string
+                  description: Member serial number — include after user logs in
+                app_id:
+                  type: string
+                  example: com.company.app
+                app_version:
+                  type: string
+                  example: 1.3.2
+                app_name:
+                  type: string
+                currency_code:
+                  type: string
+                  example: TWD
+                document_location:
+                  type: string
+                  description: Full URL of the page where the event fired
+                  example: https://example.com/products/123
+                document_title:
+                  type: string
+                data_source:
+                  type: string
+                  enum:
+                  - web
+                  - app
+                event_action:
+                  type: string
+                  description: 'Predefined values: `AddToCart`, `Checkout`, `Refund`,
+                    `ClickProduct`,
+
+                    `CompleteRegistration`, `ViewContent`, `Purchase`, `RemoveFromCart`,
+
+                    `Search`, `AddToWishlist`, `FormFillOut`.
+
+                    Use a custom string for Custom Events.
+
+                    '
+                event_category:
+                  type: string
+                  description: 'Predefined values: `ClickFooter`, `ViewContent`, `Ecommerce`,
+
+                    `CompleteRegistration`, `Sort`, `Filter`, `ClickMenu`, `Search`,
+                    `FormFillOut`.
+
+                    '
+                event_label:
+                  type: string
+                  description: 'JSON string used for Search and CompleteRegistration
+                    events.
+
+                    Search example: `{"search_string": "keyword"}`
+
+                    Registration example: `{"email": "...", "city": "...", "regType":
+                    "google"}`
+
+                    '
+                event_value:
+                  type: string
+                  description: 'Custom Event value. Plain string or JSON string.
+
+                    Note: events configured after 2026-03-02 require JSON format.
+
+                    '
+                products:
+                  type: array
+                  maxItems: 30
+                  items:
+                    $ref: '#/components/schemas/TrackingProduct'
+                transaction_revenue:
+                  type: integer
+                  description: Total order amount — required for Purchase and Refund
+                    events
+                transaction_id:
+                  type: string
+                  description: Order ID — required for Purchase and Refund events
+                transaction_tax:
+                  type: integer
+                transaction_shipping:
+                  type: integer
+                transaction_couponcode:
+                  type: string
+            examples:
+              1_ProductImpressions:
+                summary: 1. Product Impressions — viewing a product list
+                description: 'Track when a user views a product listing page (home,
+                  category, search results).
+
+                  Use `hit_type: pageview`. Products require at minimum `id` and `name`.
+
+                  '
+                value:
+                  client_id: '1235621.1252357334'
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: web
+                  hit_type: pageview
+                  currency_code: TWD
+                  document_location: https://example.com/category/shoes
+                  document_title: Shoes Collection
+                  products:
+                  - id: DCAN8J-A90097H2N
+                    name: Logitech M221 Silent Mouse
+                    brand: Logitech
+                    price: 800
+                    variant: '{"color": "blue"}'
+                    sku: SM21-SH-M02-RD-S-001
+                  - id: DCAN8J-A90097Q9R
+                    name: Logitech K65M Keyboard
+                    brand: Logitech
+                    price: 2800
+                    variant: '{"color": "black"}'
+                    sku: SM21-SH-M02-RD-S-002
+              2_ProductClicks:
+                summary: 2. Product Clicks — user clicks a product
+                description: 'Track when a user clicks a product from a listing to
+                  view its detail page.
+
+                  Use `event_action: ClickProduct`, `event_category: Ecommerce`, `hit_type:
+                  event`.
+
+                  '
+                value:
+                  client_id: EA7583CD-A667-48BC-B806-42ECB2B48606
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: app
+                  hit_type: event
+                  event_action: ClickProduct
+                  event_category: Ecommerce
+                  currency_code: TWD
+                  app_id: com.company.app
+                  app_version: 1.3.2
+                  app_name: MyApp
+                  products:
+                  - id: DCAN8J-A90097H2N
+                    name: Logitech M221 Silent Mouse
+                    brand: Logitech
+                    price: 800
+                    variant: '{"color": "blue"}'
+              3_ProductDetailImpressions:
+                summary: 3. Product Detail Impressions — viewing a product detail
+                  page
+                description: 'Track when a user views the product detail page.
+
+                  Similar to Product Impressions but triggered on the individual product
+                  page.
+
+                  Use `hit_type: pageview`.
+
+                  '
+                value:
+                  client_id: '1235621.1252357334'
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: web
+                  hit_type: pageview
+                  currency_code: TWD
+                  document_location: https://example.com/products/DCAN8J-A90097H2N
+                  document_title: Logitech M221 Silent Mouse
+                  products:
+                  - id: DCAN8J-A90097H2N
+                    name: Logitech M221 Silent Mouse
+                    brand: Logitech
+                    price: 800
+                    variant: '{"color": "blue"}'
+                    sku: SM21-SH-M02-RD-S-001
+              4a_AddToCart:
+                summary: 4a. Add to Cart
+                description: 'Track when a user adds a product to the shopping cart.
+
+                  Use `event_action: AddToCart`, `event_category: Ecommerce`, `hit_type:
+                  event`.
+
+                  '
+                value:
+                  client_id: EA7583CD-A667-48BC-B806-42ECB2B48606
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: app
+                  hit_type: event
+                  event_action: AddToCart
+                  event_category: Ecommerce
+                  currency_code: TWD
+                  app_id: com.company.app
+                  app_version: 1.3.2
+                  app_name: MyApp
+                  products:
+                  - id: DCAN8J-A90097H2N
+                    name: Logitech M221 Silent Mouse
+                    brand: Logitech
+                    price: 800
+                    quantity: '1'
+                    variant: '{"color": "blue"}'
+                    sku: SM21-SH-M02-RD-S-001
+              4b_RemoveFromCart:
+                summary: 4b. Remove from Cart
+                description: 'Track when a user removes a product from the shopping
+                  cart.
+
+                  Use `event_action: RemoveFromCart`.
+
+                  '
+                value:
+                  client_id: EA7583CD-A667-48BC-B806-42ECB2B48606
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: app
+                  hit_type: event
+                  event_action: RemoveFromCart
+                  event_category: Ecommerce
+                  products:
+                  - id: DCAN8J-A90097H2N
+                    name: Logitech M221 Silent Mouse
+                    quantity: '1'
+              5_Checkout:
+                summary: 5. Checkout — user begins checkout
+                description: 'Track when the user reaches the checkout page or initiates
+                  the checkout flow.
+
+                  Use `event_action: Checkout`, `event_category: Ecommerce`, `hit_type:
+                  event`.
+
+                  '
+                value:
+                  client_id: EA7583CD-A667-48BC-B806-42ECB2B48606
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: app
+                  hit_type: event
+                  event_action: Checkout
+                  event_category: Ecommerce
+                  currency_code: TWD
+                  app_id: com.company.app
+                  app_version: 1.3.2
+                  app_name: MyApp
+                  products:
+                  - id: DCAN8J-A90097H2N
+                    name: Logitech M221 Silent Mouse
+                    brand: Logitech
+                    price: 800
+                    quantity: '1'
+                  - id: DCAN8J-A90097HK2
+                    name: Logitech K65M Keyboard
+                    brand: Logitech
+                    price: 1800
+                    quantity: '1'
+              6a_Purchase:
+                summary: 6a. Purchase — user completes an order
+                description: 'Track when the user successfully completes a purchase.
+
+                  `transaction_id` and `transaction_revenue` are required.
+
+                  Products must include `id`, `name`, and `quantity`.
+
+                  '
+                value:
+                  client_id: EA7583CD-A667-48BC-B806-42ECB2B48606
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: app
+                  hit_type: event
+                  event_action: Purchase
+                  event_category: Ecommerce
+                  transaction_id: '#8701873727'
+                  transaction_revenue: 3400
+                  currency_code: TWD
+                  app_id: com.company.app
+                  app_version: 1.3.2
+                  app_name: MyApp
+                  products:
+                  - id: DCAN8J-A90097H2N
+                    name: Logitech M221 Silent Mouse
+                    quantity: '2'
+                    brand: Logitech
+                    price: 800
+                    variant: '{"color": "blue"}'
+                  - id: DCAN8J-A90097HK2
+                    name: Logitech K65M Keyboard
+                    quantity: '1'
+                    brand: Logitech
+                    price: 1800
+              6b_Refund:
+                summary: 6b. Refund — user refunds an order
+                description: 'Track when an order is refunded.
+
+                  Use `event_action: Refund` with the same `transaction_id` and `transaction_revenue`.
+
+                  '
+                value:
+                  client_id: EA7583CD-A667-48BC-B806-42ECB2B48606
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: app
+                  hit_type: event
+                  event_action: Refund
+                  event_category: Ecommerce
+                  transaction_id: '#8701873727'
+                  transaction_revenue: 3400
+                  products:
+                  - id: DCAN8J-A90097H2N
+                    name: Logitech M221 Silent Mouse
+                    quantity: '2'
+              7_CompleteRegistration:
+                summary: 7. Complete Registration — user finishes account signup
+                description: 'Track when a user completes registration.
+
+                  Use `event_label` (JSON string) to include registration details
+                  like email and city.
+
+                  '
+                value:
+                  client_id: EA7583CD-A667-48BC-B806-42ECB2B48606
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: app
+                  hit_type: event
+                  event_action: CompleteRegistration
+                  event_category: CompleteRegistration
+                  app_id: com.company.app
+                  app_version: 1.3.2
+                  app_name: MyApp
+                  event_label: '{"email": "user@example.com", "city": "Taipei", "birthdayYear":
+                    "1996", "regType": "google"}'
+              8_Search:
+                summary: 8. Submit a Search — user performs a search
+                description: 'Track when a user submits a search query.
+
+                  Include the search term in `event_label` as a JSON string: `{"search_string":
+                  "..."}`.
+
+                  '
+                value:
+                  client_id: EA7583CD-A667-48BC-B806-42ECB2B48606
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: web
+                  hit_type: event
+                  event_action: Search
+                  event_category: Search
+                  document_location: https://example.com/search?q=wireless+mouse
+                  document_title: Search Results
+                  event_label: '{"search_string": "wireless mouse"}'
+              9a_CustomEvent_String:
+                summary: 9a. Custom Event — string value
+                description: 'For custom events where the value is a plain string.
+
+                  Use any event_action name registered in your OmniSegment configuration.
+
+                  '
+                value:
+                  client_id: EA7583CD-A667-48BC-B806-42ECB2B48606
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: web
+                  hit_type: event
+                  event_action: Subscribe
+                  event_value: GameMicroservicePlan
+                  document_location: https://example.com/subscription
+                  document_title: Subscribe Channel
+              9b_CustomEvent_JSON:
+                summary: 9b. Custom Event — JSON value (required for events after
+                  2026-03-02)
+                description: 'For custom events configured after 2026-03-02, `event_value`
+                  must be a
+
+                  JSON-formatted string even when there is only one parameter.
+
+                  '
+                value:
+                  client_id: EA7583CD-A667-48BC-B806-42ECB2B48606
+                  uid: '139540'
+                  tid: OA-xxxxxxxx
+                  data_source: web
+                  hit_type: event
+                  event_action: FormFillOut
+                  event_value: '{"code": "T12094", "number": 19.38, "time": "2024-03-07T09:24:21.361878+00:00",
+                    "description": "newsletter signup"}'
+      responses:
+        '200':
+          description: Event received successfully
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        '400':
+          description: Bad Request — missing required fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing required fields: client_id, tid, hit_type'
+        '403':
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid X-OmniSegment-Api-Key'
+  /api/v1/interaction-report/:
+    post:
+      tags:
+      - Interaction Report
+      summary: Create Interaction Report
+      operationId: createInteractionReport
+      description: 'Queues a report generation job for the specified date range.
+
+
+        The report file (JSONL format) is available via the `report_url` once status
+        is `SUCCESS`.
+
+
+        **Date range**: max 31 days. Both the "Sent Date" and click/open behavior
+        must fall within the range.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/TidQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - report_name
+              - start_date
+              - end_date
+              properties:
+                report_name:
+                  type: string
+                  example: August Report
+                start_date:
+                  type: string
+                  format: date
+                  example: '2022-08-01'
+                end_date:
+                  type: string
+                  format: date
+                  example: '2022-08-31'
+            example:
+              report_name: August Report
+              start_date: '2022-08-01'
+              end_date: '2022-08-31'
+      responses:
+        '200':
+          description: Report queued — use the returned report_id to check status
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  report_id: 123
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: Date range cannot exceed 31 days
+        '403':
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid X-OmniSegment-Api-Key'
+    get:
+      tags:
+      - Interaction Report
+      summary: List Interaction Reports
+      operationId: listInteractionReports
+      description: 'Returns all interaction reports created within the **last 24 hours**.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/TidQuery'
+      responses:
+        '200':
+          description: List of recent reports
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                - report_id: 123
+                  report_name: August Report
+                  status: RUNNING
+                - report_id: 124
+                  report_name: September Report
+                  status: SUCCESS
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing required parameter: tid'
+        '403':
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid X-OmniSegment-Api-Key'
+  /api/v1/interaction-report/{id}/:
+    get:
+      tags:
+      - Interaction Report
+      summary: Retrieve Interaction Report
+      operationId: retrieveInteractionReport
+      description: 'Get the status and download URL for a specific report.
+
+
+        `report_url` is only populated when `status` is `SUCCESS`.
+
+
+        The JSONL report file contains one record per line with fields:
+
+        `member_sn`, `channel_type`, `template_id`, `template_name`, `delivery_time`,
+
+        `template_title` (email only), `open`, `open_time`, `click`, `click_event`,
+        `email_status`.
+
+
+        ### email_status values
+
+        | Value | Meaning |
+
+        |---|---|
+
+        | `sent` | Delivered to receiving server |
+
+        | `open` | Recipient opened the email |
+
+        | `click` | Recipient clicked a link |
+
+        | `bounce` | Permanently rejected |
+
+        | `blocked` | Temporarily rejected |
+
+        | `unsub` | Recipient unsubscribed |
+
+        | `spam` | Marked as spam |
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 123
+        description: Report ID from the Create Report response
+      - $ref: '#/components/parameters/TidQuery'
+      responses:
+        '200':
+          description: Report details
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  report_name: August Report
+                  status: SUCCESS
+                  report_url: https://storage.example.com/reports/august-report.json
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: Report not found
+        '403':
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid X-OmniSegment-Api-Key'
+  /api/v1/tracking-event-report/:
+    post:
+      tags:
+      - Tracking Event Report
+      summary: Create Tracking Event Report
+      operationId: createTrackingEventReport
+      description: 'Create a beacon / tracking event report. Date range max **31 days**.
+
+
+        Optionally include anonymous user data or raw event data.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/TidQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - report_name
+              - start_date
+              - end_date
+              properties:
+                report_name:
+                  type: string
+                  example: September Tracking Report
+                start_date:
+                  type: string
+                  format: date
+                  example: '2022-09-01'
+                end_date:
+                  type: string
+                  format: date
+                  example: '2022-09-30'
+                include_anonymous_user:
+                  type: boolean
+                  description: Include anonymous user data in the report
+                include_event_raw_data:
+                  type: boolean
+                  description: Include raw event payloads in the report
+            example:
+              report_name: September Tracking Report
+              start_date: '2022-09-01'
+              end_date: '2022-09-30'
+              include_anonymous_user: false
+              include_event_raw_data: false
+      responses:
+        '200':
+          description: Report queued
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  report_id: 12345
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: Date range cannot exceed 31 days
+        '403':
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid X-OmniSegment-Api-Key'
+    get:
+      tags:
+      - Tracking Event Report
+      summary: List Tracking Event Reports
+      operationId: listTrackingEventReports
+      description: 'Returns all tracking event reports created within the **last 24
+        hours**.
+
+
+        Retrieve the report within 24 hours; after that it will no longer appear in
+        this list.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/TidQuery'
+      responses:
+        '200':
+          description: List of recent reports
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                - report_name: September Tracking Report
+                  report_id: 12345
+                  status: SUCCESS
+                - report_name: October Tracking Report
+                  report_id: 12346
+                  status: RUNNING
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing required parameter: tid'
+        '403':
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid X-OmniSegment-Api-Key'
+  /api/v1/audiences/interactive-audiences-report/:
+    post:
+      tags:
+      - Interactive Audiences Report
+      summary: Create Interactive Audiences Report
+      operationId: createInteractiveAudiencesReport
+      description: 'Create a report of audiences who interacted within the specified
+        date range.
+
+
+        **Constraints**:
+
+        - start_date and end_date must be within the last **30 days**
+
+        - Rate limit: **1 request per day** (failed requests are not counted)
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/TidQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - start_date
+              - end_date
+              properties:
+                start_date:
+                  type: string
+                  format: date
+                  example: '2023-09-01'
+                end_date:
+                  type: string
+                  format: date
+                  example: '2023-09-30'
+            example:
+              start_date: '2023-09-01'
+              end_date: '2023-09-30'
+      responses:
+        '200':
+          description: Report queued
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: start_date and end_date must be within the last 30 days
+        '403':
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid X-OmniSegment-Api-Key'
+    get:
+      tags:
+      - Interactive Audiences Report
+      summary: Get Interactive Audiences Reports
+      operationId: getInteractiveAudiencesReports
+      description: 'Returns all interactive audiences reports created within the **last
+        24 hours**.
+
+
+        Export links expire after **7 days**.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/TidQuery'
+      responses:
+        '200':
+          description: List of reports with download links
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                - report_name: Interactive Audiences Sep 2023
+                  status: SUCCESS
+                  file_url: https://storage.example.com/reports/interactive-2023-09.csv
+                  start_date: '2023-09-01'
+                  end_date: '2023-09-30'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing required parameter: tid'
+        '403':
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid X-OmniSegment-Api-Key'
+  /api/v1/workflow/trigger/:
+    post:
+      tags:
+      - Workflow
+      summary: Trigger Workflow
+      operationId: triggerWorkflow
+      description: 'Trigger a specific workflow node for one or more audience members.
+
+
+        Obtain the `node_id` from the OmniSegment platform workflow configuration.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tid
+              - api_key
+              - node_id
+              - member_sn_list
+              properties:
+                tid:
+                  type: string
+                  description: Organization tenant ID
+                  example: OA-xxxxxx
+                api_key:
+                  type: string
+                  format: uuid
+                  description: Organization API key
+                  example: 00000000-0000-0000-0000-000000000000
+                node_id:
+                  type: integer
+                  description: Target workflow node ID
+                  example: 128
+                member_sn_list:
+                  type: array
+                  items:
+                    type: string
+                  description: Member serial numbers to trigger the workflow for
+                  example:
+                  - '123'
+                  - '12345'
+            example:
+              tid: OA-c19eb6
+              api_key: 2471880c-515c-47a5-a5ba-09c6235ff9ba
+              node_id: 128
+              member_sn_list:
+              - '123'
+              - '12345'
+      responses:
+        '200':
+          description: Workflow triggered successfully
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        '400':
+          description: Bad Request — missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing Input Error: These values are required: tid, api_key,
+                  node_id, member_sn_list'
+        '403':
+          description: Forbidden — invalid API key or tid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid api_key or tid'
+  /ai-recommendation/get-ai-recommendation/:
+    get:
+      tags:
+      - Recommendation
+      summary: Get AI Product Recommendations
+      operationId: getAIRecommendation
+      description: 'Fetch AI-powered product recommendations.
+
+
+        Choose a `recommend_type` based on your use case:
+
+        - **Personalized**: use `user_item_embedding` with `cid` (and optionally `uid`
+        for logged-in users)
+
+        - **Related products**: use `also_bought` or `also_viewed` with `product_ids`
+        as seed products
+
+
+        Use filter parameters (`product_tag`, `product_category`, etc.) to narrow
+        results to a
+
+        specific catalog subset. Use `excluded_product_ids` to hide products the user
+        has already seen.
+
+        '
+      parameters:
+      - name: tid
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Organization tenant ID
+        example: OA-xxxxxx
+      - name: recommend_type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - user_item_embedding
+          - also_bought
+          - also_viewed
+        description: Recommendation algorithm to use
+      - name: num
+        in: query
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+        description: Number of products to return (max 50)
+      - name: cid
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Device ID — **required** when `recommend_type=user_item_embedding`.
+
+          Same value as `client_id` in the Event Tracking API.
+
+          '
+      - name: uid
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Member ID — include for logged-in users to improve personalization
+          accuracy
+      - name: product_ids
+        in: query
+        required: false
+        schema:
+          type: array
+          maxItems: 10
+          items:
+            type: string
+        style: form
+        explode: true
+        description: 'Seed product IDs — required for also_bought / also_viewed. Max
+          10. Repeat: ?product_ids=p1&product_ids=p2'
+      - name: product_tag
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: integer
+        style: form
+        explode: true
+        description: Filter results to products with these tag IDs
+        example:
+        - 101
+        - 202
+      - name: product_tag_names
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+        description: Filter results to products with these tag names
+        example:
+        - sale
+        - new-arrival
+      - name: product_category
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: integer
+        style: form
+        explode: true
+        description: Filter results to products in these category IDs
+        example:
+        - 5
+        - 12
+      - name: product_category_names
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+        description: Filter results to products in these category names
+        example:
+        - Electronics
+        - Accessories
+      - name: excluded_product_ids
+        in: query
+        required: false
+        schema:
+          type: array
+          maxItems: 10
+          items:
+            type: string
+        style: form
+        explode: true
+        description: Exclude these product IDs from results (max 10)
+        example:
+        - P001
+        - P002
+      - name: excluded_product_tag
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: integer
+        style: form
+        explode: true
+        description: Exclude products with these tag IDs from results
+        example:
+        - 999
+      - name: excluded_product_tag_names
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+        description: Exclude products with these tag names from results
+        example:
+        - out-of-stock
+      - name: sorting
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - random
+        example: random
+        description: 'Omit for relevance-based ordering (default, highest score first).
+
+          `random`: shuffle results randomly.
+
+          '
+      responses:
+        '200':
+          description: Ordered list of recommended products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecommendedProduct'
+              examples:
+                UserItemEmbeddingResponse:
+                  summary: Response for user_item_embedding
+                  description: 'Example for: `GET /ai-recommendation/get-ai-recommendation/?tid=OA-xxxxxx&cid=device123&uid=139540&recommend_type=user_item_embedding&num=5`
+
+                    '
+                  value:
+                  - product_id: 1
+                    product_name: Logitech M221 Silent Mouse
+                    product_url: https://example.com/products/1
+                    product_price: 800
+                    special_price: 720
+                    photo_url: https://cdn.example.com/m221.jpg
+                    additional_photo_url:
+                    - name: 100x100
+                      link: https://cdn.example.com/m221-100.jpg
+                    - name: 200x200
+                      link: https://cdn.example.com/m221-200.jpg
+                  - product_id: 2
+                    product_name: Logitech K65M Keyboard
+                    product_url: https://example.com/products/2
+                    product_price: 2800
+                    special_price: 2800
+                    photo_url: https://cdn.example.com/k65m.jpg
+                    additional_photo_url: []
+                AlsoBoughtResponse:
+                  summary: 'Response for also_bought (seed: p1, p2)'
+                  description: 'Example for: `GET /ai-recommendation/get-ai-recommendation/?tid=OA-xxxxxx&recommend_type=also_bought&num=3&product_ids=p1&product_ids=p2`
+
+                    '
+                  value:
+                  - product_id: 5
+                    product_name: Mouse Pad XL
+                    product_url: https://example.com/products/5
+                    product_price: 300
+                    special_price: 250
+                    photo_url: https://cdn.example.com/mousepad.jpg
+                    additional_photo_url: []
+                  - product_id: 8
+                    product_name: USB-C Hub
+                    product_url: https://example.com/products/8
+                    product_price: 1200
+                    special_price: 1200
+                    photo_url: https://cdn.example.com/hub.jpg
+                    additional_photo_url: []
+        '400':
+          description: Bad Request — missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing required parameter: recommend_type'
+  /api/v1/audiences/audiences-mapping/:
+    post:
+      tags:
+      - Mapping
+      summary: Create Audience Mapping
+      operationId: createAudienceMapping
+      description: 'Link an external system''s unique ID (`source_id`) to an OmniSegment
+        audience record.
+
+
+        Provide the `mapping_key` to specify which field to use for matching, then
+        include
+
+        the value for that field (e.g., if `mapping_key = "phone"`, include `"phone":
+        "+886..."` in the body).
+
+
+        **mapping_key options**:
+
+        - `member_sn` — match by e-commerce member serial number
+
+        - `phone` — match by phone number
+
+        - `email` — match by email address
+
+        - `line_id` — match by LINE ID
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/TidQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - source_id
+              - source_system
+              - mapping_key
+              properties:
+                source_id:
+                  type: string
+                  description: Unique identifier in the external system
+                  example: '12345'
+                source_system:
+                  type: string
+                  description: External system category (e.g., CRM, POS, offline)
+                  example: CRM
+                mapping_key:
+                  type: string
+                  enum:
+                  - member_sn
+                  - phone
+                  - email
+                  - line_id
+                  description: Field to use when looking up the OmniSegment audience
+                member_sn:
+                  type: string
+                  description: Required when mapping_key is "member_sn"
+                phone:
+                  type: string
+                  description: Required when mapping_key is "phone"
+                  example: '+886987654321'
+                email:
+                  type: string
+                  format: email
+                  description: Required when mapping_key is "email"
+                line_id:
+                  type: string
+                  description: Required when mapping_key is "line_id"
+            examples:
+              ByPhone:
+                summary: Map by phone number
+                value:
+                  source_id: '12345'
+                  source_system: CRM
+                  mapping_key: phone
+                  phone: '+886987654321'
+              ByEmail:
+                summary: Map by email
+                value:
+                  source_id: CRM-67890
+                  source_system: POS
+                  mapping_key: email
+                  email: customer@example.com
+              ByMemberSn:
+                summary: Map by member serial number
+                value:
+                  source_id: EXT-001
+                  source_system: LegacySystem
+                  mapping_key: member_sn
+                  member_sn: M001234
+              ByLineId:
+                summary: Map by LINE ID
+                value:
+                  source_id: CRM-LINE-001
+                  source_system: CRM
+                  mapping_key: line_id
+                  line_id: Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      responses:
+        '200':
+          description: Mapping created or headless audience created successfully
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        '400':
+          description: Bad Request — missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Missing Input Error: source_id, source_system and mapping_key
+                  are required'
+        '403':
+          description: Forbidden — invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: 'Forbidden: invalid X-OmniSegment-Api-Key'
+components:
+  schemas:
+    FcmTokenObject:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+        active:
+          type: boolean
+          default: true
+        type:
+          type: string
+          enum:
+          - ios
+          - android
+    ChannelSubscription:
+      type: object
+      required:
+      - name
+      - subscription_status
+      properties:
+        name:
+          type: string
+        subscription_status:
+          type: boolean
+    AudienceData:
+      type: object
+      description: Audience (customer) profile data
+      properties:
+        member_sn:
+          type: string
+          description: E-commerce member serial number
+        source_id:
+          type: string
+          description: External source ID (use with source_system)
+        source_system:
+          type: string
+          description: Required when using source_id
+        name:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          example: '+886912345678'
+        member_level:
+          type: string
+        sex:
+          type: string
+          enum:
+          - male
+          - female
+        birthday:
+          type: string
+          format: date
+          example: '1990-01-01'
+        register_date:
+          type: string
+          format: date-time
+          example: '2020-06-04T08:30:37.235482+08:00'
+        register_type:
+          type: string
+        facebook_id:
+          type: string
+        google_id:
+          type: string
+        line_id:
+          type: string
+        messenger_psid:
+          type: string
+        fcm_token:
+          type: string
+          description: Single FCM token; use fcm_tokens for multiple
+        fcm_tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/FcmTokenObject'
+        is_subscriber:
+          type: boolean
+        is_subscriber_sms:
+          type: boolean
+        is_subscriber_line:
+          type: boolean
+        is_subscriber_pn:
+          type: boolean
+        is_active:
+          type: boolean
+        is_headless_account:
+          type: boolean
+        crm_pk:
+          type: string
+        tags:
+          type: string
+          description: Comma-separated tags, e.g. 'tag_a,tag_b'
+        iso_code:
+          type: string
+          example: TW
+        sites:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        province:
+          type: string
+        zip_code:
+          type: string
+        address:
+          type: string
+        email_channels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelSubscription'
+        line_channels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelSubscription'
+        membership_renewal_diff:
+          type: string
+        membership_upgrade_diff:
+          type: string
+        membership_upgrade_oneday_diff:
+          type: string
+        membership_expire_at:
+          type: string
+          format: date-time
+          example: '2025-07-23T08:30:37+08:00'
+        point_balance:
+          type: string
+        credit_balance:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        SUCCESS:
+          type: boolean
+          example: false
+        ERR_MSG:
+          type: string
+    ShippingAddress:
+      type: object
+      required:
+      - address1
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+          nullable: true
+        city:
+          type: string
+        company:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        latitude:
+          type: string
+          nullable: true
+        longitude:
+          type: string
+          nullable: true
+        province:
+          type: string
+        province_code:
+          type: string
+        zip:
+          type: string
+    VoucherObject:
+      type: object
+      required:
+      - voucher_name
+      properties:
+        voucher_name:
+          type: string
+    PurchaseData:
+      type: object
+      required:
+      - transaction_id
+      - transaction_revenue
+      - datetime
+      description: A single purchase / transaction record
+      properties:
+        member_sn:
+          type: string
+          description: Member serial number. Use source_id if mapping via Audience
+            Mapping API.
+        source_id:
+          type: string
+        source_system:
+          type: string
+          description: Required when using source_id instead of member_sn
+        datetime:
+          type: string
+          format: date-time
+          example: 2024-07-15T09:51:23+0800
+          description: Order creation date (ISO 8601)
+        transaction_id:
+          type: string
+          description: Unique order / transaction ID
+        transaction_revenue:
+          type: number
+          description: Total order amount
+        transaction_status:
+          type: string
+          enum:
+          - SUCCESS
+          - CANCEL
+          - REFUND
+          - FAIL
+          - SHIPPED
+          - PAID
+          default: SUCCESS
+        quantities:
+          type: integer
+          description: Total number of items in the order
+        products:
+          description: 'Product IDs (comma-separated string) or mapping object.
+
+
+            String example: `"P001,P002"`
+
+
+            Mapping object example: `{"default": "P001,P002", "CRM": "CRM-P001,CRM-P002"}`
+
+            '
+          oneOf:
+          - type: string
+            example: P001,P002
+          - type: object
+            additionalProperties:
+              type: string
+            example:
+              default: P001,P002
+              CRM: CRM-P001,CRM-P002
+        products_name:
+          type: string
+          description: Comma-separated product names (matched in order with products)
+        products_quantity:
+          type: string
+          description: Comma-separated quantities per product
+          example: 1,2
+        physical_store_name:
+          type: string
+          description: Offline store name
+        shipping_address:
+          $ref: '#/components/schemas/ShippingAddress'
+        voucher:
+          type: array
+          items:
+            $ref: '#/components/schemas/VoucherObject'
+        coupon:
+          type: string
+          example: coupon-ABC
+        source:
+          type: string
+          example: Facebook
+        device:
+          type: string
+          enum:
+          - PC
+          - ANDROID
+          - IPHONE
+          - IPAD
+          - MOBILEWEB
+        user_agent:
+          type: string
+    TrackingProduct:
+      type: object
+      required:
+      - id
+      - name
+      description: A product object within an event payload
+      properties:
+        id:
+          type: string
+          description: Product ID — must match the ID in your ProductFeed
+        name:
+          type: string
+        price:
+          type: integer
+        category:
+          type: string
+        brand:
+          type: string
+          description: Multiple brands separated by comma
+        quantity:
+          type: string
+          description: Number of this product in the cart/order
+        variant:
+          type: string
+          description: 'JSON string, e.g. {"color": "blue", "size": "M"}'
+        sku:
+          type: string
+    ReportStatus:
+      type: string
+      enum:
+      - RUNNING
+      - SUCCESS
+      - FAIL
+    ReportItem:
+      type: object
+      properties:
+        report_id:
+          type: integer
+          example: 123
+        report_name:
+          type: string
+          example: August Report
+        status:
+          $ref: '#/components/schemas/ReportStatus'
+    ProductPhoto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 100x100
+        link:
+          type: string
+          format: uri
+    RecommendedProduct:
+      type: object
+      properties:
+        product_id:
+          type: integer
+          example: 1
+        product_name:
+          type: string
+          example: Logitech M221 Silent Mouse
+        product_url:
+          type: string
+          format: uri
+          example: https://example.com/products/1
+        product_price:
+          type: number
+          example: 800
+        special_price:
+          type: number
+          example: 720
+        photo_url:
+          type: string
+          format: uri
+          example: https://cdn.example.com/m221.jpg
+        additional_photo_url:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductPhoto'
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-OmniSegment-Api-Key
+  parameters:
+    TidQuery:
+      name: tid
+      in: query
+      required: true
+      schema:
+        type: string
+        example: OA-xxxxxx
+      description: Organization tenant ID

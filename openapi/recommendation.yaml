@@ -1,0 +1,308 @@
+openapi: 3.0.3
+info:
+  title: OmniSegment — Product Recommendation API
+  description: |
+    AI-powered product recommendations based on user behavior and product relationships.
+
+    ## Recommendation types
+
+    | recommend_type | Description | Required params |
+    |---|---|---|
+    | `user_item_embedding` | Personalized recommendations for a specific user | `cid` (device ID) |
+    | `also_bought` | Products frequently bought together | `product_ids` (seed products) |
+    | `also_viewed` | Products frequently viewed together | `product_ids` (seed products) |
+
+    Results are sorted by relevance score by default. Use `sorting=random` for random ordering.
+
+    **Multi-value parameters** must be repeated in the query string:
+    ```
+    ?product_ids=p1&product_ids=p2&product_ids=p3
+    ```
+
+    **No authentication header required** — access is controlled by `tid`.
+  version: "1.0.0"
+
+servers:
+  - url: https://api.omnisegment.com
+
+tags:
+  - name: Recommendation
+    description: AI-powered product recommendations
+
+components:
+  schemas:
+    ProductPhoto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "100x100"
+        link:
+          type: string
+          format: uri
+
+    RecommendedProduct:
+      type: object
+      properties:
+        product_id:
+          type: integer
+          example: 1
+        product_name:
+          type: string
+          example: "Logitech M221 Silent Mouse"
+        product_url:
+          type: string
+          format: uri
+          example: "https://example.com/products/1"
+        product_price:
+          type: number
+          example: 800
+        special_price:
+          type: number
+          example: 720
+        photo_url:
+          type: string
+          format: uri
+          example: "https://cdn.example.com/m221.jpg"
+        additional_photo_url:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductPhoto'
+
+    ErrorResponse:
+      type: object
+      properties:
+        SUCCESS:
+          type: boolean
+          example: false
+        ERR_MSG:
+          type: string
+
+paths:
+  /ai-recommendation/get-ai-recommendation/:
+    get:
+      tags: [Recommendation]
+      summary: Get AI Product Recommendations
+      operationId: getAIRecommendation
+      description: |
+        Fetch AI-powered product recommendations.
+
+        Choose a `recommend_type` based on your use case:
+        - **Personalized**: use `user_item_embedding` with `cid` (and optionally `uid` for logged-in users)
+        - **Related products**: use `also_bought` or `also_viewed` with `product_ids` as seed products
+
+        Use filter parameters (`product_tag`, `product_category`, etc.) to narrow results to a
+        specific catalog subset. Use `excluded_product_ids` to hide products the user has already seen.
+      parameters:
+        - name: tid
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Organization tenant ID
+          example: "OA-xxxxxx"
+
+        - name: recommend_type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [user_item_embedding, also_bought, also_viewed]
+          description: Recommendation algorithm to use
+
+        - name: num
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+          description: Number of products to return (max 50)
+
+        - name: cid
+          in: query
+          required: false
+          schema:
+            type: string
+          description: |
+            Device ID — **required** when `recommend_type=user_item_embedding`.
+            Same value as `client_id` in the Event Tracking API.
+
+        - name: uid
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Member ID — include for logged-in users to improve personalization accuracy
+
+        - name: product_ids
+          in: query
+          required: false
+          schema:
+            type: array
+            maxItems: 10
+            items:
+              type: string
+          style: form
+          explode: true
+          description: "Seed product IDs — required for also_bought / also_viewed. Max 10. Repeat: ?product_ids=p1&product_ids=p2"
+
+        - name: product_tag
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+          style: form
+          explode: true
+          description: Filter results to products with these tag IDs
+          example: [101, 202]
+
+        - name: product_tag_names
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+          description: Filter results to products with these tag names
+          example: ["sale", "new-arrival"]
+
+        - name: product_category
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+          style: form
+          explode: true
+          description: Filter results to products in these category IDs
+          example: [5, 12]
+
+        - name: product_category_names
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+          description: Filter results to products in these category names
+          example: ["Electronics", "Accessories"]
+
+        - name: excluded_product_ids
+          in: query
+          required: false
+          schema:
+            type: array
+            maxItems: 10
+            items:
+              type: string
+          style: form
+          explode: true
+          description: Exclude these product IDs from results (max 10)
+          example: ["P001", "P002"]
+
+        - name: excluded_product_tag
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+          style: form
+          explode: true
+          description: Exclude products with these tag IDs from results
+          example: [999]
+
+        - name: excluded_product_tag_names
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+          description: Exclude products with these tag names from results
+          example: ["out-of-stock"]
+
+        - name: sorting
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [random]
+          example: "random"
+          description: |
+            Omit for relevance-based ordering (default, highest score first).
+            `random`: shuffle results randomly.
+
+      responses:
+        "200":
+          description: Ordered list of recommended products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecommendedProduct'
+              examples:
+                UserItemEmbeddingResponse:
+                  summary: "Response for user_item_embedding"
+                  description: |
+                    Example for: `GET /ai-recommendation/get-ai-recommendation/?tid=OA-xxxxxx&cid=device123&uid=139540&recommend_type=user_item_embedding&num=5`
+                  value:
+                    - product_id: 1
+                      product_name: "Logitech M221 Silent Mouse"
+                      product_url: "https://example.com/products/1"
+                      product_price: 800
+                      special_price: 720
+                      photo_url: "https://cdn.example.com/m221.jpg"
+                      additional_photo_url:
+                        - name: "100x100"
+                          link: "https://cdn.example.com/m221-100.jpg"
+                        - name: "200x200"
+                          link: "https://cdn.example.com/m221-200.jpg"
+                    - product_id: 2
+                      product_name: "Logitech K65M Keyboard"
+                      product_url: "https://example.com/products/2"
+                      product_price: 2800
+                      special_price: 2800
+                      photo_url: "https://cdn.example.com/k65m.jpg"
+                      additional_photo_url: []
+
+                AlsoBoughtResponse:
+                  summary: "Response for also_bought (seed: p1, p2)"
+                  description: |
+                    Example for: `GET /ai-recommendation/get-ai-recommendation/?tid=OA-xxxxxx&recommend_type=also_bought&num=3&product_ids=p1&product_ids=p2`
+                  value:
+                    - product_id: 5
+                      product_name: "Mouse Pad XL"
+                      product_url: "https://example.com/products/5"
+                      product_price: 300
+                      special_price: 250
+                      photo_url: "https://cdn.example.com/mousepad.jpg"
+                      additional_photo_url: []
+                    - product_id: 8
+                      product_name: "USB-C Hub"
+                      product_url: "https://example.com/products/8"
+                      product_price: 1200
+                      special_price: 1200
+                      photo_url: "https://cdn.example.com/hub.jpg"
+                      additional_photo_url: []
+
+        "400":
+          description: Bad Request — missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing required parameter: recommend_type"

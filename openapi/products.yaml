@@ -1,0 +1,619 @@
+openapi: 3.0.3
+info:
+  title: OmniSegment — Product Data APIs
+  description: |
+    Import product catalog data and related product information (event registrations,
+    product guarantees, gift vouchers).
+
+    **Authentication**: `api_key` field in request body + `tid`.
+
+    **Rate limit**: 10 requests/second (Gift Voucher: 30 req/s for single, 10 req/s for batch).
+  version: "1.0.0"
+
+servers:
+  - url: https://api.omnisegment.com
+
+tags:
+  - name: Product Catalog
+    description: Import product catalog data
+  - name: Product Events
+    description: Import event registrations and product guarantee data
+  - name: Gift Vouchers
+    description: Import gift voucher data (single or batch)
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        SUCCESS:
+          type: boolean
+          example: false
+        ERR_MSG:
+          type: string
+
+paths:
+  /api/v1/products/import/:
+    post:
+      tags: [Product Catalog]
+      summary: Import Product
+      operationId: importProduct
+      description: |
+        Import product catalog data.
+
+        ## Product ID formats
+        - **String** (single system): `"id": "P001"` — straightforward product ID
+        - **Object** (multi-system): `"id": {"default": "P001", "CRM": "CRM-P001"}` — links the same
+          product across multiple external systems so it can be found by any system's ID in the future
+
+        ## Required fields in `data`
+        `id`, `title`, `link`, `availability`, `image_link`, `price`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tid, api_key, data]
+              properties:
+                tid:
+                  type: string
+                  example: "OA-xxxxxx"
+                api_key:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000000"
+                site:
+                  type: string
+                  description: Site identifier for multi-site organizations
+                data:
+                  type: object
+                  description: Product data object
+                  properties:
+                    id:
+                      type: string
+                      description: |
+                        Product ID. Two formats supported:
+                        - **Single system** (string): `"P001"`
+                        - **Multi-system** (JSON object string): `{"default":"P001","CRM":"CRM-P001"}` — links the same product across multiple systems
+                      example: "P001"
+                    title:
+                      type: string
+                      description: Product name
+                      example: "Classic White T-Shirt"
+                    link:
+                      type: string
+                      format: uri
+                      description: Product page URL
+                      example: "https://example.com/products/white-tshirt"
+                    availability:
+                      type: string
+                      enum: [in stock, out of stock, preorder]
+                      example: "in stock"
+                    image_link:
+                      type: string
+                      format: uri
+                      example: "https://cdn.example.com/tshirt.png"
+                    price:
+                      type: string
+                      description: Price as string
+                      example: "999"
+                    brand:
+                      type: string
+                      example: "MyBrand"
+                    sale_price:
+                      type: string
+                      example: "799"
+                    sale_price_effective_date:
+                      type: string
+                      example: "2024-01-01T00:00:00+00:00/2024-12-31T23:59:59+00:00"
+                    product_type:
+                      type: string
+                      example: "Apparel > Shirts"
+                    item_group_id:
+                      type: string
+                      example: "TSHIRT-001"
+                    additional_image_link:
+                      type: string
+                      format: uri
+                      example: "https://cdn.example.com/tshirt-back.png"
+            examples:
+              SingleSystemId:
+                summary: "Single product ID (one system)"
+                description: |
+                  Standard product import using a plain string ID.
+                  This is the most common format when you have one product identifier system.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  site: "MAIN"
+                  data:
+                    id: "P001"
+                    title: "Classic White T-Shirt"
+                    link: "https://example.com/products/white-tshirt"
+                    availability: "in stock"
+                    image_link: "https://cdn.example.com/tshirt.png"
+                    price: "999"
+                    brand: "MyBrand"
+                    sale_price: "799"
+                    product_type: "Apparel > Shirts"
+
+              MultiSystemIds:
+                summary: "Multi-system product IDs (cross-system mapping)"
+                description: |
+                  Use an object for `id` when the same product exists across multiple systems (e.g., your
+                  website, CRM, and ERP all have different IDs for the same product).
+                  After import, the product can be found using any of these IDs.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  data:
+                    id:
+                      default: "P001"
+                      CRM: "CRM-SHIRT-001"
+                      ERP: "ERP-10045"
+                    title: "Classic White T-Shirt"
+                    link: "https://example.com/products/white-tshirt"
+                    availability: "in stock"
+                    image_link: "https://cdn.example.com/tshirt.png"
+                    price: "999"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  status: "OK"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing Input Error: These values are required in post data : api_key, tid, data"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid api_key or tid"
+
+  /api/v1/products/import-event-registration-data/:
+    post:
+      tags: [Product Events]
+      summary: Import Event Registration Data
+      operationId: importEventRegistrationData
+      description: |
+        Import product event registration data (e.g., workshop signups, product launch events).
+
+        ## Required fields in `data`
+        `event_id`, `member_sn`, `event_name`, `registration_datetime`
+
+        ## Product ID in `products`
+        The `products` field accepts an object where each key is a system name and the value is an
+        array of IDs:
+        ```json
+        { "default": ["item_group_id1"], "sku": ["sku_id1"] }
+        ```
+
+        ## Date constraints
+        `event_end_datetime` must be after `event_start_datetime`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tid, api_key, data]
+              properties:
+                tid:
+                  type: string
+                  example: "OA-xxxxxx"
+                api_key:
+                  type: string
+                  format: uuid
+                data:
+                  type: object
+                  required: [event_id, member_sn, event_name, registration_datetime]
+                  properties:
+                    event_id:
+                      type: string
+                      example: "EVT-001"
+                    member_sn:
+                      type: string
+                      example: "M-12345"
+                    event_name:
+                      type: string
+                      example: "Summer Sale Workshop"
+                    registration_datetime:
+                      type: string
+                      format: date-time
+                      example: "2022-08-17T12:00:00+08:00"
+                    products:
+                      type: object
+                      additionalProperties:
+                        type: array
+                        items:
+                          type: string
+                      example:
+                        default: ["item_group_id1"]
+                        sku: ["sku_id1"]
+                    purchase_datetime:
+                      type: string
+                      format: date-time
+                      example: "2022-08-17T12:00:00+08:00"
+                    event_start_datetime:
+                      type: string
+                      format: date-time
+                      example: "2022-08-17T12:00:00+08:00"
+                    event_end_datetime:
+                      type: string
+                      format: date-time
+                      example: "2022-09-17T12:00:00+08:00"
+                    is_available:
+                      type: boolean
+                      example: true
+                    purchase_source:
+                      type: string
+                      example: "supermarket"
+                    purchase_city:
+                      type: string
+                      example: "Taipei"
+                    delivery_address:
+                      type: string
+                      example: "123 Main St, Taipei"
+            examples:
+              BasicEventRegistration:
+                summary: "Basic event registration (required fields only)"
+                description: |
+                  Minimal registration record with only the required fields.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  data:
+                    event_id: "EVT-001"
+                    member_sn: "M-12345"
+                    event_name: "Summer Sale Workshop"
+                    registration_datetime: "2022-08-17T12:00:00+08:00"
+
+              FullEventRegistration:
+                summary: "Full event registration with products and dates"
+                description: |
+                  Complete registration record including product mappings, event dates,
+                  purchase source, and availability status.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  data:
+                    event_id: "qqq123"
+                    member_sn: "www123"
+                    event_name: "buy1get1"
+                    products:
+                      default:
+                        - "item_group_id1"
+                        - "item_group_id2"
+                      sku:
+                        - "sku_id1"
+                        - "sku_id2"
+                    registration_datetime: "2022-08-17T12:00:00+08:00"
+                    purchase_datetime: "2022-08-17T12:00:00+08:00"
+                    purchase_source: "supermarket"
+                    purchase_city: "Taipei"
+                    is_available: true
+                    event_start_datetime: "2022-08-17T12:00:00+08:00"
+                    event_end_datetime: "2022-09-17T12:00:00+08:00"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing Input Error: These values are required in post data : api_key, tid, data"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid api_key or tid"
+
+  /api/v1/products/import-product-guarantee-data/:
+    post:
+      tags: [Product Events]
+      summary: Import Product Guarantee Data
+      operationId: importProductGuaranteeData
+      description: |
+        Import product warranty / guarantee registration data.
+
+        The `data` object fields are **organization-specific** — contact beBit Tech for the
+        exact field specification for your organization. Common fields shown in the example below.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tid, api_key, data]
+              properties:
+                tid:
+                  type: string
+                  example: "OA-xxxxxx"
+                api_key:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000000"
+                data:
+                  type: object
+                  description: Organization-specific guarantee data fields
+                  additionalProperties: true
+            example:
+              tid: "OA-xxxxxx"
+              api_key: "00000000-0000-0000-0000-000000000000"
+              data:
+                member_sn: "M-12345"
+                product_id: "P001"
+                serial_number: "SN-ABCDE-12345"
+                purchase_date: "2024-03-01"
+                warranty_expire_date: "2026-03-01"
+                store_name: "Main Store Taipei"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing Input Error: These values are required in post data : api_key, tid, data"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid api_key or tid"
+
+  /api/import-gift-voucher/:
+    post:
+      tags: [Gift Vouchers]
+      summary: Import Gift Voucher (single or batch)
+      operationId: importGiftVoucher
+      description: |
+        Import gift voucher data. The `data` field accepts either:
+        - A **single object** for one voucher (rate limit: 30 req/s)
+        - An **array of objects** for batch import up to 100 vouchers (rate limit: 10 req/s)
+
+        ## Member lookup
+        By default uses `member_sn` to find the member. Use `identifier_field` to change this,
+        or use `source_id` + `source_system` for externally mapped members.
+
+        ## Date formats accepted
+        `2024-05-01`, `2024-05-01 12:00:00`, `2024-05-01 12:00:00+08`, `2024-05-01T12:00:00+08`
+
+        ## Required fields in each voucher
+        `voucher_id`, `member_sn` (or `source_id`), `voucher_type`, `amount`, `valid_from`, `valid_util`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tid, api_key, data]
+              properties:
+                tid:
+                  type: string
+                api_key:
+                  type: string
+                  format: uuid
+                identifier_field:
+                  type: string
+                  enum: [line_id, phone, email, messenger_psid]
+                  description: Field to look up member (defaults to member_sn)
+                data:
+                  description: Single voucher object or array of up to 100 vouchers
+                  oneOf:
+                    - type: object
+                      required: [voucher_id, voucher_type, amount, valid_from, valid_util]
+                      properties:
+                        voucher_id:
+                          type: string
+                          example: "VCH-111"
+                        member_sn:
+                          type: string
+                          example: "AAAAAA"
+                        source_id:
+                          type: string
+                          example: "CRM-12345"
+                        source_system:
+                          type: string
+                          example: "CRM"
+                        voucher_type:
+                          type: string
+                          example: "birthday_gift"
+                        amount:
+                          type: number
+                          example: 999
+                        valid_from:
+                          type: string
+                          example: "2024-03-03"
+                        valid_util:
+                          type: string
+                          example: "2025-03-03"
+                        is_redeemed:
+                          type: boolean
+                          example: false
+                        category:
+                          type: string
+                          example: "coupon"
+                        site:
+                          type: string
+                          example: "MAIN"
+                    - type: array
+                      maxItems: 100
+                      items:
+                        type: object
+                        required: [voucher_id, voucher_type, amount, valid_from, valid_util]
+                        properties:
+                          voucher_id:
+                            type: string
+                          member_sn:
+                            type: string
+                          source_id:
+                            type: string
+                          source_system:
+                            type: string
+                          email:
+                            type: string
+                          voucher_type:
+                            type: string
+                          amount:
+                            type: number
+                          valid_from:
+                            type: string
+                          valid_util:
+                            type: string
+                          is_redeemed:
+                            type: boolean
+                          category:
+                            type: string
+                          site:
+                            type: string
+            examples:
+              SingleVoucher:
+                summary: "Single gift voucher"
+                description: |
+                  Import one gift voucher for a specific member.
+                  `category` can be `coupon`, `giftvoucher`, or a custom value.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  data:
+                    voucher_id: "VCH-111"
+                    member_sn: "AAAAAA"
+                    voucher_type: "birthday_gift"
+                    amount: 999
+                    valid_from: "2024-03-03"
+                    valid_util: "2025-03-03"
+                    is_redeemed: false
+                    category: "coupon"
+
+              SingleVoucherByEmail:
+                summary: "Single voucher — look up member by email"
+                description: |
+                  Use `identifier_field: email` when you have the member's email but not their member_sn.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  identifier_field: "email"
+                  data:
+                    voucher_id: "VCH-222"
+                    email: "alice@example.com"
+                    voucher_type: "welcome"
+                    amount: 200
+                    valid_from: "2024-01-01"
+                    valid_util: "2024-12-31"
+                    category: "giftvoucher"
+
+              SingleVoucherBySourceId:
+                summary: "Single voucher — look up member by external source_id"
+                description: |
+                  Use `source_id` + `source_system` when the member was mapped via the
+                  Audience Mapping API.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  data:
+                    voucher_id: "VCH-333"
+                    source_id: "CRM-12345"
+                    source_system: "CRM"
+                    voucher_type: "loyalty_reward"
+                    amount: 500
+                    valid_from: "2024-06-01"
+                    valid_util: "2025-06-01"
+
+              BatchVouchers:
+                summary: "Batch gift vouchers (up to 100)"
+                description: |
+                  Import multiple vouchers in one request by providing `data` as an array.
+                  Rate limit for batch mode is 10 requests/second.
+                value:
+                  tid: "OA-xxxxxx"
+                  api_key: "00000000-0000-0000-0000-000000000000"
+                  data:
+                    - voucher_id: "VCH-111"
+                      member_sn: "AAAAAA"
+                      voucher_type: "birthday_gift"
+                      amount: 999
+                      valid_from: "2024-03-03"
+                      valid_util: "2025-03-03"
+                      is_redeemed: false
+                      category: "coupon"
+                    - voucher_id: "VCH-222"
+                      member_sn: "BBBBBB"
+                      voucher_type: "welcome"
+                      amount: 100
+                      valid_from: "2024-02-01"
+                      valid_util: "2025-02-01"
+                      category: "giftvoucher"
+                    - voucher_id: "VCH-333"
+                      member_sn: "CCCCCC"
+                      voucher_type: "loyalty_reward"
+                      amount: 500
+                      valid_from: "2024-06-01"
+                      valid_util: "2025-06-01"
+                      is_redeemed: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing Input Error: These values are required in post data : api_key, tid, data"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid api_key or tid"

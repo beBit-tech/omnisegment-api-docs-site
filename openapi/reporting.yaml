@@ -1,0 +1,472 @@
+openapi: 3.0.3
+info:
+  title: OmniSegment — Reporting API
+  description: |
+    Generate and retrieve reports for interaction data (email/LINE/SMS delivery & engagement)
+    and tracking event data (beacon).
+
+    **Authentication**: `X-OmniSegment-Api-Key` header + `tid` query parameter.
+
+    **Rate limit**: 10 requests/second.
+
+    ## Workflow
+
+    1. **Create** a report (POST) → receive a `report_id`
+    2. **List** reports (GET) to check status — only reports from the last 24 hours are returned
+    3. **Retrieve** a specific report (GET with `id`) to get the download URL when `status = SUCCESS`
+
+    ## Date Range Constraints
+
+    - Interaction Report: max **31 days**; both send date and open/click behavior must fall within range
+    - Tracking Event Report: max **31 days**
+    - Interactive Audiences Report: dates must be within the last **30 days**; rate limit **1 request/day**
+  version: "1.0.0"
+
+servers:
+  - url: https://api.omnisegment.com
+
+security:
+  - ApiKeyHeader: []
+
+tags:
+  - name: Interaction Report
+    description: Email / LINE / SMS delivery and engagement reports
+  - name: Tracking Event Report
+    description: Beacon / tracking event reports
+  - name: Interactive Audiences Report
+    description: Reports of audiences who interacted within a date range
+
+components:
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-OmniSegment-Api-Key
+
+  parameters:
+    TidQuery:
+      name: tid
+      in: query
+      required: true
+      schema:
+        type: string
+        example: "OA-xxxxxx"
+      description: Organization tenant ID
+
+  schemas:
+    ReportStatus:
+      type: string
+      enum: [RUNNING, SUCCESS, FAIL]
+
+    ReportItem:
+      type: object
+      properties:
+        report_id:
+          type: integer
+          example: 123
+        report_name:
+          type: string
+          example: "August Report"
+        status:
+          $ref: '#/components/schemas/ReportStatus'
+
+    ErrorResponse:
+      type: object
+      properties:
+        SUCCESS:
+          type: boolean
+          example: false
+        ERR_MSG:
+          type: string
+
+paths:
+  # =========================================================
+  # INTERACTION REPORT
+  # =========================================================
+  /api/v1/interaction-report/:
+    post:
+      tags: [Interaction Report]
+      summary: Create Interaction Report
+      operationId: createInteractionReport
+      description: |
+        Queues a report generation job for the specified date range.
+
+        The report file (JSONL format) is available via the `report_url` once status is `SUCCESS`.
+
+        **Date range**: max 31 days. Both the "Sent Date" and click/open behavior must fall within the range.
+      parameters:
+        - $ref: '#/components/parameters/TidQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [report_name, start_date, end_date]
+              properties:
+                report_name:
+                  type: string
+                  example: "August Report"
+                start_date:
+                  type: string
+                  format: date
+                  example: "2022-08-01"
+                end_date:
+                  type: string
+                  format: date
+                  example: "2022-08-31"
+            example:
+              report_name: "August Report"
+              start_date: "2022-08-01"
+              end_date: "2022-08-31"
+      responses:
+        "200":
+          description: Report queued — use the returned report_id to check status
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  report_id: 123
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Date range cannot exceed 31 days"
+        "403":
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid X-OmniSegment-Api-Key"
+
+    get:
+      tags: [Interaction Report]
+      summary: List Interaction Reports
+      operationId: listInteractionReports
+      description: |
+        Returns all interaction reports created within the **last 24 hours**.
+      parameters:
+        - $ref: '#/components/parameters/TidQuery'
+      responses:
+        "200":
+          description: List of recent reports
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  - report_id: 123
+                    report_name: "August Report"
+                    status: "RUNNING"
+                  - report_id: 124
+                    report_name: "September Report"
+                    status: "SUCCESS"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing required parameter: tid"
+        "403":
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid X-OmniSegment-Api-Key"
+
+  /api/v1/interaction-report/{id}/:
+    get:
+      tags: [Interaction Report]
+      summary: Retrieve Interaction Report
+      operationId: retrieveInteractionReport
+      description: |
+        Get the status and download URL for a specific report.
+
+        `report_url` is only populated when `status` is `SUCCESS`.
+
+        The JSONL report file contains one record per line with fields:
+        `member_sn`, `channel_type`, `template_id`, `template_name`, `delivery_time`,
+        `template_title` (email only), `open`, `open_time`, `click`, `click_event`, `email_status`.
+
+        ### email_status values
+        | Value | Meaning |
+        |---|---|
+        | `sent` | Delivered to receiving server |
+        | `open` | Recipient opened the email |
+        | `click` | Recipient clicked a link |
+        | `bounce` | Permanently rejected |
+        | `blocked` | Temporarily rejected |
+        | `unsub` | Recipient unsubscribed |
+        | `spam` | Marked as spam |
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 123
+          description: Report ID from the Create Report response
+        - $ref: '#/components/parameters/TidQuery'
+      responses:
+        "200":
+          description: Report details
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  report_name: "August Report"
+                  status: "SUCCESS"
+                  report_url: "https://storage.example.com/reports/august-report.json"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Report not found"
+        "403":
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid X-OmniSegment-Api-Key"
+
+  # =========================================================
+  # TRACKING EVENT REPORT
+  # =========================================================
+  /api/v1/tracking-event-report/:
+    post:
+      tags: [Tracking Event Report]
+      summary: Create Tracking Event Report
+      operationId: createTrackingEventReport
+      description: |
+        Create a beacon / tracking event report. Date range max **31 days**.
+
+        Optionally include anonymous user data or raw event data.
+      parameters:
+        - $ref: '#/components/parameters/TidQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [report_name, start_date, end_date]
+              properties:
+                report_name:
+                  type: string
+                  example: "September Tracking Report"
+                start_date:
+                  type: string
+                  format: date
+                  example: "2022-09-01"
+                end_date:
+                  type: string
+                  format: date
+                  example: "2022-09-30"
+                include_anonymous_user:
+                  type: boolean
+                  description: Include anonymous user data in the report
+                include_event_raw_data:
+                  type: boolean
+                  description: Include raw event payloads in the report
+            example:
+              report_name: "September Tracking Report"
+              start_date: "2022-09-01"
+              end_date: "2022-09-30"
+              include_anonymous_user: false
+              include_event_raw_data: false
+      responses:
+        "200":
+          description: Report queued
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  report_id: 12345
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Date range cannot exceed 31 days"
+        "403":
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid X-OmniSegment-Api-Key"
+
+    get:
+      tags: [Tracking Event Report]
+      summary: List Tracking Event Reports
+      operationId: listTrackingEventReports
+      description: |
+        Returns all tracking event reports created within the **last 24 hours**.
+
+        Retrieve the report within 24 hours; after that it will no longer appear in this list.
+      parameters:
+        - $ref: '#/components/parameters/TidQuery'
+      responses:
+        "200":
+          description: List of recent reports
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  - report_name: "September Tracking Report"
+                    report_id: 12345
+                    status: "SUCCESS"
+                  - report_name: "October Tracking Report"
+                    report_id: 12346
+                    status: "RUNNING"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing required parameter: tid"
+        "403":
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid X-OmniSegment-Api-Key"
+
+  # =========================================================
+  # INTERACTIVE AUDIENCES REPORT
+  # =========================================================
+  /api/v1/audiences/interactive-audiences-report/:
+    post:
+      tags: [Interactive Audiences Report]
+      summary: Create Interactive Audiences Report
+      operationId: createInteractiveAudiencesReport
+      description: |
+        Create a report of audiences who interacted within the specified date range.
+
+        **Constraints**:
+        - start_date and end_date must be within the last **30 days**
+        - Rate limit: **1 request per day** (failed requests are not counted)
+      parameters:
+        - $ref: '#/components/parameters/TidQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [start_date, end_date]
+              properties:
+                start_date:
+                  type: string
+                  format: date
+                  example: "2023-09-01"
+                end_date:
+                  type: string
+                  format: date
+                  example: "2023-09-30"
+            example:
+              start_date: "2023-09-01"
+              end_date: "2023-09-30"
+      responses:
+        "200":
+          description: Report queued
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD: null
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "start_date and end_date must be within the last 30 days"
+        "403":
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid X-OmniSegment-Api-Key"
+
+    get:
+      tags: [Interactive Audiences Report]
+      summary: Get Interactive Audiences Reports
+      operationId: getInteractiveAudiencesReports
+      description: |
+        Returns all interactive audiences reports created within the **last 24 hours**.
+
+        Export links expire after **7 days**.
+      parameters:
+        - $ref: '#/components/parameters/TidQuery'
+      responses:
+        "200":
+          description: List of reports with download links
+          content:
+            application/json:
+              example:
+                SUCCESS: true
+                PAYLOAD:
+                  - report_name: "Interactive Audiences Sep 2023"
+                    status: "SUCCESS"
+                    file_url: "https://storage.example.com/reports/interactive-2023-09.csv"
+                    start_date: "2023-09-01"
+                    end_date: "2023-09-30"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Missing required parameter: tid"
+        "403":
+          description: Forbidden — invalid X-OmniSegment-Api-Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                SUCCESS: false
+                ERR_MSG: "Forbidden: invalid X-OmniSegment-Api-Key"
